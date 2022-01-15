@@ -1,4 +1,14 @@
 {
     "ayodhya":"Ayodhya",
-    "title":"Ikshvaku"
+    "title":"Ikshvaku",
+    "home_page_title":"District Ayodhya",
+    "navbar":{
+        "home":"Home",
+        "about":"About",
+        "tourism":"Tourism"
+    },
+    "home":{
+        "title":"About District",
+        "body":"Ayodhya, also known as Oudh or Awadh, is a town in northern India's Uttar Pradesh state. It is located east of Faizabad on the Ghaghara River."
+    }
 }

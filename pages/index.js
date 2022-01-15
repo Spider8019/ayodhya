@@ -13,7 +13,7 @@ export default function Home() {
 
   
   useEffect(()=>{
-    document.querySelector("body").style.fontFamily=router.locale==="hn"?"Noto Serif Devanagari":"Noto Sans Display";
+    document.querySelector("body").style.fontFamily=router.locale==="hn"?"Noto Sans Devanagari":"Noto Sans Display";
   })
 
   return (
@@ -24,19 +24,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar/>
+
+      <div className="grid place-items-center">
+         <div className="grid place-items-center w-fit p-10">
+           <h1 className="text-3xl mb-10">{t('common:home.title')}</h1>
+           <p>{t('common:home.body')}</p>
+         </div>
+      </div>
       <h1 className="m-10 bg-gray-500">aman pratap singh</h1>
       <h1>{t('common:ayodhya')}</h1>
-      <ul>
-        {router.locales.map(locale=>{
-          return(
-            <li key={locale}>
-              <Link href={router.asPath} locale={locale}>
-                <a>{locale}</a>
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
     </>
   )
 }

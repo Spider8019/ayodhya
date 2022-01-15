@@ -4,13 +4,6 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    colors:{
-      'baseColor':"orange"
-    },
-    fontFamily:{
-      'englishFont':"Noto Sans Display",
-      'hindiFont':"Noto Serif Devanagari"
-    },
     extend: {},
   },
   plugins: [],

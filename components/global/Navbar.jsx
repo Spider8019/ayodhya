@@ -1,11 +1,27 @@
+import useTranslation from 'next-translate/useTranslation'
 import React from 'react'
+import Link from 'next/link'
+import ChangePageLanguage from "../dropdowns/ChangePageLanguage"
 
 const Navbar = () => {
+    let  { t }= useTranslation()
+
     return (
-        <div>
-            <div>
-                <h1>District Ayodhya</h1>
-                <p>JAI SHRI RAM</p>
+        <div className='flex flex-col'>
+            <div className="p-10 flex justify-between items-center">
+                <h1 className="text-4xl">{t('common:home_page_title')}</h1>
+                <ChangePageLanguage/>
+            </div>
+            <div className="bg-amber-500 flex w-full">
+               <Link href="/">
+                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.home')}</a>
+               </Link>
+               <Link href="/about">
+                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.about')}</a>
+               </Link>
+               <Link href="/tourism">
+                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.tourism')}</a>
+               </Link>
             </div>
         </div>
     )
