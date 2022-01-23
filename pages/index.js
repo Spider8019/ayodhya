@@ -5,13 +5,13 @@ import Navbar from '../components/global/Navbar'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Forecast from "../components/dialogs/Forecast"
 
 export default function Home() {
 
   let  { t }= useTranslation()
   const router=useRouter()
 
-  
   useEffect(()=>{
     document.querySelector("body").style.fontFamily=router.locale==="hn"?"Noto Sans Devanagari":"Noto Sans Display";
   })
@@ -24,7 +24,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar/>
-
       <div className="grid place-items-center">
          <div className="grid place-items-center w-fit p-10">
            <h1 className="text-3xl mb-10">{t('common:home.title')}</h1>
@@ -36,3 +35,5 @@ export default function Home() {
     </>
   )
 }
+
+

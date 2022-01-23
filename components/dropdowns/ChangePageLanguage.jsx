@@ -7,19 +7,14 @@ import Link from "next/link"
 import { useRouter } from 'next/router';
 import { IconButton } from '@mui/material';
 import ReactCountryFlag from "react-country-flag"
+import styles from "../../styles/Forecast.module.css"
 
 
 export default function BasicMenu() {
 
   const router=useRouter()
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const [show, setShow] = React.useState(false);
+
   const languages=[{
     code:"hn",
     language:"हिन्दी",
@@ -31,43 +26,37 @@ export default function BasicMenu() {
   }]
 
   return (
-    <div>
+    <div className={styles.container}>
       <IconButton
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
+        onClick={()=>setShow(!show)}
       >
         <TranslateIcon/>
       </IconButton>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        {languages.map(({code,country_code,language})=>{
-          return(
-            <MenuItem 
-              key={code} 
-              onClick={handleClose} 
-              disabled={code===router.locale}>
-              <Link 
-                href={router.asPath}  
-                locale={code}>
-                <a className="flex items-center">
-                <ReactCountryFlag countryCode={country_code} svg/>
-                <p className="pl-2">{language}</p>
-                </a>
-              </Link>
-            </MenuItem>
-          )
-        })}
-      </Menu>
+      {
+        show 
+        &&
+        <div className={`dialogBoxDefault ${styles.mainBox}`}
+             style={{width:"fit-content",gridTemplateColumns:"1fr"}}
+        >
+          {languages.map(({code,country_code,language})=>{
+            return(
+                <Link 
+                  key={code} 
+                  href={router.asPath}  
+                  locale={code}>
+                  <a 
+                  className={(code===router.locale)?"flex items-center pr-4 opacity-50  ":"flex items-center pr-4 opacity-100"}
+
+                  // className=""
+                  >
+                    <ReactCountryFlag countryCode={country_code} svg/>
+                    <p className="pl-2">{language}</p>
+                  </a>
+                </Link>
+            )
+          })}
+        </div>
+      }
     </div>
   );
 }
