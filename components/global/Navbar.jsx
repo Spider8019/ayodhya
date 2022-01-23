@@ -29,6 +29,9 @@ const Navbar = () => {
                <Link href="/onlinelibrary">
                  <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.library')}</a>
                </Link>
+               <Link href="/onlinelibrary">
+                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.talent')}</a>
+               </Link>
             </div>
         </div>
     )

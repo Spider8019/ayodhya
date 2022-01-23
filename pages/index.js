@@ -2,6 +2,8 @@ import {useEffect} from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from "framer-motion"
+import { opacity } from "../globalSetups/framer"
 import Navbar from '../components/global/Navbar'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
@@ -24,16 +26,26 @@ export default function Home() {
       </Head>
       <Navbar/>
       <div className="grid place-items-center">
-         <div className="grid place-items-center w-fit">
+         <div className="grid place-items-center" style={{width: "100%",height: "calc(100vh - 10rem)",position: "relative"}}>
            <Image
-             objectFit="cover"
-             layout="intrinsic"
-             src=" https://drive.google.com/uc?export=view&amp;id=1g2jdkNXgQgvnZVIr6bzZeMLBdNeFHv3B"
+             layout="fill"
+             src=" https://drive.google.com/uc?export=view&amp;id=1fyMVHcoenw98tXJ-73LqWdw5tmABeuia"
              alt="Heading"
-             width={400}
-             height={400}
+             objectFit="cover"
+             priority
             />
-           <p>{t('common:home.body')}</p>
+            <motion.div
+              initial="initial"
+              exit="initial"
+              animate="final"
+              variants={opacity}
+              className="absolute top-auto left-1/4 -translate-x-100 p-5 rounded" 
+              style={{background:"rgba(245,158,11,0.7)",transform:"translateX(-100%)"}}>
+              <h1 className="text-white text-2xl font-semibold">THE NEW <br/> AYODHYA</h1>
+              <p className="text-white text-xs mt-2">PEERLESS REFINEMENT AND LUXURY</p>
+              <button className="mt-2 basicButton">VIEW GALLERY </button>
+            </motion.div>
+           {/* <p>{t('common:home.body')}</p> */}
          </div>
       </div>
       <h1 className="m-10 bg-gray-500">aman pratap singh</h1>

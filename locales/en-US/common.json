@@ -6,7 +6,8 @@
         "home":"Home",
         "about":"About",
         "tourism":"Tourism",
-        "library":"Literature"
+        "library":"Literature",
+        "talent":"Talent"
     },
     "home":{
         "title":"About District",

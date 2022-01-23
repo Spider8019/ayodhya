@@ -1,0 +1,15 @@
+h1{
+
+}
+.basicButton{
+    padding:0.5rem 1rem;
+    font-size:0.9rem;
+    background:white;
+    border:2px solid black;
+    transition: all 0.3s ease;
+}
+.basicButton:hover{
+    border:2px solid white;
+    background:rgba(245,158,11);
+    color:white;
+}
