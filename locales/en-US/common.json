@@ -5,7 +5,8 @@
     "navbar":{
         "home":"Home",
         "about":"About",
-        "tourism":"Tourism"
+        "tourism":"Tourism",
+        "library":"Literature"
     },
     "home":{
         "title":"About District",

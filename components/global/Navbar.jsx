@@ -26,6 +26,9 @@ const Navbar = () => {
                <Link href="/tourism">
                  <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.tourism')}</a>
                </Link>
+               <Link href="/onlinelibrary">
+                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.library')}</a>
+               </Link>
             </div>
         </div>
     )

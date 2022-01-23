@@ -1,11 +1,10 @@
 import {useEffect} from "react"
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import Navbar from '../components/global/Navbar'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
-import Forecast from "../components/dialogs/Forecast"
 
 export default function Home() {
 
@@ -25,12 +24,21 @@ export default function Home() {
       </Head>
       <Navbar/>
       <div className="grid place-items-center">
-         <div className="grid place-items-center w-fit p-10">
-           <h1 className="text-3xl mb-10">{t('common:home.title')}</h1>
+         <div className="grid place-items-center w-fit">
+           <Image
+             objectFit="cover"
+             layout="intrinsic"
+             src=" https://drive.google.com/uc?export=view&amp;id=1g2jdkNXgQgvnZVIr6bzZeMLBdNeFHv3B"
+             alt="Heading"
+             width={400}
+             height={400}
+            />
            <p>{t('common:home.body')}</p>
          </div>
       </div>
       <h1 className="m-10 bg-gray-500">aman pratap singh</h1>
+            <iframe src="https://drive.google.com/file/d/1g2jdkNXgQgvnZVIr6bzZeMLBdNeFHv3B/preview" width="640" height="480" allow="autoplay"></iframe>
+           <h1 className="text-3xl mb-10">{t('common:home.title')}</h1>
       <h1>{t('common:ayodhya')}</h1>
     </>
   )
