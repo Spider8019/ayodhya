@@ -2,11 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import styles from '../styles/Gallery.module.css'
 
-const gallery = () => {
-  const img={
-      url:"/static/hero.jpg"
-  }
-  const array=new Array(24).fill(img)
+const gallery = ({data}) => {
   return <div>
       <div  className={styles.galleryRow}>
           {
@@ -14,16 +10,15 @@ const gallery = () => {
                 return(
                     <div key={key} className={styles.galleryColumn}>
                         {
-                            array.slice(5*key,5*key+5).map((ind,index)=>{
+                            data.slice((data.length/5)*key,(data.length/5)*(key+1)).map((ind,index)=>{
                                 return(
                                     <div key={index} className={styles.galleryImage}>
                                         <Image 
                                           layout='fill'
                                           objectFit='cover'
-                                          src={index%2===0?img.url:"/static/hero3.jpg"}
-                                          alt={img.url}
+                                          src={ind.urls.full}
+                                          alt={ind.urls.full}
                                         />       
-
                                     </div>
                                 )
                             })
@@ -36,4 +31,17 @@ const gallery = () => {
   </div>;
 };
 
+export async function getStaticProps(){
+
+    const res = await fetch("https://api.unsplash.com/photos/?client_id=DEjmfmm9pEN4Mk7Ww2G8zirF-Ah-R0PQZlSrCt4VBF4")
+    const data = await res.json()
+    console.log(data)
+    return {
+        props:{
+            data
+        }
+    }
+}
+
 export default gallery;
+

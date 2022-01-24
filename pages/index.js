@@ -31,7 +31,7 @@ export default function Home() {
              src="/static/hero.jpg"
              alt="Heading"
              objectFit="cover"
-             priority
+             priority={true}
             />
             <motion.div
               initial="initial"
@@ -42,7 +42,10 @@ export default function Home() {
               style={{background:"rgba(245,158,11,0.7)",transform:"translateX(-100%)"}}>
               <h1 className="text-white text-2xl font-semibold">THE NEW <br/> AYODHYA</h1>
               <p className="text-white text-xs mt-2">PEERLESS REFINEMENT AND LUXURY</p>
-              <button className="mt-2 basicButton">VIEW GALLERY </button>
+              <button 
+                className="mt-2 basicButton"
+                onClick={()=>router.push("/gallery")}
+              >VIEW GALLERY </button>
             </motion.div>
            {/* <p>{t('common:home.body')}</p> */}
          </div>

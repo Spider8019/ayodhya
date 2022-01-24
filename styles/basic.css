@@ -13,3 +13,9 @@ h1{
     background:rgba(245,158,11);
     color:white;
 }
+.basicDarkButton{
+    padding: 0 1rem;
+    border-radius:0.25rem;
+    background:rgba(245,158,11);
+    color:white;
+}
