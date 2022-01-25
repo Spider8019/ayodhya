@@ -1,6 +1,7 @@
 import useTranslation from 'next-translate/useTranslation'
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import ChangePageLanguage from "../dropdowns/ChangePageLanguage"
 import Forecast from '../dialogs/Forecast'
@@ -14,8 +15,17 @@ const Navbar = () => {
 
     return (
         <div className='flex flex-col'>
-            <div className="p-10 flex justify-between items-center">
-                <h1 className="text-4xl">{t('common:home_page_title')}</h1>
+            <div className="px-10 py-4 flex justify-between items-center">
+                <div className='flex items-center'>
+                  <Image
+                    layout='intrinsic'
+                    height={90}
+                    width={90}
+                    src="/static/withOutBgLogo.png"
+                    alt="Without Background Logo"
+                  />
+                  <h1 className="text-4xl">{t('common:title')}</h1>
+                </div>
                 <div className="flex">
                   <ChangePageLanguage/>
                   <Forecast/>

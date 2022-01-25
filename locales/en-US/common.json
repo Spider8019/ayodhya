@@ -2,6 +2,9 @@
     "ayodhya":"Ayodhya",
     "title":"Ikshvaku",
     "home_page_title":"District Ayodhya",
+    "page_title":{
+        "login":"Login - Ikshvaku"
+    },
     "navbar":{
         "home":"Home",
         "about":"About",

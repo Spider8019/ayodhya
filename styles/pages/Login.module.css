@@ -3,10 +3,12 @@
     height:100vh;
     display: grid;
     place-items: center;
-    background:red;
+    background:url("../../public/static/pages/bg-login2.jpg");
+    background-position: center;
+    background-size: cover;
 }
 .loginMain{
     width:80%;
     height:80%;
-    background: chartreuse;
+    background: white;    
 }

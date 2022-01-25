@@ -1,6 +1,9 @@
 {
     "ayodhya":"अयोध्या",
     "title":"इक्ष्वाकु",
+    "page_title":{
+        "login":"शामिल - इक्ष्वाकु"
+    },
     "home_page_title":"जिला अयोध्या",
     "navbar":{
         "home":"मुख्य पृष्ठ",

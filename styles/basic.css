@@ -16,6 +16,11 @@ h1{
 .basicDarkButton{
     padding: 0 1rem;
     border-radius:0.25rem;
-    background:rgba(245,158,11);
+    background:#f59e0b;
     color:white;
+}
+.standardInput{
+    padding:0.5rem;
+    margin:0.5rem;
+    border-radius:0.25rem;
 }
