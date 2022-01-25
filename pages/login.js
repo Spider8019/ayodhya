@@ -6,17 +6,26 @@ import Link from 'next/link';
 import Head from 'next/head';
 import AbcIcon from '@mui/icons-material/Abc';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { loginProfile } from '../globalSetups/api';
 
 const Login = () => {
 
   let  { t }= useTranslation()
   const [passwordShow,setPasswordShow]=useState(false)
+  const [formData,setFormData]=useState({email:"",password:""})
 
   const handleTogglePasswordVisibility = (e) =>{
      e.preventDefault()
      setPasswordShow(!passwordShow)
   }
 
+  const handleLogin=async(e)=>{
+      e.preventDefault()
+      const loginDetails=await loginProfile(formData)
+      console.log(loginDetails)
+  }
+
+  
   return <div className={styles.loginContainer}>
       <Head>
         <title>{t('common:page_title.login')}</title>
@@ -37,12 +46,15 @@ const Login = () => {
                 <p className="text-4xl">Ikshvaku</p>
                 <span className="text-1xl block">Ayodhya</span>
                 <form 
+                  onSubmit={handleLogin}
                   className="mt-4">
                     <input 
                       className="standardInput bg-gray-50"
                       style={{width:"calc(100% - 1rem)"}}
                       type="email"
                       placeholder='Enter your mail'
+                      value={formData.email}
+                      onChange={e=>setFormData({...formData,email:e.target.value})}
                       />
                     <div className='relative'>
                       <input 
@@ -50,6 +62,8 @@ const Login = () => {
                         style={{width:"calc(100% - 1rem)"}}
                         type={passwordShow ? "text" : "password"}
                         placeholder='Password'
+                        value={formData.password}
+                        onChange={e=>setFormData({...formData,password:e.target.value})}  
                         />
                       <button 
                         style={{height:"calc(100% - 1rem)"}}
@@ -60,7 +74,7 @@ const Login = () => {
                     </div>
                     <button className="block basicDarkButton m-2 mt-8 p-2"
                       style={{width:"calc(100% - 1rem)"}}
-                      >
+                    >
                       Login   
                     </button>
                 </form>
