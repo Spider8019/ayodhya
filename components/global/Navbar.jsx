@@ -10,7 +10,7 @@ const Navbar = () => {
     let  { t }= useTranslation()
     const router=useRouter()
 
-    if (["/login","/signup"].includes(router.asPath))
+    if (["/must/login","/signup"].includes(router.asPath))
       return null;
 
     return (

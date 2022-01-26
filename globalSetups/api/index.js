@@ -3,7 +3,7 @@ import axios from "axios"
 const callApiAndReturnDataGet = async(DATA,URL)=>{
     const response = await axios({
         method:"GET",
-        url:"/api/"+URL,
+        url:"http://localhost:3000/api/"+URL,
         params:DATA
     })
     
@@ -12,7 +12,7 @@ const callApiAndReturnDataGet = async(DATA,URL)=>{
 const callApiAndReturnDataPost = async(DATA,URL)=>{
     const response = await axios({
         method:"POST",
-        url:"/api/"+URL,
+        url:"http://localhost:3000/api/"+URL,
         data:DATA
     })
 

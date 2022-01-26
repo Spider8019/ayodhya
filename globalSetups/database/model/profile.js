@@ -38,7 +38,6 @@ const ProfileSchema = new mongoose.Schema({
 ProfileSchema.methods.generateAuthToken=async function(){
     try{
         const accessOn = process.env['COMPUTERNAME'];
-        console.log(accessOn,"access on")
         const token = jwt.sign({user_id:this._id},process.env.JWT_TOKEN_KEY,{expiresIn:"5h"})
         this.tokens = this.tokens.concat({token,accessOn})
         await this.save()
