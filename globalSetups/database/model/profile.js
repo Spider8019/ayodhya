@@ -1,6 +1,5 @@
 import mongoose from "mongoose"
 import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
 
 const ProfileSchema = new mongoose.Schema({
     name:{
@@ -34,18 +33,6 @@ const ProfileSchema = new mongoose.Schema({
         accessOn:String
     }],
 })
-
-ProfileSchema.methods.generateAuthToken=async function(){
-    try{
-        const accessOn = process.env['COMPUTERNAME'];
-        const token = jwt.sign({user_id:this._id},process.env.JWT_TOKEN_KEY,{expiresIn:"5h"})
-        this.tokens = this.tokens.concat({token,accessOn})
-        await this.save()
-        return token
-    }catch(error){
-        console.log("Unable to create cookie")
-    }
-}
 
 ProfileSchema.pre("save",async function(next) {
     if (this.isModified('password')){

@@ -16,7 +16,6 @@ async function handler(req, res) {
                 if(!_.isNull(findByEmail)){
                     const checkPasswordMatch=await bcrypt.compare(req.body.password, findByEmail.password)
                     if(checkPasswordMatch){
-                        const token = await findByEmail.generateAuthToken()
                         return res.status(200).json({msg:"User logged in success"})
                     }    
                 }
