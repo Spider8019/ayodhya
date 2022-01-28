@@ -22,9 +22,7 @@ export default function Login ({csrfToken}){
 
   const handleLogin=async(e)=>{
       e.preventDefault()
-      // const loginDetails=await loginProfile(formData)
       signIn("credentials", { email:formData.email,password:formData.password })
-      // console.log(loginDetails) 
   }
 
   

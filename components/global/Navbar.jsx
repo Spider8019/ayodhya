@@ -6,17 +6,16 @@ import { useRouter } from 'next/router'
 import ChangePageLanguage from "../dropdowns/ChangePageLanguage"
 import Forecast from '../dialogs/Forecast'
 import _ from "lodash"
-import { useSession,signIn,signOut } from "next-auth/react"
+import { useSession,signIn } from "next-auth/react"
 import { Avatar } from '@mui/material'
 
 const Navbar = () => {
     let  { t }= useTranslation()
     const router=useRouter()
     const { data: session, status } = useSession()
-    console.log(session,status)
+// console.log(session,status)
 
-
-    if (["/auth/signin","/signup"].includes(router.asPath))
+    if (["/auth/signin","/signup","/dashboard"].includes(router.pathname))
       return null;
 
     return (
@@ -41,7 +40,7 @@ const Navbar = () => {
                       <button 
                         className='basicDarkButton' 
                         style={{marginLeft:"1rem"}}
-                        onClick={signIn}
+                        onClick={()=>signIn(null,{ callbackUrl: 'http://localhost:3000/dashboard'})}
                       >Login</button>
                   }
                   {
@@ -54,11 +53,6 @@ const Navbar = () => {
                   }
                 </div>
             </div>
-            {/* <button 
-                        className='basicDarkButton' 
-                        style={{marginLeft:"1rem"}}
-                        onClick={signOut}
-                      >Logout</button> */}
             <ul className="bg-amber-500 flex w-full">
               <li className={router.pathname == "/" ? "bg-amber-600" : ""}>
                <Link href="/">

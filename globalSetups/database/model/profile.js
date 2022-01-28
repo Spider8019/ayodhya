@@ -6,6 +6,9 @@ const ProfileSchema = new mongoose.Schema({
           type:String,
           required:[true, 'Name required'],
         },
+    about:{
+          type:String,
+    },
     email:{
           type:String,
           required:[true, 'Email required'],
@@ -24,6 +27,7 @@ const ProfileSchema = new mongoose.Schema({
              required:[true,'Password Required']
             },
     image:String,
+    coverImage:String,
     aadhar:String,
 })
 
