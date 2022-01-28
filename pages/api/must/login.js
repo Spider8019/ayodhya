@@ -4,8 +4,7 @@ import  _ from "lodash"
 import bcrypt from "bcrypt"
 import mongoose from "mongoose"
 
-
-mongoose.connect("mongodb://localhost:27017/ikshvakuDB")
+mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 .then(()=>console.log("Connection Successfully Eastblished"))
 .catch(err=>console.log(err))
 
@@ -16,7 +15,7 @@ async function handler(req, res) {
                 if(!_.isNull(findByEmail)){
                     const checkPasswordMatch=await bcrypt.compare(req.body.password, findByEmail.password)
                     if(checkPasswordMatch){
-                        return res.status(200).json({msg:"User logged in success"})
+                        return res.status(200).json({user:findByEmail})
                     }    
                 }
                 res.status(200).json({error:"There is no user with given credentials"})

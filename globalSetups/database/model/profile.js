@@ -23,15 +23,8 @@ const ProfileSchema = new mongoose.Schema({
              type:String,
              required:[true,'Password Required']
             },
-    url:String,
+    image:String,
     aadhar:String,
-    tokens:[{
-        token:{
-            type:String,
-            required:true
-        },
-        accessOn:String
-    }],
 })
 
 ProfileSchema.pre("save",async function(next) {

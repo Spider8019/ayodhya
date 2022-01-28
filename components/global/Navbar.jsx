@@ -5,12 +5,18 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import ChangePageLanguage from "../dropdowns/ChangePageLanguage"
 import Forecast from '../dialogs/Forecast'
+import _ from "lodash"
+import { useSession,signIn,signOut } from "next-auth/react"
+import { Avatar } from '@mui/material'
 
 const Navbar = () => {
     let  { t }= useTranslation()
     const router=useRouter()
+    const { data: session, status } = useSession()
+    console.log(session,status)
 
-    if (["/must/login","/signup"].includes(router.asPath))
+
+    if (["/auth/signin","/signup"].includes(router.asPath))
       return null;
 
     return (
@@ -29,13 +35,30 @@ const Navbar = () => {
                 <div className="flex">
                   <ChangePageLanguage/>
                   <Forecast/>
-                  <button 
-                    className='basicDarkButton' 
-                    style={{marginLeft:"1rem"}}
-                    onClick={()=>router.push("/login")}
-                  >Login</button>
+                  {
+                    (!session && status==='unauthenticated')
+                    &&
+                      <button 
+                        className='basicDarkButton' 
+                        style={{marginLeft:"1rem"}}
+                        onClick={signIn}
+                      >Login</button>
+                  }
+                  {
+                    session
+                    &&
+                      <Avatar 
+                        className='ml-2 border-2 border-amber-500'
+                        alt={session.user.name}  
+                        src={session.user.image} />
+                  }
                 </div>
             </div>
+            {/* <button 
+                        className='basicDarkButton' 
+                        style={{marginLeft:"1rem"}}
+                        onClick={signOut}
+                      >Logout</button> */}
             <ul className="bg-amber-500 flex w-full">
               <li className={router.pathname == "/" ? "bg-amber-600" : ""}>
                <Link href="/">

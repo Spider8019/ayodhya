@@ -20,7 +20,7 @@ export default async function profile(req,res){
       break
     case 'POST':
       try {
-        const newObj=new Profile({...req.body,url:"https://www.trueshayari.in/wp-content/uploads/2019/11/Attitude-Pic-of-Ram-Ji-Bhagwan.jpg",aadhar:"1111 1111 1111"})
+        const newObj=new Profile({...req.body,image:"https://www.trueshayari.in/wp-content/uploads/2019/11/Attitude-Pic-of-Ram-Ji-Bhagwan.jpg",aadhar:"1111 1111 1111"})
         await newObj.save()
         res.status(201).json({ success: true, data: "User Created Successfully" })
       } catch (error) {

@@ -2,16 +2,14 @@ import React,{useState} from 'react';
 import useTranslation from 'next-translate/useTranslation'
 import styles from "../../styles/pages/Login.module.css"
 import Image from "next/image"
-import Link from 'next/link';
 import Head from 'next/head';
 import AbcIcon from '@mui/icons-material/Abc';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import { getProviders, getCsrfToken, signIn } from "next-auth/react"
-import { IconButton } from '@mui/material';
+import _ from "lodash"
+import {getCsrfToken, signIn } from "next-auth/react"
 
 
-export default function Login ({providers,csrfToken}){
+export default function Login ({csrfToken}){
 
   let  { t }= useTranslation()
   const [passwordShow,setPasswordShow]=useState(false)
@@ -82,11 +80,11 @@ export default function Login ({providers,csrfToken}){
                       Login   
                     </button>
                 </form>
-                <div className='relative h-px w-1/2 bg-slate-300 mt-8'>
+                {/* <div className='relative h-px w-1/2 bg-slate-300 mt-8'>
                     <p className='absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white px-2 text-xs'>or</p>
-                </div>
-                <div className={`${styles.providerLoginsContainer} mt-4`}>
-                    { Object.values(providers).map((provider) => (
+                </div> */}
+                {/* <div className={`${styles.providerLoginsContainer} mt-4`}>
+                    { !_.isNull(Object.values(providers)) && Object.values(providers).map((provider) => (
                       provider.id!=='credentials' 
                       &&
                       <div key={provider.name}>
@@ -95,7 +93,7 @@ export default function Login ({providers,csrfToken}){
                           </IconButton>
                       </div>
                     ))}
-                </div>
+                </div> */}
              </center>
            </div>
         </div>
@@ -119,11 +117,10 @@ export default function Login ({providers,csrfToken}){
 
 
 export async function getServerSideProps(context) {
-  const providers = await getProviders()
+  const csrfToken =await getCsrfToken()
   return {
     props: { 
-      providers, 
-      csrfToken: await getCsrfToken(context),
+      csrfToken:csrfToken  
     },
   }
 }

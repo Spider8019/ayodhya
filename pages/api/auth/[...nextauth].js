@@ -3,13 +3,11 @@ import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { loginProfile } from "../../../globalSetups/api";
 
+
 export default NextAuth({
     secret:process.env.JWT_KEY,
+ 
     providers: [
-        GitHubProvider({
-          clientId: process.env.GITHUB_CLIENT_ID,
-          clientSecret: process.env.GITHUB_CLIENT_SECRET
-        }),
         CredentialsProvider({
             name: "Credentials",
             credentials: {
@@ -22,8 +20,10 @@ export default NextAuth({
                     password: credentials.password,
                   };
                 const user = await loginProfile(payload)
-                if(user.status){
-                    return user
+                // return user
+                if(user.status===200){
+                    console.log(user.data)
+                    return user.data.user
                 }
                 else{
                     return null
@@ -32,7 +32,7 @@ export default NextAuth({
             }
           })
     ],
-    pages: {
-        signIn: '/auth/signin',
-      }
+    pages:{
+      signIn:'/auth/signin'
+    }
 })
