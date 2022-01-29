@@ -1,8 +1,15 @@
 .sideNavContainer{
     background:linear-gradient(white,rgba(255, 255, 255, 0.87),transparent),url('../../public/static/pages/canva1.png');
     background-size: 600px;
-    box-shadow: 1px 0 10px rgba(0, 0, 0, 0.13);
+    box-shadow: 1px 0 0px rgba(0, 0, 0, 0.13);
+    position:sticky;
+    top:0;
 }
 .sideNavContainer ul li{
     cursor: pointer;
+}
+.profileContainer{
+    position:sticky !important;
+    top:0;
+    margin:1rem;
 }

@@ -1,56 +1,96 @@
-import React from 'react';
-import Image from 'next/image';
-import {useRouter} from "next/router"
-import Link from 'next/link';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import EqualizerOutlinedIcon from '@mui/icons-material/EqualizerOutlined';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import React,{useState,useRef,useLayoutEffect} from 'react';
+import DashboardLayout from "../../components/layout/dashboardLayout"
 import styles from "../../styles/pages/Dashboard.module.css"
-import { signOut } from 'next-auth/react';
+import { getProfileDetails } from '../../globalSetups/api';
+import { getSession } from 'next-auth/react';
+import Image from 'next/image';
+import _ from "lodash"
+
+export async function  getServerSideProps(context){
+
+   const session = await getSession(context)
+   if(_.isNull(session)){
+        return {
+            redirect:{
+                destination:"http://localhost:3000/auth/signin?callbackUrl=http://localhost:3000/dashboard",
+                permanent:false
+            }
+        }
+   }
+   return {
+       props:{
+           profile: session ? (await getProfileDetails({email:session.user.email})).data : "adfa "
+       }
+   }
+}
 
 
-const Index = ({children}) => {
+const Dashboard = ({profile}) => {
 
-  const router=useRouter()
+  const reference1=useRef(null)
+  const [topPos,setTopPos]=useState(0)
 
-  return <div className="grid h-screen" style={{gridTemplateColumns:"300px auto"}}>
-      <div className={`${styles.sideNavContainer} bg-amber-50`} >
-          <div 
-            className="mx-auto my-8 grid place-items-center"
-          >
-            <Image
-                height={100}
-                width={100}
-                src="/static/withOutBgLogo.png"
-                alt="Dashboard Ikshvaku Logo"
-            />
-          </div>
-          <ul className=" my-4 block">
-              <li className={`p-2 my-2 pl-8 border-l-4 ${router.pathname == "/dashboard" ? " border-amber-500":"border-transparent"}`}>
-                  <Link href="/dashboard">
-                      <a
-                        className="flex align-center"><HomeOutlinedIcon/><span className="ml-2">Dashboard</span></a>
-                  </Link>
-              </li>
-              <li className={`p-2 my-2 pl-8 border-l-4 ${router.pathname == "/tabulate" ? " border-amber-500":"transparent"}`}>
-                  <Link href="/dashboard/tabulate">
-                      <a className={router.pathname == "/tabulate" ?"border-l-4 border-amber-500 flex align-center":" flex align-center"}><EqualizerOutlinedIcon/><span className="ml-2">Tabulate</span></a>
-                  </Link>
-              </li>
-              <li className={`p-2 my-2 pl-8 border-l-4`}>
-                  <p>
-                      <a
-                        onClick={()=>signOut({ callbackUrl: 'http://localhost:3000/' })} 
-                        className="flex align-center"><LockOutlinedIcon/><span className="ml-2">Logout</span></a>
-                  </p>
-              </li>
-          </ul>
+  useLayoutEffect(() => {
 
-      </div>
-      <div>
-          {children}
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  
+  }, [])
+
+  const onScroll = () => {
+    if(!reference1.current) return
+    setTopPos(window.scrollY)
+  }
+
+
+
+  return <div>
+      <div className={`${styles.profileContainer}`}>
+         <div className="">
+            <div
+             className={`relative h-40 rounded-2xl w-full overflow-hidden`}
+             style={{height:`calc(10rem - ${topPos}px`}}
+            >
+                <Image
+                   layout='fill'
+                   objectFit='cover'
+                   src={profile.coverImage}
+                   alt="Your Cover Image"
+                />
+            </div>
+            <div 
+             className='p-4 grid justify-between  w-full'
+            >
+             <div className="flex items-center relative -top-2/4"
+             >
+                <div 
+                 className="border-8 border-white rounded-full"
+                >
+                    <Image
+                    className="rounded-full "
+                    layout='fixed'
+                    height={150}
+                    width={150}
+                    objectFit='cover'
+                    src={profile.image}
+                    alt="Your Cover Image"
+                    />
+                </div>
+                <div 
+                    className='mx-4 my-8 relative top-1/4 -translate-y-1/4'
+                    ref={reference1}
+                >
+                    <p className="text-3xl">{profile.name}</p>
+                    <p className='text-sm mt-1'>{profile.about}  </p>
+                </div> 
+             </div>
+         </div>
+         </div>
+
       </div>
   </div>;
 };
 
-export default Index;
+Dashboard.Layout = DashboardLayout
+
+export default Dashboard;

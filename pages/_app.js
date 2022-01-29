@@ -1,20 +1,20 @@
 import '../styles/globals.css'
 import Layout from '../components/layout'
-import Head from 'next/head'
 import { SessionProvider } from "next-auth/react"
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const NestedLayout= Component.Layout || EmptyLayout
   return(
     <SessionProvider session={session} >
       <Layout>
-        <Head>
-          <meta name="description" content="Login Page" />
-          <link rel="icon" href="/static/withOutBgLogo.png" />
-        </Head>
-        <Component {...pageProps} />
+        <NestedLayout>
+          <Component {...pageProps} />
+        </NestedLayout>
       </Layout>
     </SessionProvider>
    )
 }
+
+const EmptyLayout = ({children}) => {return <>{children}</>}
 
 export default MyApp

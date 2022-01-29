@@ -11,17 +11,14 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                console.log(req.query)
-                console.log(req.params)
-                // const profile=await Profile.findOne({email:req.body.email})
-                res.status(200).json({msg:"adfad"})
+                const profile=await Profile.findOne({email:req.query.email})
+                res.status(200).json(profile)
 
                 break;
         default:
                 res.status(400).json({ success: false })
                 break
     }
-    res.status(200).json({ name: 'John Doe' })
 }
   
 export default handler

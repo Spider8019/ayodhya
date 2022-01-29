@@ -13,9 +13,8 @@ const Navbar = () => {
     let  { t }= useTranslation()
     const router=useRouter()
     const { data: session, status } = useSession()
-// console.log(session,status)
 
-    if (["/auth/signin","/signup","/dashboard"].includes(router.pathname))
+    if (["/auth/signin","/signup","/dashboard","/dashboard/tabulate"].includes(router.pathname))
       return null;
 
     return (
@@ -46,10 +45,14 @@ const Navbar = () => {
                   {
                     session
                     &&
-                      <Avatar 
-                        className='ml-2 border-2 border-amber-500'
-                        alt={session.user.name}  
-                        src={session.user.image} />
+                      <Link 
+                        passHref={true}
+                        href="/dashboard">
+                        <Avatar 
+                          className='ml-2 border-2 border-amber-500'
+                          alt={session.user.name}  
+                          src={session.user.image} />
+                      </Link>
                   }
                 </div>
             </div>

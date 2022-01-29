@@ -22,4 +22,4 @@ const callApiAndReturnDataPost = async(DATA,URL)=>{
 // export const getProfile = (obj) => callApiAndReturnDataGet(obj,"profile")
 export const signupProfile = (obj) => callApiAndReturnDataPost(obj,"must/signup/")
 export const loginProfile = (obj) => callApiAndReturnDataPost(obj,"must/login/")
-export const getProfileDetails = (obj) => callApiAndReturnDataPost(obj,"profile/detail/")
+export const getProfileDetails = (obj) => callApiAndReturnDataGet(obj,"profile/detail/")
