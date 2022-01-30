@@ -1,10 +1,12 @@
-import React,{useState,useRef,useLayoutEffect} from 'react';
+import React,{useState,useRef,useLayoutEffect, useEffect} from 'react';
 import DashboardLayout from "../../components/layout/dashboardLayout"
 import styles from "../../styles/pages/Dashboard.module.css"
 import { getProfileDetails } from '../../globalSetups/api';
 import { getSession } from 'next-auth/react';
 import Image from 'next/image';
 import _ from "lodash"
+import TextEditor from "../../components/utils/TextEditor"
+import AddPost from "../../components/utils/dialogs/addPost"
 
 export async function  getServerSideProps(context){
 
@@ -27,29 +29,12 @@ export async function  getServerSideProps(context){
 
 const Dashboard = ({profile}) => {
 
-  const reference1=useRef(null)
-  const [topPos,setTopPos]=useState(0)
-
-  useLayoutEffect(() => {
-
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  
-  }, [])
-
-  const onScroll = () => {
-    if(!reference1.current) return
-    setTopPos(window.scrollY)
-  }
-
-
-
-  return <div>
+  return <>
       <div className={`${styles.profileContainer}`}>
-         <div className="">
+         <div className='mb-4'>
             <div
              className={`relative h-40 rounded-2xl w-full overflow-hidden`}
-             style={{height:`calc(10rem - ${topPos}px`}}
+             style={{height:'10rem'}}
             >
                 <Image
                    layout='fill'
@@ -67,28 +52,35 @@ const Dashboard = ({profile}) => {
                  className="border-8 border-white rounded-full"
                 >
                     <Image
-                    className="rounded-full "
-                    layout='fixed'
-                    height={150}
-                    width={150}
-                    objectFit='cover'
-                    src={profile.image}
-                    alt="Your Cover Image"
+                        className="rounded-full "
+                        layout='fixed'
+                        height={150}
+                        width={150}
+                        objectFit='cover'
+                        src={profile.image}
+                        alt="Your Cover Image"
                     />
                 </div>
                 <div 
                     className='mx-4 my-8 relative top-1/4 -translate-y-1/4'
-                    ref={reference1}
                 >
                     <p className="text-3xl">{profile.name}</p>
                     <p className='text-sm mt-1'>{profile.about}  </p>
                 </div> 
-             </div>
+              </div>
+            </div>
          </div>
+         <div className={`${styles.dashboardBody}`}>
+            
+            <div>
+                aman
+            </div>
+           <div className="m-2">
+               <AddPost/>
+           </div>
          </div>
-
       </div>
-  </div>;
+  </>;
 };
 
 Dashboard.Layout = DashboardLayout

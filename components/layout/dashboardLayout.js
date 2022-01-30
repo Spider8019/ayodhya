@@ -13,7 +13,7 @@ const Index = ({children}) => {
 
   const router=useRouter()
 
-  return <div className="grid h-screen" style={{gridTemplateColumns:"300px auto"}}>
+  return <div className={`grid h-screen ${styles.parentContainer}`} style={{gridTemplateColumns:"300px auto"}}>
       <div className={`${styles.sideNavContainer} bg-amber-50`} >
           <div 
             className="mx-auto my-8 grid place-items-center"
@@ -46,7 +46,7 @@ const Index = ({children}) => {
           </ul>
 
       </div>
-      <div>
+      <div className={styles.mainContainer}>
           {children}
       </div>
   </div>;

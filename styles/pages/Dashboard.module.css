@@ -4,12 +4,30 @@
     box-shadow: 1px 0 0px rgba(0, 0, 0, 0.13);
     position:sticky;
     top:0;
+    height:100vh;
 }
 .sideNavContainer ul li{
     cursor: pointer;
 }
 .profileContainer{
-    position:sticky !important;
-    top:0;
     margin:1rem;
+    overflow-y:auto;
+    min-height: 100vh;
+}
+
+.parentContainer{
+    height:100%;
+}
+.dashboardBody{
+    position:relative;
+    top:-5rem;
+    display:grid;
+    grid-template-columns: auto 0.2fr;;
+}
+.addGig{
+    border-radius:1rem;
+    margin:1rem;
+    padding:1rem;
+    box-shadow:1px 1px 10px rgba(0,0,0,0.3);
+    /* width:30vw; */
 }
