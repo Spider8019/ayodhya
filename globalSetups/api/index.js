@@ -24,3 +24,4 @@ export const signupProfile = (obj) => callApiAndReturnDataPost(obj,"must/signup/
 export const loginProfile = (obj) => callApiAndReturnDataPost(obj,"must/login/")
 export const getProfileDetails = (obj) => callApiAndReturnDataGet(obj,"profile/detail/")
 export const uploadPost = (obj) => callApiAndReturnDataPost(obj,"profile/posts/")
+export const galleryPosts = (obj) => callApiAndReturnDataGet(obj,"profile/posts/")

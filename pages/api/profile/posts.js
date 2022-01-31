@@ -10,6 +10,10 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 
 async function handler(req, res) {
     switch(req.method){
+        case 'GET':
+                const gallery = await Gigs.find({})
+                res.status(200).json(gallery)
+                break;
         case 'POST':
                 const session=await getSession({req});
                 const payload= new Gigs({
@@ -19,7 +23,6 @@ async function handler(req, res) {
                     createdBy:session.user.id
                 })
                 console.log(await payload.save())
-                
                 res.status(200).json({msg:"Post created Successfully"})
                 break;
         default:
