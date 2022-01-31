@@ -21,7 +21,7 @@ export async function  getServerSideProps(context){
    }
    return {
        props:{
-           profile: session ? (await getProfileDetails({email:session.user.email})).data : "adfa "
+           profile: (await getProfileDetails({email:session.user.email})).data,
        }
    }
 }
@@ -76,7 +76,9 @@ const Dashboard = ({profile}) => {
                 aman
             </div>
            <div className="m-2">
-               <AddPost/>
+               <AddPost 
+                    name={profile.name} 
+                    avatar={profile.image}/>
            </div>
          </div>
       </div>

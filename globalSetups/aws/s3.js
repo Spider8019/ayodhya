@@ -1,5 +1,6 @@
 import AWS from "aws-sdk"
 import {nanoid} from "nanoid"
+import _ from "lodash"
 
 AWS.config.update({
     accessKeyId:"AKIAYRGQ44ZVC6BGZZ63",
@@ -11,7 +12,7 @@ const myBucket = new AWS.S3({
     region: "ap-south-1",
 })
 
-export const uploadObject = async({file}) =>{
+export const uploadObject = async({file},callback) =>{
 
     console.log("spider8019_"+nanoid()+file.name)
     const params={
@@ -24,9 +25,7 @@ export const uploadObject = async({file}) =>{
     .on('httpUploadProgress', (evt) => {
         return (Math.round((evt.loaded / evt.total) * 100))
     })
-    .send(async(err,data) => {
-        console.log(err)       
-        if (err) return err
-        return data
+    .send((err,data) => {
+        callback(err,data)
     })
 }

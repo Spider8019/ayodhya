@@ -3,13 +3,13 @@ import mongoose from "mongoose"
 
 const GigsSchema = new mongoose.Schema({
     about:{
-          type:String,
+        type:String,
     },
     category:{
         type:String
     },
     imageList:[{
-        url:String
+        type:String
     }],
     likedBy:[{
         type:mongoose.Schema.Types.ObjectId,
@@ -17,18 +17,21 @@ const GigsSchema = new mongoose.Schema({
     }],
     dislikedBy:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:Profile
+        ref:Profile,
+        default:[]
     }],
     createdBy:{ 
         type:mongoose.Schema.Types.ObjectId,
-        ref:Profile
+        ref:Profile,
+        default:[]
     },
     createdAt:{
         type:Date,
         default:Date.now
     },
     lastUpdatedAt:{
-        type:Date
+        type:Date,
+        default:Date.now
     },
 
 })

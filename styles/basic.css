@@ -52,3 +52,9 @@ input[type="file"] {
     background:#eee;
     padding:0.5rem;
 }
+.MuiSelect-select{
+    padding:0rem;
+    padding-left:1rem;
+    font-size:0.8rem;
+    background:linear-gradient(white,#ccc);
+}

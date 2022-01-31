@@ -1,35 +1,43 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import Draggable from 'react-draggable';
 import {uploadObject} from "../../../globalSetups/aws/s3.js"
 import Image from 'next/image';
 import styles from "../../../styles/utils/Dialog.module.css"
+import {Select,Avatar} from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import { uploadPost } from '../../../globalSetups/api/index.js';
 
 function PaperComponent(props) {
   return (
     <Draggable
-      handle="#draggable-dialog-title"
-      cancel={'[class*="MuiDialogContent-root"]'}
+    handle="#draggable-dialog-title"
+    cancel={'[class*="MuiDialogContent-root"]'}
     >
       <Paper {...props} />
     </Draggable>
   );
 }
 
-export default function DraggableDialog() {
+export default function DraggableDialog({name,avatar}) {
   const [open, setOpen] = React.useState(false);
   const [fileBody,setFileBody]=React.useState(null)
   const [file,setFile]=React.useState("/static/Preview.png")
   const [someData,setSomeData]=React.useState(false)
+  const [category, setCategory] = React.useState('photography');
+  const [about,setAbout]=React.useState("");
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
 
   const handleFile=(e)=>{
-        setFileBody(e.target.files[0])
+    setFileBody(e.target.files[0])
         var file  = e.target.files[0];
         var reader = new FileReader();
         if (file && file.type.match('image.*')) {
@@ -39,16 +47,28 @@ export default function DraggableDialog() {
             console.log(event)
         }
         reader.onloadend=(event)=>{
-
-            setFile(event.target.result)
+            console.log(event)
+            setFile(URL.createObjectURL(e.target.files[0]))
             setSomeData(true)
         }
     }
     const handleUploadFile=async()=>{
-    console.log(await uploadObject({file:fileBody}))
-    console.log(fileBody)
-    }
+      await uploadObject({file:fileBody},async(err,data)=>{
+        console.log(err,data,_.isNull(err))
+        if(_.isNull(err)){
+            const payload={
+              location:data.Location,
+              category,
+              about,
+            }
+            console.log(payload)
+            const response=await uploadPost(payload)
 
+            console.log(response)
+          }
+      })
+
+    }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,6 +77,7 @@ export default function DraggableDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+
 
   return (
     <div>
@@ -77,16 +98,41 @@ export default function DraggableDialog() {
           Create Post
         </DialogTitle>
         <DialogContent>
-          <div className="my-2 text-black">
+          <div className="my-2 text-black flex items-center">
+            <Avatar 
+              src={avatar}
+              alt={name}
+              sx={{ width: 46, height: 46 }}
+            />
+            <div className="ml-4">
               <p className="font-semibold">
-                Aman Pratap Singh
+                {name}
               </p>
+              <FormControl>
+                <Select
+                    value={category}
+                    onChange={handleChange}
+                    inputProps={{ 'aria-label': 'Without label' }}
+                  >
+                    <MenuItem value={"photography"}>Photography</MenuItem>
+                    <MenuItem value={"music"} >Music</MenuItem>
+                    <MenuItem value={"dance"} >Dance</MenuItem>
+                    <MenuItem value={"writing"} >Writing</MenuItem>
+                    <MenuItem value={"crafts"} >Crafts</MenuItem>
+                    <MenuItem value={"artworks"} >Artworks</MenuItem>
+                    <MenuItem value={"others"} >Others</MenuItem>
+                  </Select>
+              </FormControl>
+            </div>
           </div>
           <div className="addPostDialogBody">
                 <div className="addPostInputText mt-4">
                     <textarea
                         className="textarea"
                         placeholder='Whats on your mind'
+                        type="text"
+                        value={about}
+                        onChange={e=>setAbout(e.target.value)}
                     >
 
                     </textarea>
