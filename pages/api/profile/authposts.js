@@ -1,7 +1,6 @@
-import Profile from "../../../globalSetups/database/model/profile"
+import Gigs from "../../../globalSetups/database/model/gigs"
 import connection from "../../../globalSetups/database/connection"
 import  _ from "lodash"
-import bcrypt from "bcrypt"
 import mongoose from "mongoose"
 
 mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
@@ -11,11 +10,15 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                console.log(req.query)
-                const profile=await Profile.findOne({email:req.query.email})
-                res.status(200).json(profile)
-
-
+                
+                console.log("aklsdfa;lds")
+                console.log(req.body,req.query,req.params)
+                const gallery = await Gigs.find({createdBy:req.query.createdBy})
+                console.log(gallery)
+                res.status(200).json(gallery)
+                break;
+        case 'POST':
+                res.status(200).json("a;aldk")
                 break;
         default:
                 res.status(400).json({ success: false })

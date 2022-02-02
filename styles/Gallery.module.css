@@ -18,7 +18,7 @@
     overflow:hidden;
 
 }
-.galleryImage div{
+.galleryImage.galleryImg{
     width:100%;
     background:#eee;
 }
@@ -29,7 +29,21 @@
     height: unset !important;
 }
 .galleryImgControls{
-    
+    background:transparent;
+    position: absolute;
+    bottom:0;
+    width:100%;
+    background:linear-gradient(rgba(0, 0, 0, 0),rgba(0,0,0,0.6),black);
+    color:white;
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding:0.5rem;
+}
+.galleryImgButtons{
+    display:flex;
+    flex-direction: column;
+
 }
 
 /* .galleryImage img{

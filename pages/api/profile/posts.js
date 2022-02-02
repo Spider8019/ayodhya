@@ -11,7 +11,7 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                const gallery = await Gigs.find({})
+                const gallery = await Gigs.find({}).sort({createdAt:-1}).populate('createdBy')
                 res.status(200).json(gallery)
                 break;
         case 'POST':

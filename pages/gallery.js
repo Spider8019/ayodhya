@@ -3,7 +3,9 @@ import React from 'react';
 import styles from '../styles/Gallery.module.css'
 import useSWR from 'swr';
 import {galleryPosts} from "../globalSetups/api"
-import { slice } from 'lodash';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
 
 const Gallery = () => {
 
@@ -16,6 +18,7 @@ const Gallery = () => {
   }
   if(!data){
       return(
+
           <h1>Loading</h1>
       )
   }
@@ -30,7 +33,7 @@ const Gallery = () => {
                             data.data.slice((data.data.length/5)*key,(data.data.length/5)*(key+1)).map((ind,index)=>{
                                 return(
                                     <div key={index} className={styles.galleryImage}>
-                                        <div>
+                                        <div className={styles.galleryImg}>
                                             <Image 
                                                 className={styles.imageUnsized}
                                                 layout="responsive"
@@ -43,8 +46,12 @@ const Gallery = () => {
                                         </div>       
                                         <div className={styles.galleryImgControls}>
                                             <div>
-                                                <p>{ind.about.slice(0,20)+"..."}</p>
-                                                <p className='text-xs'>{ind.createdBy}</p>
+                                                <p>{ind.about.slice(0,25)+(ind.about.length>=25?"...":"")}</p>
+                                                <p className='text-xs'>{ind.createdBy.name}</p>
+                                            </div>
+                                            <div className={styles.galleryImgButtons}>
+                                                <FavoriteBorderIcon/>
+                                                <ShareIcon/>
                                             </div>
                                         </div>
                                     </div>

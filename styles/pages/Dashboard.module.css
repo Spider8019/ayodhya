@@ -22,7 +22,7 @@
     position:relative;
     top:-5rem;
     display:grid;
-    grid-template-columns: auto 0.2fr;;
+    grid-template-columns: 0.75fr 0.25fr;
 }
 .addGig{
     border-radius:1rem;
@@ -30,4 +30,47 @@
     padding:1rem;
     box-shadow:1px 1px 10px rgba(0,0,0,0.3);
     /* width:30vw; */
+}
+.authPostContainer{
+    border-radius:0.5rem;
+    background:#ddd;
+    overflow: hidden;
+    position:relative;
+}
+.authPostContainer::before{
+    position: absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:100%;
+    content:'';
+    background:#00000060;
+    clip-path: polygon(0 14%, 100% 89%, 100% 100%, 0% 100%);
+    z-index:10;
+    opacity:0;
+    transition:all 0.3s ease;
+}
+.authPostContainer::after{
+    position: absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:100%;
+    content:'';
+    background:#00000062;
+    z-index:10;
+    clip-path: polygon(0 90%, 100% 50%, 100% 100%, 0% 100%);
+    opacity:0;
+    transition:all 0.3s ease;
+
+}
+.authPostContainer:hover::before,.authPostContainer:hover::after{
+    opacity:1;
+}
+.authPostContainer .textForImageAuth{
+    opacity:0;
+    transition:all 0.3s ease;
+}
+.authPostContainer:hover .textForImageAuth{
+    opacity:1;
 }
