@@ -12,7 +12,7 @@ async function handler(req, res) {
         case 'GET':
                 
                 console.log("aklsdfa;lds")
-                console.log(req.body,req.query,req.params)
+                console.log(req.query)
                 const gallery = await Gigs.find({createdBy:req.query.createdBy})
                 console.log(gallery)
                 res.status(200).json(gallery)

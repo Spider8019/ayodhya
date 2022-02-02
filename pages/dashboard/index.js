@@ -1,11 +1,13 @@
 import React,{useState,useRef,useLayoutEffect, useEffect} from 'react';
 import DashboardLayout from "../../components/layout/dashboardLayout"
 import styles from "../../styles/pages/Dashboard.module.css"
-import { getProfileDetails } from '../../globalSetups/api';
-import { getSession } from 'next-auth/react';
+import { getProfileDetails,getPostsOfProfile } from '../../globalSetups/api';
+import { getSession,useSession } from 'next-auth/react';
 import Image from 'next/image';
 import _ from "lodash"
+import useSWR from 'swr';
 import TextEditor from "../../components/utils/TextEditor"
+import Loader from "../../components/global/DashboardLoader"
 import AddPost from "../../components/utils/dialogs/addPost"
 
 export async function  getServerSideProps(context){
@@ -29,6 +31,15 @@ export async function  getServerSideProps(context){
 
 const Dashboard = ({profile}) => {
 
+  const {data:posts,error}=useSWR([{createdBy:profile._id}],getPostsOfProfile)
+  if(error){
+      return <h1>some error</h1>
+  }
+  if(!posts){
+      return (
+        <Loader/>
+      )
+  }
   return <>
       <div className={`${styles.profileContainer}`}>
          <div className='mb-4'>
@@ -73,7 +84,29 @@ const Dashboard = ({profile}) => {
          <div className={`${styles.dashboardBody}`}>
             
             <div>
-                aman
+                <p className='text-xl mb-4'>Your Creations</p>
+                <div className={`grid grid-cols-3 gap-8 px-4`}>
+                    { 
+                        posts.data && posts.data.map((item,key)=>{
+                            return(
+                                <div key={key} className={styles.authPostContainer}>
+                                    <div className={styles.authPostContainer}>
+                                        <Image
+                                            src={item.imageList[0]}
+                                            alt={item.about}
+                                            height={100}
+                                            width={100}
+                                            layout="responsive"
+                                            objectFit='cover'
+                                            objectPosition='center'
+                                        />
+                                         <p className={styles.textForImageAuth}>{item.about.slice(0,25)}</p>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div>
            <div className="m-2">
                <AddPost 
