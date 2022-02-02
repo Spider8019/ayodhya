@@ -18,6 +18,15 @@ const callApiAndReturnDataPost = async(DATA,URL)=>{
 
     return response
 }
+const callApiAndReturnDataPut = async(DATA,URL)=>{
+    const response = await axios({
+        method:"PUT",
+        url:"http://localhost:3000/api/"+URL,
+        data:DATA
+    })
+
+    return response
+}
 
 // export const getProfile = (obj) => callApiAndReturnDataGet(obj,"profile")
 export const signupProfile = (obj) => callApiAndReturnDataPost(obj,"must/signup/")
@@ -25,4 +34,6 @@ export const loginProfile = (obj) => callApiAndReturnDataPost(obj,"must/login/")
 export const getProfileDetails = (obj) => callApiAndReturnDataGet(obj,"profile/detail/")
 export const uploadPost = (obj) => callApiAndReturnDataPost(obj,"profile/posts/")
 export const galleryPosts = (obj) => callApiAndReturnDataGet(obj,"profile/posts/")
+export const markLikeAndDislike = (obj) => callApiAndReturnDataPut(obj,"profile/posts/")
 export const getPostsOfProfile = (obj) => callApiAndReturnDataGet(obj,"profile/authposts/")
+export const getGigsCount = (obj) => callApiAndReturnDataGet(obj,"count/")

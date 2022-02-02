@@ -11,7 +11,9 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                const gallery = await Gigs.find({}).sort({createdAt:-1}).populate('createdBy')
+                console.log("get request")
+                console.log(req.query)
+                const gallery = await Gigs.find({}).sort({createdAt:-1}).populate('createdBy').limit(50).skip(50*(req.query.page))
                 res.status(200).json(gallery)
                 break;
         case 'POST':
@@ -25,6 +27,18 @@ async function handler(req, res) {
                 console.log(await payload.save())
                 res.status(200).json({msg:"Post created Successfully"})
                 break;
+        case 'PUT':
+                console.log("put request")
+                console.log(req.query,req.params,req.body)
+                const selectedGig=await Gigs.findOne({_id:req.body.gigId},{likedBy:1});
+                if(selectedGig.likedBy.includes(req.body.likedBy)){
+                    await Gigs.updateOne({_id:req.body.gigId},{$pull :{likedBy:req.body.likedBy}})
+                }else{
+                    await Gigs.updateOne({_id:req.body.gigId},{$push :{likedBy:req.body.likedBy}})
+                }
+                console.log("done successfully")
+                res.status(200).json({msg:"Liked/Disliked Successfully"})
+                break;
         default:
                 res.status(400).json({ success: false })
                 break
@@ -36,7 +50,7 @@ export default handler
 
 // const fetcher = (url) => fetch(url).then((res) => res.text())
 
-// export default function Index() {
+// export default function Index() 
 //   const { data, error } = useSWR('/api/cookies', fetcher)
 
 //   if (error) return <div>Failed to load</div>

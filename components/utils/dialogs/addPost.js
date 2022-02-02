@@ -47,7 +47,6 @@ export default function DraggableDialog({name,avatar}) {
             console.log(event)
         }
         reader.onloadend=(event)=>{
-            console.log(event)
             setFile(URL.createObjectURL(e.target.files[0]))
             setSomeData(true)
         }
@@ -61,7 +60,6 @@ export default function DraggableDialog({name,avatar}) {
               category,
               about,
             }
-            console.log(payload)
             const response=await uploadPost(payload)
 
             console.log(response)

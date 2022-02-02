@@ -11,7 +11,6 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                console.log(req.query)
                 const profile=await Profile.findOne({email:req.query.email})
                 res.status(200).json(profile)
 

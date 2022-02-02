@@ -1,36 +1,68 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import styles from '../styles/Gallery.module.css'
-import useSWR from 'swr';
-import {galleryPosts} from "../globalSetups/api"
+import { useSession } from 'next-auth/react';
+import useSWR,{ useSWRConfig } from 'swr';
+import { IconButton,Pagination,Stack } from '@mui/material';
+import {galleryPosts,markLikeAndDislike,getGigsCount} from "../globalSetups/api"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
+import InterestsIcon from '@mui/icons-material/Interests';
+import _ from "lodash"
+import { createTheme } from '@mui/material/styles';
 
-const Gallery = () => {
+const theme = createTheme({
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+  },
+});
 
-  const {data,error}=useSWR("fetchGallery",galleryPosts)
-  
-  if(error){
-      return(
-        <h1>Something went wrong</h1>
-      )
-  }
-  if(!data){
-      return(
 
-          <h1>Loading</h1>
-      )
-  }
-  return <div>
-      {console.log(data)}
-      <div  className={styles.galleryRow}>
-          {
+export async function getStaticProps(){
+    const count=(await getGigsCount()).data
+    return{
+        props:{
+            count
+        }
+    }
+}
+
+function Page({mutate,page,session}){
+
+    // const {data,error}=useSWR('FetchingDataForPage',()=>galleryPosts({page:page-1}))
+    const {data,error}=useSWR([{url:'FetchingDataForPage',page:page-1}],galleryPosts)
+    if(error){
+        return(
+            <h1>Something went wrong</h1>
+            )
+        }
+
+    if(!data){
+        return(
+            <h1>Loading</h1>
+            )
+        }
+
+    return <>
+        <div  className={styles.galleryRow}>
+        {
             new Array(5).fill("").map((arr,key)=>{
                 return(
                     <div key={key} className={styles.galleryColumn}>
                         {
-                            data.data.slice((data.data.length/5)*key,(data.data.length/5)*(key+1)).map((ind,index)=>{
+                            data.data && data.data.slice((data.data.length/5)*key,(data.data.length/5)*(key+1)).map((ind,index)=>{
                                 return(
                                     <div key={index} className={styles.galleryImage}>
                                         <div className={styles.galleryImg}>
@@ -42,17 +74,32 @@ const Gallery = () => {
                                                 objectFit='cover'
                                                 src={ind.imageList[0]}
                                                 alt={ind.imageList[0]}
-                                            />
+                                                />
                                         </div>       
                                         <div className={styles.galleryImgControls}>
-                                            <div>
+                                            <div className="p-2">
                                                 <p>{ind.about.slice(0,25)+(ind.about.length>=25?"...":"")}</p>
                                                 <p className='text-xs'>{ind.createdBy.name}</p>
                                             </div>
-                                            <div className={styles.galleryImgButtons}>
-                                                <FavoriteBorderIcon/>
-                                                <ShareIcon/>
-                                            </div>
+                                            {session &&
+                                                <div className={styles.galleryImgButtons}>
+                                                    <IconButton 
+                                                        onClick={()=>{
+                                                            markLikeAndDislike({likedBy:session.user.id,gigId:ind._id})
+                                                        }}
+                                                    >
+                                                        {ind.likedBy.includes(session.user.id) ? <FavoriteIcon style={{color:"#f59e0b"}}/> :<FavoriteBorderIcon style={{color:"white"}}/>}
+                                                    </IconButton>
+                                                    <IconButton className={"text-white"}>
+                                                        <ShareIcon/>
+                                                    </IconButton>
+                                                    <IconButton 
+                                                        onClick={()=>window.open(ind.imageList[0])}
+                                                        className={"text-white"}>
+                                                        <InterestsIcon/>
+                                                    </IconButton>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 )
@@ -61,27 +108,35 @@ const Gallery = () => {
                     </div>
                 )
             })
-          }
-      </div>
-  </div>;
-};
-{/* <div >
-  <Image
-    alt='Mountains'
-    src='/mountains.jpg'
-    layout='fill'
-    objectFit='contain'
-  />
-</div> */}
-// export async function getStaticProps(){
+        }
+        </div>
+        </>;
 
-//     const res = 
-//     return {
-//         props:{
-//             data
-//         }
-//     }
-// }
+}
+
+
+const Gallery = ({count}) => {
+    
+    const {data:session,status}=useSession()
+    const { mutate } = useSWRConfig()
+    
+    const [cnt, setCnt] = useState(1)
+        
+    return(
+        <div className="grid place-items-center mb-12">
+         <Page mutate={mutate} page={cnt} session={session}/>
+         <Stack spacing={2}
+         >
+            <Pagination 
+                count={Math.ceil(count/50)} 
+                variant="outlined" 
+                page={cnt}
+                onChange={(event,value)=>{setCnt(value)}}
+            />
+         </Stack>
+        </div>
+    )
+    
+};
 
 export default Gallery;
-

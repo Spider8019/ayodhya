@@ -58,3 +58,6 @@ input[type="file"] {
     font-size:0.8rem;
     background:linear-gradient(white,#ccc);
 }
+.MuiPagination-text{
+  background:Red;
+}
