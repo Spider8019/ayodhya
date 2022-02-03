@@ -6,7 +6,6 @@ import { getSession,useSession } from 'next-auth/react';
 import Image from 'next/image';
 import _ from "lodash"
 import useSWR from 'swr';
-import TextEditor from "../../components/utils/TextEditor"
 import Loader from "../../components/global/DashboardLoader"
 import AddPost from "../../components/utils/dialogs/addPost"
 
@@ -31,7 +30,7 @@ export async function  getServerSideProps(context){
 
 const Dashboard = ({profile}) => {
 
-  const {data:posts,error}=useSWR([{createdBy:profile._id}],getPostsOfProfile)
+  const {data:posts,error}=useSWR("GetPostsOfAuthenticatedPerson",()=>getPostsOfProfile({createdBy:profile._id}))
   if(error){
       return <h1>some error</h1>
   }

@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { uploadPost } from '../../../globalSetups/api/index.js';
 import {nanoid} from "nanoid"
+import {mutate} from "swr"
 
 function PaperComponent(props) {
   return (
@@ -32,10 +33,24 @@ export default function DraggableDialog({name,avatar}) {
   const [someData,setSomeData]=React.useState(false)
   const [category, setCategory] = React.useState('photography');
   const [about,setAbout]=React.useState("");
+  const [processing,setProcessing]=React.useState(false)
 
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleCloseWithCleanUp=()=>{
+    handleClose()
+    setAbout("");
+    setCategory('photography')
+  }
 
   const handleFile=(e)=>{
     setFileBody(e.target.files[0])
@@ -53,8 +68,8 @@ export default function DraggableDialog({name,avatar}) {
         }
     }
     const handleUploadFile=async()=>{
+      setProcessing(true)
       await uploadObject({file:fileBody,filename:"spider8019"+nanoid()+fileBody.name},async(err,data)=>{
-        console.log(err,data,_.isNull(err))
         if(_.isNull(err)){
             const payload={
               location:data.Location,
@@ -62,21 +77,19 @@ export default function DraggableDialog({name,avatar}) {
               about,
             }
             const response=await uploadPost(payload)
-
-            console.log(response)
+            if(response.status===200){
+              mutate('GetPostsOfAuthenticatedPerson')
+              handleCloseWithCleanUp()
+            }
+            else{
+              alert("Something went wrong")
+            }
+            setProcessing(false)
           }
       })
 
+
     }
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
 
   return (
     <div>
@@ -174,7 +187,7 @@ export default function DraggableDialog({name,avatar}) {
             </div>
         </DialogContent>
         <DialogActions>
-            <button onClick={handleClose}
+            <button onClick={handleCloseWithCleanUp}
                 className="mr-2 basicDarkButtonInvert"
             >
                 Cancel
@@ -182,7 +195,7 @@ export default function DraggableDialog({name,avatar}) {
             <button 
                 className="basicDarkButton px-4 py-2"
                 onClick={handleUploadFile}>
-                    Upload
+                    {processing ? <p>Uploading...</p> : <p>Upload</p>}
             </button>
         </DialogActions>
       </Dialog>

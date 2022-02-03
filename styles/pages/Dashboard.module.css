@@ -32,7 +32,6 @@
 }
 .authPostContainer{
     border-radius:0.5rem;
-    background:#ddd;
     overflow: hidden;
     position:relative;
 }
@@ -61,6 +60,7 @@
     clip-path: polygon(0 90%, 100% 50%, 100% 100%, 0% 100%);
     opacity:0;
     transition:all 0.3s ease;
+    border:1px solid #f59e0b;
 
 }
 .authPostContainer:hover::before,.authPostContainer:hover::after{
