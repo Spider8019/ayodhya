@@ -14,7 +14,7 @@ const Navbar = () => {
     const router=useRouter()
     const { data: session, status } = useSession()
 
-    if (["/auth/signin","/signup","/dashboard","/dashboard/tabulate"].includes(router.pathname))
+    if (["/auth/signin","/signup","/dashboard","/dashboard/tabulate","/dashboard/blog"].includes(router.pathname))
       return null;
 
     return (

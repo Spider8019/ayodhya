@@ -27,7 +27,7 @@ const Footer = () => {
             className="bg-amber-500 "
          >
             <div className="py-8 px-20">
-                <ul className="grid grid-cols-1">
+                <ul className="grid grid-cols-1 gap-2">
                   <li>
                     <Link href="/gallery">
                       <a>Home</a>

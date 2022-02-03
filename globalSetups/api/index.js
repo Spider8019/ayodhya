@@ -37,3 +37,5 @@ export const galleryPosts = (obj) => callApiAndReturnDataGet(obj,"profile/posts/
 export const markLikeAndDislike = (obj) => callApiAndReturnDataPut(obj,"profile/posts/")
 export const getPostsOfProfile = (obj) => callApiAndReturnDataGet(obj,"profile/authposts/")
 export const getGigsCount = (obj) => callApiAndReturnDataGet(obj,"count/")
+export const postBlogs = (obj) => callApiAndReturnDataPost(obj,"tourism/blogs/")
+export const getTourismBlogs = (obj) => callApiAndReturnDataGet(obj,"tourism/blogs/")

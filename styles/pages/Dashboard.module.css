@@ -10,7 +10,6 @@
     cursor: pointer;
 }
 .profileContainer{
-    margin:1rem;
     overflow-y:auto;
     min-height: 100vh;
 }

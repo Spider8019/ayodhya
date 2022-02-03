@@ -12,14 +12,14 @@ const myBucket = new AWS.S3({
     region: "ap-south-1",
 })
 
-export const uploadObject = async({file},callback) =>{
+export const uploadObject = async({file,filename},callback) =>{
 
     console.log("spider8019_"+nanoid()+file.name)
     const params={
         ACL: 'public-read',
         Body: file,
         Bucket:"ikshvaku-s3",
-        Key: "spider8019"+nanoid()+file.name
+        Key: filename
     }
     await myBucket.upload(params)
     .on('httpUploadProgress', (evt) => {

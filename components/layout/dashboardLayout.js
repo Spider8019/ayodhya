@@ -37,7 +37,7 @@ const Index = ({children}) => {
                       <a className="flex align-center"><EqualizerOutlinedIcon/><span className="ml-2">Tabulate</span></a>
                   </Link>
               </li>
-              <li className={`p-2 my-2 pl-8 border-l-4 ${router.pathname == "/dashboard/tabulate" ? " border-amber-500":"border-transparent"}`}>
+              <li className={`p-2 my-2 pl-8 border-l-4 ${router.pathname == "/dashboard/blog" ? " border-amber-500":"border-transparent"}`}>
                   <Link href="/dashboard/blog">
                       <a className="flex align-center"><HistoryEduIcon/><span className="ml-2">Write Blog</span></a>
                   </Link>
@@ -52,7 +52,7 @@ const Index = ({children}) => {
           </ul>
 
       </div>
-      <div className={styles.mainContainer}>
+      <div className={'m-4'}>
           {children}
       </div>
   </div>;

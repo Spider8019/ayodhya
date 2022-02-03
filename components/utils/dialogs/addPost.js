@@ -12,6 +12,7 @@ import {Select,Avatar} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { uploadPost } from '../../../globalSetups/api/index.js';
+import {nanoid} from "nanoid"
 
 function PaperComponent(props) {
   return (
@@ -52,7 +53,7 @@ export default function DraggableDialog({name,avatar}) {
         }
     }
     const handleUploadFile=async()=>{
-      await uploadObject({file:fileBody},async(err,data)=>{
+      await uploadObject({file:fileBody,filename:"spider8019"+nanoid()+fileBody.name},async(err,data)=>{
         console.log(err,data,_.isNull(err))
         if(_.isNull(err)){
             const payload={
