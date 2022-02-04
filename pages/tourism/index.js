@@ -1,7 +1,9 @@
 import React from 'react';
 import useSWR from 'swr';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getTourismBlogs } from '../../globalSetups/api';
+import { availableTravelBlogType } from '../../globalSetups/availableArrays';
 
 const Tourism = () => {
   
@@ -19,11 +21,21 @@ const Tourism = () => {
                     <Link href={`/tourism/${item._id}`}
                     key={key}>
                         <a
-                            // target="_blank"
-                            className="py-4 px-8 rounded bg-amber-100"
+                            className="flex py-4 px-8 rounded border-2 border-amber-500"
                         >
-                            <p className="text-xs">{item.location}</p>
-                            <p>{item.heading}</p>
+                            <div className='rounded'>
+                                <Image
+                                  alt="Image"
+                                  src={"/static/"+availableTravelBlogType[parseInt(item.tourismType)].icon}
+                                  height="80"
+                                  width="80"
+                                />
+                            </div>
+                            <div className="ml-4">
+                                <p className="text-xs">{item.location}</p>
+                                <p>{item.heading}</p>
+                            </div>
+
                         </a>
                     </Link>
                 )

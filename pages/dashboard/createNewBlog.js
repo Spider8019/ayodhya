@@ -2,23 +2,25 @@ import React from 'react';
 import TextEditor from "../../components/utils/TextEditor"
 import {Select,Avatar} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
+import Image from 'next/image';
 import FormControl from '@mui/material/FormControl';
 import { postBlogs } from '../../globalSetups/api';
 import { uploadObject } from '../../globalSetups/aws/s3';
 import { nanoid } from 'nanoid';
-
+import {availableTravelBlogType} from "../../globalSetups/availableArrays"
 
 const Blog = ({session}) => {
     const [category, setCategory] = React.useState('personal');
     const [heading,setHeading]=React.useState("");
     const [body,setBody]=React.useState("")
     const [location,setLocation]=React.useState("")
+    const [selectedIndex,setSelectedIndex]=React.useState(0)
     
     const handleChange = (event) => {
         setCategory(event.target.value);
     };
-    console.log(session)
-    
+ 
+
     const handleBlogSubmit = async() => {
         await uploadObject({file:body,filename:"spider8019"+nanoid()},async(err,data)=>{
             if(_.isNull(err)){
@@ -27,7 +29,8 @@ const Blog = ({session}) => {
                   about:data.Location,
                   category,
                   location,
-                  createdBy:session.user.id     
+                  createdBy:session.user.id,
+                  tourismType:selectedIndex
                 }
                 const response = await postBlogs(payload)
    
@@ -74,6 +77,36 @@ const Blog = ({session}) => {
                     />
                 }
             </div>
+                {
+                    category==="tourism"
+                    &&
+                    <div className="flex mb-4 w-full items-center justify-between">
+                        <div className='flex'>
+                            {
+                            availableTravelBlogType.map((item,key)=>{
+                                return (
+                                    <div key={key}
+                                        style={{borderColor:key===selectedIndex?"orange":"#ddd",boxShadow:key===selectedIndex?"1px 1px 10px #ddd":"none"}}
+                                        className="cursor-pointer rounded-full mx-2 border-2 w-12 h-12 p-2"
+                                        onClick={()=>setSelectedIndex(key)} 
+                                    >
+                                     <Image
+                                        className="rounded-full border-4 border-orange-50" 
+                                        src={`/static/${item.icon}`}
+                                        alt={`${item.name}`}
+                                        height={50}
+                                        width={50}
+                                        objectFit="cover"
+                                      />
+                                    </div>
+                                )
+                            })
+
+                            }
+                        </div>                  
+                        <p>{availableTravelBlogType[selectedIndex].name}</p>
+                    </div>
+                }
             <div className=""> 
                 <input 
                         className="my-2 w-full rounded p-2 pl-4 bg-slate-0"
