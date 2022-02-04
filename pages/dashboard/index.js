@@ -8,6 +8,7 @@ import _ from "lodash"
 import useSWR from 'swr';
 import Loader from "../../components/global/DashboardLoader"
 import AddPost from "../../components/utils/dialogs/addPost"
+import { defaultOptions } from '../../globalSetups/availableArrays';
 
 export async function  getServerSideProps(context){
 
@@ -15,7 +16,7 @@ export async function  getServerSideProps(context){
    if(_.isNull(session)){
         return {
             redirect:{
-                destination:"http://localhost:3000/auth/signin?callbackUrl=http://localhost:3000/dashboard",
+                destination:`${defaultOptions.baseUrl}/auth/signin?callbackUrl=${defaultOptions.baseUrl}/dashboard`,
                 permanent:false
             }
         }

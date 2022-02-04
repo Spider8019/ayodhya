@@ -8,6 +8,7 @@ import Forecast from '../dialogs/Forecast'
 import _ from "lodash"
 import { useSession,signIn } from "next-auth/react"
 import { Avatar } from '@mui/material'
+import { defaultOptions } from '../../globalSetups/availableArrays'
 
 const Navbar = () => {
     let  { t }= useTranslation()
@@ -39,7 +40,7 @@ const Navbar = () => {
                       <button 
                         className='basicDarkButton' 
                         style={{marginLeft:"1rem"}}
-                        onClick={()=>signIn(null,{ callbackUrl: 'http://localhost:3000/dashboard'})}
+                        onClick={()=>signIn(null,{ callbackUrl: `${defaultOptions.baseUrl}/dashboard`})}
                       >Login</button>
                   }
                   {

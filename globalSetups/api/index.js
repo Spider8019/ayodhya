@@ -1,9 +1,10 @@
 import axios from "axios"
+import { defaultOptions } from "../availableArrays"
 
 const callApiAndReturnDataGet = async(DATA,URL)=>{
     const response = await axios({
         method:"GET",
-        url:"http://localhost:3000/api/"+URL,
+        url:defaultOptions.baseUrl+"/api/"+URL,
         params:DATA
     })
     
@@ -12,7 +13,7 @@ const callApiAndReturnDataGet = async(DATA,URL)=>{
 const callApiAndReturnDataPost = async(DATA,URL)=>{
     const response = await axios({
         method:"POST",
-        url:"http://localhost:3000/api/"+URL,
+        url:defaultOptions.baseUrl+"/api/"+URL,
         data:DATA
     })
 
@@ -21,7 +22,7 @@ const callApiAndReturnDataPost = async(DATA,URL)=>{
 const callApiAndReturnDataPut = async(DATA,URL)=>{
     const response = await axios({
         method:"PUT",
-        url:"http://localhost:3000/api/"+URL,
+        url:defaultOptions.baseUrl+"/api/"+URL,
         data:DATA
     })
 

@@ -8,6 +8,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import styles from "../../styles/pages/Dashboard.module.css"
 import { signOut } from 'next-auth/react';
+import {defaultOptions} from '../../globalSetups/availableArrays'
 
 
 const Index = ({children}) => {
@@ -45,7 +46,7 @@ const Index = ({children}) => {
               <li className={`p-2 my-2 pl-8 border-l-4 border-transparent`}>
                   <p>
                       <a
-                        onClick={()=>signOut({ callbackUrl: 'http://localhost:3000/' })} 
+                        onClick={()=>signOut({ callbackUrl: defaultOptions.baseUrl })} 
                         className="flex align-center"><LockOutlinedIcon/><span className="ml-2">Logout</span></a>
                   </p>
               </li>

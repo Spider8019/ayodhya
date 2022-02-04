@@ -3,6 +3,7 @@ import React from 'react';
 import DashboardLayout from "../../components/layout/dashboardLayout"
 import CreateNewBlog from "./createNewBlog"
 import _ from "lodash"
+import { defaultOptions } from '../../globalSetups/availableArrays';
 
 
 const Blog = () => {
@@ -23,7 +24,7 @@ export async function  getServerSideProps(context){
     if(_.isNull(session)){
          return {
              redirect:{
-                 destination:"http://localhost:3000/auth/signin?callbackUrl=http://localhost:3000/dashboard/blog",
+                 destination:`${defaultOptions.baseUrl}/auth/signin?callbackUrl=${defaultOptions.baseUrl}/dashboard/blog`,
                  permanent:false
              }
          }

@@ -1,3 +1,7 @@
+export const defaultOptions={
+    baseUrl:"https://ikshvaku.vercel.app/"
+}
+
 export const availableTravelBlogType=[{
     key:1,
     name:"Food Store",
