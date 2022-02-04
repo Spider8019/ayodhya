@@ -33,6 +33,7 @@
 .authPostContainer{
     border-radius:0.5rem;
     overflow: hidden;
+    background:white;
     position:relative;
 }
 .authPostContainer::before{

@@ -15,6 +15,10 @@ const BlogsSchema = new mongoose.Schema({
         type:String,
         default:null
     },
+    tourismType:{
+        type:String,
+        default:null
+    },
     likedBy:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:Profile

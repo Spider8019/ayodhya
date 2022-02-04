@@ -9,7 +9,7 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                const blogs = await Blogs.find({location:{ $ne: null }},'heading location').limit(50)
+                const blogs = await Blogs.findOne({_id:req.query.tourId}).populate('createdBy')
                 res.status(200).json(blogs)
                 break;
         case 'POST':

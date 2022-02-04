@@ -39,3 +39,4 @@ export const getPostsOfProfile = (obj) => callApiAndReturnDataGet(obj,"profile/a
 export const getGigsCount = (obj) => callApiAndReturnDataGet(obj,"count/")
 export const postBlogs = (obj) => callApiAndReturnDataPost(obj,"tourism/blogs/")
 export const getTourismBlogs = (obj) => callApiAndReturnDataGet(obj,"tourism/blogs/")
+export const getSpecificBlog = (obj) => callApiAndReturnDataGet(obj,"tourism/specificBlog")

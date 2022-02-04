@@ -15,6 +15,7 @@
     "aws-sdk": "^2.1066.0",
     "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
+    "dateformat": "^5.0.2",
     "framer-motion": "^6.2.1",
     "lodash": "^4.17.21",
     "mongodb": "^4.3.1",
@@ -27,6 +28,8 @@
     "react-country-flag": "^3.0.2",
     "react-dom": "17.0.2",
     "react-draggable": "^4.4.4",
+    "react-html-parser": "^2.0.2",
+    "suneditor": "^2.42.0",
     "suneditor-react": "^3.3.1",
     "swr": "^1.1.2"
   },
