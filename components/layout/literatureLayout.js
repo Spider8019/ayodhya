@@ -19,7 +19,7 @@ const Layout = ({children}) => {
                             key={index}
                             className={`p-1 pl-4 border-l-4 ${router.pathname.includes(item.url) ? "border-amber-500" :"border-transparent"}`}
                         >
-                            <Link prefetch={false} href={"/literature/"+item.url}
+                            <Link prefetch={false} href={"/literature"+item.url}
                             >
                                 <a 
                                     className={`flex align-center `}
