@@ -42,7 +42,7 @@ const Layout = ({children}) => {
                                             <li key={location}
                                                 className={`rounded ${router.pathname.includes(sub.url) && "bg-slate-200"}`}
                                             > 
-                                                <Link prefetch={false} href={"/literature/"+item.url+"/"+sub.url}>
+                                                <Link prefetch={false} href={"/literature"+item.url+"/"+sub.url}>
                                                     <a className="flex align-center rounded-md"><ChevronRightOutlinedIcon/><span className="ml-2">{sub.title}</span></a>
                                                 </Link> 
                                             </li>

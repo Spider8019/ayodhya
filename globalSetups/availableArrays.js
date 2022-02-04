@@ -20,13 +20,6 @@ export const availableTravelBlogType=[{
     icon:"temple.png"
 }]
 
-// बालकांड, 
-// अयोध्याकांड, 
-// अरण्यकांड, 
-// किष्किन्धाकांड, 
-// सुन्दरकांड, 
-// लंकाकांड एवं 
-// उतरकांड ! 
 export const literatureSideBar=[{
     key:1,
     title:"The Ramayan",
