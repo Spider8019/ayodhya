@@ -56,7 +56,9 @@ const Navbar = () => {
                   }
                 </div>
             </div>
-            <ul className="bg-amber-500 flex w-full">
+            <ul 
+              className={`${router.pathname.includes("/literature")&&"stickyNavbarLowerOne"} bg-amber-500 flex w-full}`}
+            >
               <li className={router.pathname == "/" ? "bg-amber-600" : ""}>
                <Link href="/">
                  <a className='p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.home')}</a>
@@ -67,17 +69,17 @@ const Navbar = () => {
                  <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.about')}</a>
                </Link>
               </li>
-              <li className={router.pathname == "/tourism" ? "bg-amber-600" : ""}>
+              <li className={router.pathname.includes("/tourism") ? "bg-amber-600" : ""}>
                <Link href="/tourism">
                  <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.tourism')}</a>
                </Link>
               </li>
-              <li className={router.pathname == "/onlinelibrary" ? "bg-amber-600" : ""}>
-               <Link href="/onlinelibrary">
+              <li className={router.pathname.includes("/literature") ? "bg-amber-600" : ""}>
+               <Link href="/literature">
                  <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.library')}</a>
                </Link>
               </li>
-              <li className={router.pathname == "/talent" ? "bg-amber-600" : ""}>
+              <li className={router.pathname.includes("/talent") ? "bg-amber-600" : ""}>
                <Link href="/talent">
                  <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.talent')}</a>
                </Link>
@@ -88,6 +90,12 @@ const Navbar = () => {
                </Link>
               </li>
             </ul>
+            <style jsx>{`
+              .stickyNavbarLowerOne {
+                position:sticky;
+                top:0;
+              }
+            `}</style>
         </div>
     )
 }

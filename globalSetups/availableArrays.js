@@ -19,3 +19,60 @@ export const availableTravelBlogType=[{
     name:"Temple",
     icon:"temple.png"
 }]
+
+// बालकांड, 
+// अयोध्याकांड, 
+// अरण्यकांड, 
+// किष्किन्धाकांड, 
+// सुन्दरकांड, 
+// लंकाकांड एवं 
+// उतरकांड ! 
+export const literatureSideBar=[{
+    key:1,
+    title:"The Ramayan",
+    url:"/ramayan",
+    subtitles:[{
+        key:"1a",
+        title:"Bal kand",
+        url:"chapter1",
+    },{
+        key:"1b",
+        title:"Ayodhya kand",
+        url:"chapter2",
+    },{
+        key:"1c",
+        title:"Aranya Kand ",
+        url:"chapter3",
+    },{
+        key:"1d",
+        title:"Kishkindha Kand",
+        url:"chapter4",
+    },{
+        key:"1e",
+        title:"Sundar Kand",
+        url:"chapter5",
+    },{
+        key:"1f",
+        title:"Yuddh Kand",
+        url:"chapter6",
+    },{
+        key:"1g",
+        title:"Uttar Kand",
+        url:"chapter7",
+    },{
+        key:"1h",
+        title:"Lav-Kush Kand",
+        url:"chapter8",
+    }
+    ]
+},{
+    key:2,
+    title:"Hanuman Ji",
+    url:"/hanuman",
+    subtitles:[{
+        url:"chapter1",
+        key:"1a",
+        title:"Hanuman Chalisa"
+    }
+    ]
+}]

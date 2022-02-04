@@ -11,6 +11,7 @@ import {IconButton} from "@mui/material"
 import ShareBox from "../../components/utils/dialogs/sharePage.js"
 
 const TourSpecific = ({detail,about}) => {
+  document.title=detail.heading + " by " + detail.createdBy.name + " -\nIkshvaku Ayodhya"
   return <div>
         <div className="m-20">
             <div className={`${styles.mainBody}`}>
