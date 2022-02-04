@@ -15,6 +15,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
    )
 }
 
+// "mongodb://localhost:27017/ikshvakuDB"
 const EmptyLayout = ({children}) => {return <>{children}</>}
 
 export default MyApp
