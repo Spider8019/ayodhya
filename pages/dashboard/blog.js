@@ -1,7 +1,7 @@
 import { getSession,useSession } from 'next-auth/react';
 import React from 'react';
 import DashboardLayout from "../../components/layout/dashboardLayout"
-import CreateNewBlog from "./createNewBlog"
+import CreateNewBlog from "../../components/utils/createNewBlog"
 import _ from "lodash"
 import { defaultOptions } from '../../globalSetups/availableArrays';
 

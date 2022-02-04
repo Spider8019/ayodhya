@@ -15,6 +15,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
    )
 }
 
+// MONGOOSE_MONGODB_URI=mongodb+srv://ikshvaku:bpE4EhY63d2UlyC7@cluster0.pjhsa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
 // "mongodb://localhost:27017/ikshvakuDB"
 const EmptyLayout = ({children}) => {return <>{children}</>}
 

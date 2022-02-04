@@ -1,5 +1,5 @@
 import React from 'react';
-import TextEditor from "../../components/utils/TextEditor"
+import TextEditor from "./TextEditor"
 import {Select,Avatar} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Image from 'next/image';
