@@ -1,5 +1,5 @@
 export const defaultOptions={
-    baseUrl:"http://localhost:3000"
+    baseUrl:"https://ikshvaku.vercel.app"
 }
 
 export const availableTravelBlogType=[{
