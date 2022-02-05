@@ -1,15 +1,17 @@
 import Image from 'next/image';
 import React, { useState,useEffect } from 'react';
-import styles from '../styles/Gallery.module.css'
+import styles from '../../styles/Gallery.module.css'
 import { useSession } from 'next-auth/react';
 import useSWR,{ useSWRConfig } from 'swr';
 import { IconButton,Pagination,Stack } from '@mui/material';
-import {galleryPosts,markLikeAndDislike,getGigsCount} from "../globalSetups/api"
+import {galleryPosts,markLikeAndDislike,getGigsCount} from "../../globalSetups/api"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
+import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import InterestsIcon from '@mui/icons-material/Interests';
 import _ from "lodash"
+import { useRouter } from 'next/router';
 
 
 export async function getStaticProps(){
@@ -23,8 +25,8 @@ export async function getStaticProps(){
 
 function Page({mutate,page,session}){
 
-    // const {data,error}=useSWR('FetchingDataForPage',()=>galleryPosts({page:page-1}))
-    const {data,error}=useSWR([{url:'FetchingDataForPage',page:page-1}],galleryPosts)
+    const router=useRouter()
+    const {data,error}=useSWR('FetchingDataForPage',()=>galleryPosts({page:page-1}))
     if(error){
         return(
             <h1>Something went wrong</h1>
@@ -74,6 +76,11 @@ function Page({mutate,page,session}){
                                                     </IconButton>
                                                     <IconButton className={"text-white"}>
                                                         <ShareIcon/>
+                                                    </IconButton>
+                                                    <IconButton 
+                                                        onClick={()=>router.push(`/gallery/${ind._id}`)}
+                                                        className={"text-white"}>
+                                                        <ZoomOutMapIcon/>
                                                     </IconButton>
                                                     <IconButton 
                                                         onClick={()=>window.open(ind.imageList[0])}
