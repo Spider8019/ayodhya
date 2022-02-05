@@ -51,5 +51,4 @@ export default NextAuth({
     pages:{
       signIn:'/auth/signin'
     },
-    debug: process.env.NODE_ENV === 'development',
 })
