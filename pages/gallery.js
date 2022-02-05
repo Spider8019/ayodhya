@@ -106,7 +106,7 @@ const Gallery = ({count}) => {
         
     return(
         <div className="grid place-items-center mb-12">
-         <Page mutate={mutate} page={cnt} session={session}/>
+         {/* <Page mutate={mutate} page={cnt} session={session}/> */}
          <Stack spacing={2}
          >
             <Pagination 
