@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import Profile from "../../../globalSetups/database/model/profile"
 
 
-mongoose.connect("mongodb://localhost:27017/ikshvakuDB")
+mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 .then(()=>console.log("Connection Successfully Eastblished"))
 .catch(err=>console.log(err))
 
