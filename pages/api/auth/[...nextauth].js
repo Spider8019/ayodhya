@@ -5,7 +5,7 @@ import { loginProfile } from "../../../globalSetups/api";
 
 
 export default NextAuth({
-    // site:process.env.NEXTAUTH_URL,  
+    site:process.env.NEXTAUTH_URL,  
     providers: [
       CredentialsProvider({
         name: "Credentials",
@@ -43,10 +43,6 @@ export default NextAuth({
         session.user.id = token.id;
         return session;
       },
-      async redirect({ url, baseUrl   }) {
-
-        return baseUrl
-      }
     },
     pages:{
       signIn:'/auth/signin'
