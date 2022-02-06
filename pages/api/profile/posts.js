@@ -18,6 +18,7 @@ async function handler(req, res) {
                 break;
         case 'POST':
                 const session=await getSession({req});
+                console.log(typeof(req.body.location))
                 const payload= new Gigs({
                     about:req.body.about,
                     category:req.body.category,

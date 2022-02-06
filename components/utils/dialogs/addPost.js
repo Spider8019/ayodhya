@@ -76,6 +76,7 @@ export default function DraggableDialog({name,avatar}) {
               category,
               about,
             }
+            console.log(data)
             const response=await uploadPost(payload)
             if(response.status===200){
               mutate('GetPostsOfAuthenticatedPerson')

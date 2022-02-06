@@ -35,9 +35,7 @@ const ProfileSchema = new mongoose.Schema({
              required:[true,'Password Required']
             },
     image:String,
-    imageKey:String,
     coverImage:String,
-    coverImageKey:String,
     aadhar:String,
 })
 

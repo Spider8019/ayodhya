@@ -22,6 +22,11 @@ async function handler(req, res) {
                 console.log(await payload.save())
                 res.status(200).json({msg:"Blog Published Successfully"})
                 break;
+        case 'DELETE':
+                console.log(req.body.id)
+                await Literature.deleteOne({_id:req.body.id})
+                res.status(200).json({success:"Done Successfully"})
+                break;
         default:
                 res.status(400).json({ success: false })
                 break

@@ -29,3 +29,16 @@ export const uploadObject = async({file,filename},callback) =>{
         callback(err,data)
     })
 }
+export const deleteObject = async({url},callback) =>{
+
+    // https://ikshvaku-s3.s3.ap-south-1.amazonaws.com/spider80194bbiek3i8FEXKjl_h6R33b7df2cb6b36abfc7c7b93d1670d7946a.jpg
+    const params={
+        Bucket:"ikshvaku-s3",
+        Key:url.slice(48,)
+    }
+    console.log(params)
+    await myBucket.deleteObject(params)
+    .send((err,data) => {
+        callback(err,data)
+    })
+}

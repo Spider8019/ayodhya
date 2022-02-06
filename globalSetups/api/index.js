@@ -27,6 +27,15 @@ const callApiAndReturnDataPut = async(DATA,URL)=>{
 
     return response
 }
+const callApiAndReturnDataDelete = async(DATA,URL)=>{
+    const response = await axios({
+        method:"DELETE",
+        url:defaultOptions.baseUrl+"/api/"+URL,
+        data:DATA
+    })
+
+    return response
+}
 
 // export const getProfile = (obj) => callApiAndReturnDataGet(obj,"profile")
 export const signupProfile = (obj) => callApiAndReturnDataPost(obj,"must/signup/")
@@ -44,6 +53,7 @@ export const getSpecificGalleryPost = (obj) => callApiAndReturnDataGet(obj,"sing
 export const getUniqueBooks = (obj) => callApiAndReturnDataGet(obj,"books/")
 export const postLiteratureMaterial = (obj) => callApiAndReturnDataPost(obj,"books/")
 export const getChaptersForABook = (obj) => callApiAndReturnDataGet(obj,'singleObj/getChapters/')
+export const deleteLiteratureSpecific = (obj) => callApiAndReturnDataDelete(obj,'singleObj/getChapters/')
 export const getLiteratureSideBar = (obj) => callApiAndReturnDataGet(obj,'books/getAllDetails/')
 export const getSpecificLiteratureDetails = (obj) => callApiAndReturnDataGet(obj,'books/getAllDetailsOfSpecificLiterature')
 export const getContextForASpecificLiterature = (obj) => callApiAndReturnDataGet(obj,'singleObj/getContext')

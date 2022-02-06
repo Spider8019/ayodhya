@@ -4,14 +4,13 @@ import mongoose from "mongoose"
 const GigsSchema = new mongoose.Schema({
     about:{
         type:String,
-    },
+    }, 
     category:{
         type:String
     },
-    imageList:[{
-        url:{type:String},
-        key:{type:String}
-    }],
+    imageList:[
+        {type:String}
+    ],
     likedBy:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:Profile

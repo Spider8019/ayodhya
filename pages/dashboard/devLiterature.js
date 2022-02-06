@@ -5,13 +5,14 @@ import parse from 'html-react-parser';
 import {Select,Avatar} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import TextEditor from "../../components/utils/TextEditor"
 import { getSession, useSession } from 'next-auth/react';
-import { getUniqueBooks, postLiteratureMaterial,getChaptersForABook,getContextForASpecificLiterature } from '../../globalSetups/api';
-import { uploadObject } from '../../globalSetups/aws/s3';
+import { getUniqueBooks, deleteLiteratureSpecific,postLiteratureMaterial,getChaptersForABook,getContextForASpecificLiterature,getLiteratureSideBar} from '../../globalSetups/api';
+import { uploadObject,deleteObject } from '../../globalSetups/aws/s3';
 import { nanoid } from 'nanoid';
 import _ from "lodash"
 import axios from 'axios';
+import "suneditor/dist/css/suneditor.min.css";
+
 
 const DevLiterature = ({uniqueBooks}) => {
 
@@ -20,11 +21,14 @@ const DevLiterature = ({uniqueBooks}) => {
   const [selectedChapter,setSelectedChapter]=React.useState("addNew")
   const [newChapter,setNewChapter]=React.useState("")
   const [content,setContent]=React.useState("")
+  const [contentFlag,setContentFlag]=React.useState("")
   const [availableChapter,setAvailableChapters]=React.useState([])
+  const idOfExistingLiterature=React.useRef("")
   const {data:session,status}=useSession()
 
   const onChangeBook=async (e)=>{
     setSelectedBook(e.target.value)
+    setContentFlag("")
     if(e.target.value!=="addNew")
     {
      const getChapters=await getChaptersForABook({book:e.target.value})
@@ -33,16 +37,30 @@ const DevLiterature = ({uniqueBooks}) => {
   }
   const onChangeChapter = async(e)=>{
     setSelectedChapter(e.target.value)
-    console.log(selectedBook,e.target.value)
-    if(e.target.value!=="addNew")
+    setContentFlag("")
+    if(!["addNew",""].includes(e.target.value))
     {
      const getContext=await getContextForASpecificLiterature({book:selectedBook,chapter:e.target.value})
+     idOfExistingLiterature.current=getContext.data._id
      const contextData=(await axios.get(getContext.data.aboutUrl))
      if(contextData.status===200)
-      setContent(contextData.data)  
+     {
+       setContentFlag(getContext.data.aboutUrl)
+       console.log(contextData)
+       setContent(contextData.data)  
+     }
     }
   }
   const handleSubmitLiterature=async()=>{
+    if(contentFlag.length!==0)
+      {
+        await deleteObject({url:contentFlag},(async(errDlt,dataDlt)=>{
+          if(_.isEmpty(dataDlt)){
+            await deleteLiteratureSpecific({id:idOfExistingLiterature.current})
+          }
+        }))
+      }
+  
     await uploadObject({file:content,filename:"spider8019_literature"+nanoid(4)},async(err,data)=>{
       if(_.isNull(err)){
           const payload={
@@ -52,8 +70,7 @@ const DevLiterature = ({uniqueBooks}) => {
             createdBy:session.user.id,
           }
           const response = await postLiteratureMaterial(payload)
-
-          console.log(response)
+          alert("Updated Successfully",response.data)
         }
     })
   }
@@ -124,19 +141,27 @@ const DevLiterature = ({uniqueBooks}) => {
                 </>
               }
          </div>
-         <div>
-             <TextEditor content={content} setContent={setContent}/>
-         </div>
-         <button className='mt-4 py-2 basicDarkButton'
+
+     </div>
+     <div className="my-8">
+       <div className='border-2 rounded border-amber-500'>
+        <textarea className='w-full h-96 bg-slate-50 p-2'
+          value={content}
+          onChange={(e)=>setContent(e.target.value)}
+          placeholder="Tailwind.css is supported"
+        >
+          {content}
+        </textarea>
+       </div>
+       <div className='border-2 border-amber-500 rounded p-2 h-full max-h-96 overflow-auto'>
+        {parse(content)}
+       </div>
+     </div>
+     <button className='mt-4 py-2 basicDarkButton'
             onClick={handleSubmitLiterature}
          >
            Add/Edit
-         </button>
-     </div>
-     <div className="my-8">
-       {parse(content)}
-       {content}
-     </div>
+     </button>
   </div>;
 };
 

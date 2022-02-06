@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import LiteratureLayout from "../../components/layout/literatureLayout"
+import parse from 'html-react-parser';
 import {getSpecificLiteratureDetails}  from "../../globalSetups/api"
 
 const LiteratureContainer = ({data,htmlData}) => {
@@ -24,7 +25,7 @@ const LiteratureContainer = ({data,htmlData}) => {
       :
       <>
         <p>{data.data.aboutUrl}</p>
-        {console.log(data.data)}
+        {parse(htmlData)}
         <p>{htmlData} gurur adanawha</p>
       </>
     }
