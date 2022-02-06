@@ -7,7 +7,7 @@ const callApiAndReturnDataGet = async(DATA,URL)=>{
         url:defaultOptions.baseUrl+"/api/"+URL,
         params:DATA
     })
-    
+    console.log(response.data,"aman");
     return response
 }
 const callApiAndReturnDataPost = async(DATA,URL)=>{
@@ -45,3 +45,5 @@ export const getSpecificGalleryPost = (obj) => callApiAndReturnDataGet(obj,"sing
 export const getUniqueBooks = (obj) => callApiAndReturnDataGet(obj,"books/")
 export const postLiteratureMaterial = (obj) => callApiAndReturnDataPost(obj,"books/")
 export const getChaptersForABook = (obj) => callApiAndReturnDataGet(obj,'singleObj/getChapters/')
+export const getLiteratureSideBar = (obj) => callApiAndReturnDataGet(obj,'books/getAllDetails/')
+export const getSpecificLiteratureDetails = (obj) => callApiAndReturnDataGet(obj,'books/getAllDetailsOfSpecificLiterature')
