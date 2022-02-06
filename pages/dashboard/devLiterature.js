@@ -1,15 +1,17 @@
 import React from 'react';
 import DashboardLayout from "../../components/layout/dashboardLayout"
 import styles from "../../styles/pages/Dashboard.module.css"
+import parse from 'html-react-parser';
 import {Select,Avatar} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import TextEditor from "../../components/utils/TextEditor"
 import { getSession, useSession } from 'next-auth/react';
-import { getUniqueBooks, postLiteratureMaterial,getChaptersForABook } from '../../globalSetups/api';
+import { getUniqueBooks, postLiteratureMaterial,getChaptersForABook,getContextForASpecificLiterature } from '../../globalSetups/api';
 import { uploadObject } from '../../globalSetups/aws/s3';
 import { nanoid } from 'nanoid';
 import _ from "lodash"
+import axios from 'axios';
 
 const DevLiterature = ({uniqueBooks}) => {
 
@@ -20,16 +22,24 @@ const DevLiterature = ({uniqueBooks}) => {
   const [content,setContent]=React.useState("")
   const [availableChapter,setAvailableChapters]=React.useState([])
   const {data:session,status}=useSession()
-  console.log(uniqueBooks)
 
   const onChangeBook=async (e)=>{
-
     setSelectedBook(e.target.value)
     if(e.target.value!=="addNew")
     {
      const getChapters=await getChaptersForABook({book:e.target.value})
-     console.log(getChapters)
      setAvailableChapters(getChapters.data)
+    }
+  }
+  const onChangeChapter = async(e)=>{
+    setSelectedChapter(e.target.value)
+    console.log(selectedBook,e.target.value)
+    if(e.target.value!=="addNew")
+    {
+     const getContext=await getContextForASpecificLiterature({book:selectedBook,chapter:e.target.value})
+     const contextData=(await axios.get(getContext.data.aboutUrl))
+     if(contextData.status===200)
+      setContent(contextData.data)  
     }
   }
   const handleSubmitLiterature=async()=>{
@@ -52,7 +62,7 @@ const DevLiterature = ({uniqueBooks}) => {
      <p className="text-2xl">Add/Modify Literature</p>
      <p>{session.user.id}{session.user.name}</p>
      <div>
-         <div className="grid grid-cols-3 items-center my-4 justify-between gap-8 bg-slate-300">
+         <div className="grid grid-cols-2 items-center my-4 justify-between gap-8 ">
              <FormControl>
                 <Select
                     value={selectedBook}
@@ -73,7 +83,7 @@ const DevLiterature = ({uniqueBooks}) => {
                 selectedBook==='addNew' &&
                 <>
                 <input 
-                        className="my-4 rounded p-2 pl-4 bg-slate-100"
+                        className=" rounded pl-4 bg-slate-100 "
                         type="text"
                         value={newBook}
                         onChange={e=>setNewBook(e.target.value)}
@@ -82,15 +92,15 @@ const DevLiterature = ({uniqueBooks}) => {
                 </>
               }
          </div>
-         <div className="grid grid-cols-3 items-center my-4 justify-between gap-8 bg-slate-300">
+         <div className="grid grid-cols-2 items-center my-4 justify-between gap-8 ">
              <FormControl>
                 <Select
                     value={selectedChapter}
-                    onChange={(e)=>setSelectedChapter(e.target.value)}
+                    onChange={(e)=>onChangeChapter(e)}
                     inputProps={{ 'aria-label': 'Without label' }}
                   >
                     <MenuItem value={"addNew"}>+ Add New Chapter</MenuItem>
-                    <MenuItem value={"home"} >Home Page</MenuItem>
+                    <MenuItem value={""} >Home Page</MenuItem>
                     {
                       availableChapter.map((item,key)=>{
                         return(
@@ -101,11 +111,11 @@ const DevLiterature = ({uniqueBooks}) => {
                   </Select>
               </FormControl>
               {
-                ['addNew','home'].includes(selectedChapter)
+                ['addNew',''].includes(selectedChapter)
                 &&
                 <>
                     <input 
-                            className="my-4 rounded p-2 pl-4 bg-slate-100"
+                            className=" rounded pl-4 bg-slate-100"
                             type="text"
                             value={newChapter}
                             onChange={e=>setNewChapter(e.target.value)}
@@ -123,6 +133,10 @@ const DevLiterature = ({uniqueBooks}) => {
            Add/Edit
          </button>
      </div>
+     <div className="my-8">
+       {parse(content)}
+       {content}
+     </div>
   </div>;
 };
 
@@ -132,7 +146,6 @@ export default DevLiterature;
 
 export async function getServerSideProps(context){
   const uniqueBooks=(await getUniqueBooks()).data
-
   return{
     props:{
       uniqueBooks,

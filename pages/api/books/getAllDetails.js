@@ -24,7 +24,6 @@ async function handler(req, res) {
                 res.status(200).json(valueNeeded)
                 break;
         case 'POST':
-                console.log(req.body)
                 const payload = new Literature({
                     ...req.body
                 })

@@ -9,6 +9,9 @@ const LiteratureSchema = new mongoose.Schema({
     chapter:{
         type:String,
     },
+    aboutUrlKey:{
+        type:String,
+    },
     aboutUrl:{
         type:String,
     },

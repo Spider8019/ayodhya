@@ -9,7 +9,8 @@ const GigsSchema = new mongoose.Schema({
         type:String
     },
     imageList:[{
-        type:String
+        url:{type:String},
+        key:{type:String}
     }],
     likedBy:[{
         type:mongoose.Schema.Types.ObjectId,

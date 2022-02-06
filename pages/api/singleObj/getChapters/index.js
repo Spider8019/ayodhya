@@ -10,7 +10,7 @@ async function handler(req, res) {
     switch(req.method){
         case 'GET':
                 console.log(req.query)
-                const chapters = await Literature.find({book:req.query.book},'chapter')
+                const chapters = await Literature.find({book:req.query.book,chapter:{ $ne: "" }},'chapter')
                 console.log(chapters)
                 res.status(200).json(chapters)
                 break;

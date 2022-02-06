@@ -10,12 +10,13 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
 
 export default function IndexPage({content,setContent}) {
 
+  console.log("texteditorpage".content)
   return (
     <div className="w-full">
       <SunEditor
         name="content"
-        // className="sun-editor-editable"
         defaultValue={content}
+        value={content}
         onChange={(text) => setContent(text)}
         setOptions={{
           height: 200,
