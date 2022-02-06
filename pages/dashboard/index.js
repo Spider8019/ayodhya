@@ -3,12 +3,15 @@ import DashboardLayout from "../../components/layout/dashboardLayout"
 import styles from "../../styles/pages/Dashboard.module.css"
 import { getProfileDetails,getPostsOfProfile } from '../../globalSetups/api';
 import { getSession,useSession } from 'next-auth/react';
+import VerifiedIcon from '@mui/icons-material/Verified';
+import { IconButton } from '@mui/material';
 import Image from 'next/image';
 import _ from "lodash"
 import useSWR from 'swr';
 import Loader from "../../components/global/DashboardLoader"
 import AddPost from "../../components/utils/dialogs/addPost"
 import { defaultOptions } from '../../globalSetups/availableArrays';
+import DeveloperOptions from "../../components/utils/dialogs/developerOptions"
 
 export async function  getServerSideProps(context){
 
@@ -75,7 +78,11 @@ const Dashboard = ({profile}) => {
                 <div 
                     className='mx-4 my-8 relative top-1/4 -translate-y-1/4'
                 >
-                    <p className="text-3xl">{profile.name}</p>
+                    <div className='flex items-center'>
+                        <p className="text-3xl">{profile.name}</p>
+                        {profile.isVerified && <IconButton className="ml-2"><VerifiedIcon style={{color:"#0080ff"}}/></IconButton>} 
+                        {profile.isDeveloper && <DeveloperOptions className="ml-2"/>}
+                    </div>
                     <p className='text-sm mt-1'>{profile.about}  </p>
                 </div> 
               </div>

@@ -9,6 +9,14 @@ const ProfileSchema = new mongoose.Schema({
     about:{
           type:String,
     },
+    isVerified:{
+          type:Boolean,
+          default:false
+    },
+    isDeveloper:{
+          type:Boolean,
+          default:false
+    },
     email:{
           type:String,
           required:[true, 'Email required'],
