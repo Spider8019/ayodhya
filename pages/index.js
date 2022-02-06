@@ -4,9 +4,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from "framer-motion"
 import { opacity } from "../globalSetups/framer"
-import Navbar from '../components/global/Navbar'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
+import styles from "../styles/pages/Home.module.css"
 
 export default function Home() {
 
@@ -50,10 +50,19 @@ export default function Home() {
            {/* <p>{t('common:home.body')}</p> */}
          </div>
       </div>
-      <h1 className="m-10 bg-gray-500">aman pratap singh</h1>
-            <iframe src="https://drive.google.com/file/d/1g2jdkNXgQgvnZVIr6bzZeMLBdNeFHv3B/preview" width="640" height="480" allow="autoplay"></iframe>
-           <h1 className="text-3xl mb-10">{t('common:home.title')}</h1>
-      <h1>{t('common:ayodhya')}</h1>
+      <div className="grid" style={{gridTemplateColumns:"0.4fr 0.8fr"}}>
+        <div className={`${styles.aug5Text} grid place-items-center `}>
+            <div className="w-2/4">
+                  <p className="text-center leading-8">On August 5 of 2022, Prime Minister Narendra Modi attended Ram Mandir's bhoomi pujan in Ayodhya.</p>
+            </div>
+        </div>
+        <div className="grid items-center">
+          <div className={`${styles.aug5container}`}>
+            <p className={`${styles.overlayingText} text-amber-500 font-semibold text-9xl`}>5<sup>th</sup> August</p>
+            <p className={`${styles.baseText} GFG  uppercase font-semibold`}>ayodhya</p>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

@@ -24,9 +24,8 @@ const LiteratureContainer = ({data,htmlData}) => {
       </div>
       :
       <>
-        <p>{data.data.aboutUrl}</p>
         {parse(htmlData)}
-        <p>{htmlData} gurur adanawha</p>
+        <p className='my-4'>{data.data.aboutUrl}</p>
       </>
     }
 

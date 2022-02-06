@@ -1,6 +1,11 @@
 body{
     font-family:Noto Sans Display;
 }
+.GFG {
+    color:transparent;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #aaa;
+}
 .basicButton{
     padding:0.5rem 1rem;
     font-size:0.9rem;

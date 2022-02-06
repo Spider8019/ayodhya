@@ -37,8 +37,9 @@ const DevLiterature = ({uniqueBooks}) => {
   }
   const onChangeChapter = async(e)=>{
     setSelectedChapter(e.target.value)
+    setContent("")
     setContentFlag("")
-    if(!["addNew",""].includes(e.target.value))
+    if(!["addNew"].includes(e.target.value))
     {
      const getContext=await getContextForASpecificLiterature({book:selectedBook,chapter:e.target.value})
      idOfExistingLiterature.current=getContext.data._id
@@ -46,7 +47,6 @@ const DevLiterature = ({uniqueBooks}) => {
      if(contextData.status===200)
      {
        setContentFlag(getContext.data.aboutUrl)
-       console.log(contextData)
        setContent(contextData.data)  
      }
     }
