@@ -26,7 +26,7 @@ const Footer = () => {
   return <div
             className="bg-amber-500 "
          >
-            <div className="py-8 px-20">
+            <div className="py-8 px-20 flex">
                 <ul className="grid grid-cols-1 gap-2">
                   <li>
                     <Link href="/gallery">
@@ -56,6 +56,13 @@ const Footer = () => {
                   <li>
                     <Link href="/gallery">
                       <a>Gallery</a>
+                    </Link>
+                  </li>
+                </ul>
+                <ul className="grid grid-cols-1 gap-2 ml-12">
+                  <li>
+                    <Link href="/literature?book=The%20Ramayana&chapter=">
+                      <a>The Ramayana</a>
                     </Link>
                   </li>
                 </ul>

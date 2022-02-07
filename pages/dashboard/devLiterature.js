@@ -52,11 +52,18 @@ const DevLiterature = ({uniqueBooks}) => {
     }
   }
   const handleSubmitLiterature=async()=>{
+    console.log(contentFlag)
     if(contentFlag.length!==0)
       {
+        alert(contentFlag)
         await deleteObject({url:contentFlag},(async(errDlt,dataDlt)=>{
+          console.log(errDlt,dataDlt)
           if(_.isEmpty(dataDlt)){
+            console.log("xmmysz",idOfExistingLiterature.current)
             await deleteLiteratureSpecific({id:idOfExistingLiterature.current})
+          }
+          else{
+            alert(errDlt)
           }
         }))
       }
@@ -71,13 +78,14 @@ const DevLiterature = ({uniqueBooks}) => {
           }
           const response = await postLiteratureMaterial(payload)
           alert("Updated Successfully",response.data)
+          window.location.reload()
         }
     })
   }
 
   return <div>
      <p className="text-2xl">Add/Modify Literature</p>
-     <p>{session.user.id}{session.user.name}</p>
+     <p>{session && session.user.name}</p>
      <div>
          <div className="grid grid-cols-2 items-center my-4 justify-between gap-8 ">
              <FormControl>

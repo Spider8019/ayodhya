@@ -53,7 +53,7 @@ export default function Home() {
       <div className="grid" style={{gridTemplateColumns:"0.4fr 0.8fr"}}>
         <div className={`${styles.aug5Text} grid place-items-center `}>
             <div className="w-2/4">
-                  <p className="text-center leading-8">On August 5 of 2022, Prime Minister Narendra Modi attended Ram Mandir's bhoomi pujan in Ayodhya.</p>
+                  <p className="text-center leading-8">On August 5 of 2022, Prime Minister Narendra Modi attended Ram Mandir&apos;s bhoomi pujan in Ayodhya.</p>
             </div>
         </div>
         <div className="grid items-center">

@@ -1,6 +1,14 @@
 body{
     font-family:Noto Sans Display;
 }
+@font-face{
+    font-family:'signature';
+    src:url('/static/fonts/signatureAmsterdam.ttf')
+
+}
+.signature{
+    font-family:"signature";
+}
 .GFG {
     color:transparent;
     -webkit-text-stroke-width: 2px;

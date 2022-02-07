@@ -4,12 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getTourismBlogs } from '../../globalSetups/api';
 import { availableTravelBlogType } from '../../globalSetups/availableArrays';
+import TourismLoader from "../../components/global/TourismLoader"
 
 const Tourism = () => {
   
   const {data,error}=useSWR("fetchDataForTourismPage",getTourismBlogs)
   if(!data){
-      return <h1>Loading ...</h1>
+      return <TourismLoader/>
   }
   if(error){
       return <h1>There is some error</h1>
@@ -35,7 +36,6 @@ const Tourism = () => {
                                 <p className="text-xs">{item.location}</p>
                                 <p>{item.heading}</p>
                             </div>
-
                         </a>
                     </Link>
                 )
