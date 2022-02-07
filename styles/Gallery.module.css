@@ -59,6 +59,7 @@
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
     height:80vh;
+     max-height: 80vh;
 }
 .specImgContainer{
     width:100%;
@@ -79,5 +80,9 @@
     height:200px;
     display:grid;
     grid-template-columns: repeat(4,1fr);
+
     background:#ddd;
+}
+.morePostsSpec>a{
+    height:150px;
 }

@@ -12,6 +12,7 @@ import Loader from "../../components/global/DashboardLoader"
 import AddPost from "../../components/utils/dialogs/addPost"
 import { defaultOptions } from '../../globalSetups/availableArrays';
 import DeveloperOptions from "../../components/utils/dialogs/developerOptions"
+import DashboardPost from "../../components/utils/dashboardPost"
 
 export async function  getServerSideProps(context){
 
@@ -96,20 +97,7 @@ const Dashboard = ({profile}) => {
                     { 
                         posts.data && posts.data.map((item,key)=>{
                             return(
-                                <div key={key} className={styles.authPostContainer}>
-                                    <div className={styles.authPostContainer}>
-                                        <Image
-                                            src={item.imageList[0]}
-                                            alt={item.about}
-                                            height={100}
-                                            width={100}
-                                            layout="responsive"
-                                            objectFit='cover'
-                                            objectPosition='center'
-                                        />
-                                         <p className={styles.textForImageAuth}>{item.about.slice(0,25)}</p>
-                                    </div>
-                                </div>
+                                <DashboardPost key={key} item={item}/>
                             )
                         })
                     }

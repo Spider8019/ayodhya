@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { uploadPost } from '../../../globalSetups/api/index.js';
 import {nanoid} from "nanoid"
+import PreviewPost from "../previewPost"
 import {mutate} from "swr"
 
 function PaperComponent(props) {
@@ -53,10 +54,10 @@ export default function DraggableDialog({name,avatar}) {
   }
 
   const handleFile=(e)=>{
-    setFileBody(e.target.files[0])
         var file  = e.target.files[0];
+  
         var reader = new FileReader();
-        if (file && file.type.match('image.*')) {
+        if (file) {
             reader.readAsDataURL(file);
         }
         reader.onprogress=(event)=>{
@@ -65,11 +66,14 @@ export default function DraggableDialog({name,avatar}) {
         reader.onloadend=(event)=>{
             setFile(URL.createObjectURL(e.target.files[0]))
             setSomeData(true)
+            setFileBody(e.target.files[0])
+
         }
     }
     const handleUploadFile=async()=>{
       setProcessing(true)
-      await uploadObject({file:fileBody,filename:"spider8019"+nanoid()+fileBody.name},async(err,data)=>{
+      await uploadObject({file:fileBody,filename:"spider8019"+nanoid(10)+"."+fileBody.name.substring(fileBody.name.lastIndexOf(".") + 1)},async(err,data)=>{
+        console.log(data,err)
         if(_.isNull(err)){
             const payload={
               location:data.Location,
@@ -147,7 +151,6 @@ export default function DraggableDialog({name,avatar}) {
                         value={about}
                         onChange={e=>setAbout(e.target.value)}
                     >
-
                     </textarea>
                 </div>
                 <label className="my-4 custom-file-upload w-full text-center">
@@ -160,29 +163,7 @@ export default function DraggableDialog({name,avatar}) {
                 someData
                 &&
                 <div className='w-full p-2 border border-black'>
-                    <div
-                    style={{
-                        position: "relative",
-                        width: "100%",
-                        maxWidth: "100%",
-                        height: "200px",
-                        maxHeight: "200px",
-                      }}
-                    >
-                        <Image
-                            className="refPre"
-                            layout="fill" 
-                            style={{
-                                width: "100%",
-                                maxWidth: "100%",
-                                height: "200px",
-                                maxHeight: "200px",
-                              }}
-                            objectFit='cover'
-                            src={file} 
-                            alt="Preview Image"
-                        />
-                    </div>
+                      <PreviewPost file={file} fileExtension={fileBody && fileBody.name.substring(fileBody.name.lastIndexOf(".") + 1)}/>
                 </div>
                 }
             </div>

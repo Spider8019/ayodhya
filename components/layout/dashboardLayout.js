@@ -20,12 +20,16 @@ const Index = ({children}) => {
           <div 
             className="mx-auto my-8 grid place-items-center"
           >
-            <Image
-                height={100}
-                width={100}
-                src="/static/withOutBgLogo.png"
-                alt="Dashboard Ikshvaku Logo"
-            />
+              <Link href="/">
+                  <a>
+                    <Image
+                        height={100}
+                        width={100}
+                        src="/static/withOutBgLogo.png"
+                        alt="Dashboard Ikshvaku Logo"
+                    />
+                  </a>
+              </Link>
           </div>
           <ul className=" my-4 block">
               <li className={`p-2 my-2 pl-8 border-l-4 ${router.pathname == "/dashboard" ? " border-amber-500":"border-transparent"}`}>

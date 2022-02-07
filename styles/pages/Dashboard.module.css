@@ -30,12 +30,23 @@
     box-shadow:1px 1px 10px rgba(0,0,0,0.3);
     /* width:30vw; */
 }
-.authPostContainer{
+.authPostContainer,.authPostVideoContainer{
     border-radius:0.5rem;
     overflow: hidden;
     background:white;
     position:relative;
+    height:15rem;
 }
+.playPostButton{
+    position: absolute;
+    left:0;
+    width:100%;
+    bottom:0;
+    padding:0.5rem;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}   
 .authPostContainer::before{
     position: absolute;
     bottom:0;

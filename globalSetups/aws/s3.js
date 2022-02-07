@@ -14,7 +14,6 @@ const myBucket = new AWS.S3({
 
 export const uploadObject = async({file,filename},callback) =>{
 
-    console.log("spider8019_"+nanoid()+file.name)
     const params={
         ACL: 'public-read',
         Body: file,

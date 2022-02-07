@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/Gallery.module.css'
 import { useSession } from 'next-auth/react';
 import useSWR,{ useSWRConfig } from 'swr';
@@ -7,11 +6,11 @@ import { IconButton,Pagination,Stack } from '@mui/material';
 import {galleryPosts,markLikeAndDislike,getGigsCount} from "../../globalSetups/api"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import InterestsIcon from '@mui/icons-material/Interests';
 import _ from "lodash"
 import { useRouter } from 'next/router';
+import DashboardPost from "../../components/utils/galleryFrame"
 
 
 export async function getStaticProps(){
@@ -50,15 +49,7 @@ function Page({mutate,page,session}){
                                 return(
                                     <div key={index} className={styles.galleryImage}>
                                         <div className={styles.galleryImg}>
-                                            <Image 
-                                                className={styles.imageUnsized}
-                                                layout="responsive"
-                                                height={0}
-                                                width={5000}
-                                                objectFit='cover'
-                                                src={ind.imageList[0]}
-                                                alt={ind.imageList[0]}
-                                                />
+                                            <DashboardPost fileUrl={ind.imageList[0]}/>
                                         </div>       
                                         <div className={styles.galleryImgControls}>
                                             <div className="p-2">
@@ -73,9 +64,6 @@ function Page({mutate,page,session}){
                                                         }}
                                                     >
                                                         {ind.likedBy.includes(session.user.id) ? <FavoriteIcon style={{color:"#f59e0b"}}/> :<FavoriteBorderIcon style={{color:"white"}}/>}
-                                                    </IconButton>
-                                                    <IconButton className={"text-white"}>
-                                                        <ShareIcon/>
                                                     </IconButton>
                                                     <IconButton 
                                                         onClick={()=>router.push(`/gallery/${ind._id}`)}

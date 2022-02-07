@@ -10,6 +10,49 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import ShareIcon from '@mui/icons-material/Share';
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  HatenaShareButton,
+  InstapaperShareButton,
+  LineShareButton,
+  LinkedinShareButton,
+  LivejournalShareButton,
+  MailruShareButton,
+  OKShareButton,
+  PinterestShareButton,
+  PocketShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  ViberShareButton,
+  VKShareButton,
+  WhatsappShareButton,
+  WorkplaceShareButton,
+  EmailIcon,
+  FacebookIcon,
+  FacebookMessengerIcon,
+  HatenaIcon,
+  InstapaperIcon,
+  LineIcon,
+  LinkedinIcon,
+  LivejournalIcon,
+  MailruIcon,
+  OKIcon,
+  PinterestIcon,
+  PocketIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  ViberIcon,
+  VKIcon,
+  WeiboIcon,
+  WhatsappIcon,
+  WorkplaceIcon,
+  FacebookMessengerShareButton
+} from "react-share";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -70,29 +113,55 @@ export default function CustomizedDialogs() {
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
+          Share Page
         </BootstrapDialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-            magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-            ullamcorper nulla non metus auctor fringilla.
-          </Typography>
+          <div className="grid grid-cols-7 gap-4">
+              <EmailShareButton url="https://www.google.com">
+                   <EmailIcon borderRadius={4}/>
+              </EmailShareButton>
+              <WhatsappShareButton>
+                    <WhatsappIcon borderRadius={4}/>
+              </WhatsappShareButton>
+              <TelegramShareButton>
+                <TelegramIcon  borderRadius={4}/>
+              </TelegramShareButton>
+              <TwitterShareButton>
+                <TwitterIcon  borderRadius={4}/>
+              </TwitterShareButton>
+              <FacebookShareButton>
+                    <FacebookIcon  borderRadius={4}/>
+              </FacebookShareButton>
+              <PinterestShareButton>
+                    <PinterestIcon  borderRadius={4}/>
+              </PinterestShareButton>
+              <InstapaperShareButton>
+                     <InstapaperIcon  borderRadius={4}/>
+              </InstapaperShareButton>
+              <LinkedinShareButton>
+                      <LinkedinIcon  borderRadius={4}/>
+              </LinkedinShareButton>
+              <OKShareButton>
+                   <OKIcon  borderRadius={4}/>
+              </OKShareButton>
+              <FacebookMessengerShareButton>
+                <FacebookMessengerIcon  borderRadius={4}/>
+              </FacebookMessengerShareButton>
+              <RedditShareButton>
+                  <RedditIcon  borderRadius={4}/>
+              </RedditShareButton>
+              <PocketShareButton>
+                <PocketIcon  borderRadius={4}/>
+              </PocketShareButton>
+              <VKShareButton>
+                <VKIcon  borderRadius={4}/>
+              </VKShareButton>
+              <ViberShareButton>
+                <ViberIcon  borderRadius={4}/>
+              </ViberShareButton>
+          </div>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button>
-        </DialogActions>
+       
       </BootstrapDialog>
     </div>
   );
