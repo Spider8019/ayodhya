@@ -13,6 +13,7 @@ import AddPost from "../../components/utils/dialogs/addPost"
 import { defaultOptions } from '../../globalSetups/availableArrays';
 import DeveloperOptions from "../../components/utils/dialogs/developerOptions"
 import DashboardPost from "../../components/utils/dashboardPost"
+import {motion, AnimatePresence} from "framer-motion"
 
 export async function  getServerSideProps(context){
 
@@ -35,6 +36,7 @@ export async function  getServerSideProps(context){
 
 const Dashboard = ({profile}) => {
 
+  const [selected,setSelected]=useState(null)
   const {data:posts,error}=useSWR("GetPostsOfAuthenticatedPerson",()=>getPostsOfProfile({createdBy:profile._id}))
   if(error){
       return <h1>some error</h1>
@@ -97,7 +99,12 @@ const Dashboard = ({profile}) => {
                     { 
                         posts.data && posts.data.map((item,key)=>{
                             return(
-                                <DashboardPost key={key} item={item}/>
+                                <motion.div 
+                                    onClick={()=>setSelected(key)}
+                                    layoutId={"dashboardPosts"+key}
+                                    key={key}>
+                                    <DashboardPost item={item}/>
+                                </motion.div>
                             )
                         })
                     }
@@ -110,6 +117,21 @@ const Dashboard = ({profile}) => {
            </div>
          </div>
       </div>
+
+     <AnimatePresence>
+        {
+            selected &&
+            <motion.div 
+                layoutId={"dashboardPosts"+selected} 
+                style={{zIndex:"20",position:"fixed",background:"transparent",height:"100vh",width:"100vw",display:"Grid",placeItems:"Center",top:"0%",left:"0%"}}
+               >
+               <div  style={{width:"80vw",height:"80vh",background:"red",zIndex:"20"}}>
+                   <button onClick={()=>setSelected(null)}>back</button>
+               </div>
+            </motion.div>
+        }
+     </AnimatePresence>
+
   </>;
 };
 
