@@ -21,3 +21,14 @@ export const zeroHeightAndWidth = {
     initial: {opacity:0 },
     final: {opacity:1 }  
  }
+
+ export const siedEntrance={
+     initial:{x:"-10%",opacity:0},
+     final:{
+         x:"0%",
+         opacity:1,
+         transition:{
+             duration:0.5
+         }
+    }
+ }
