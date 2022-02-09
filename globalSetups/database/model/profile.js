@@ -34,7 +34,14 @@ const ProfileSchema = new mongoose.Schema({
              type:String,
              required:[true,'Password Required']
             },
-    image:String,
+    image:{
+        type:Number,
+        default:0,
+    },
+    availableImages:{
+            type:Array,
+            "default":['https://ikshvaku-s3.s3.ap-south-1.amazonaws.com/static/1a3ea756b8ec93542184c8bb4631205e.jpg','https://ikshvaku-s3.s3.ap-south-1.amazonaws.com/static/white-glossy-modern-art539-large-61-white-glossy-modern-art539-original-imafmjygp7g9bfgd.jpeg','/static/preview.png']
+    },
     coverImage:String,
     aadhar:String,
 })

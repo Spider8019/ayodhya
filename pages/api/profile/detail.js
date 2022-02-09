@@ -14,7 +14,11 @@ async function handler(req, res) {
                 const profile=await Profile.findOne({email:req.query.email})
                 res.status(200).json(profile)
 
-
+                break;
+        case 'PUT':
+                console.log(req.body)
+                const response=await Profile.updateOne({_id:req.body.id},{$inc : {'image' :req.body.step}})
+                res.status(200).json({msg:"Image change Successfully",...response})
                 break;
         default:
                 res.status(400).json({ success: false })

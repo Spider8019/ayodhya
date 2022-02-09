@@ -9,6 +9,20 @@ const callApiAndReturnDataGet = async(DATA,URL)=>{
     })
     return response
 }
+
+const callApiAndReturnDataGetMod = async(DATA,URL)=>{
+    const response = await axios({
+        method:"GET",
+        url:defaultOptions.baseUrl+"/api/"+URL,
+        params:DATA
+    })
+    if(response.status===200)
+        return response.data
+    else{
+        return{error:"Unable To Fetch"}
+    }
+}
+
 const callApiAndReturnDataPost = async(DATA,URL)=>{
     const response = await axios({
         method:"POST",
@@ -40,7 +54,8 @@ const callApiAndReturnDataDelete = async(DATA,URL)=>{
 // export const getProfile = (obj) => callApiAndReturnDataGet(obj,"profile")
 export const signupProfile = (obj) => callApiAndReturnDataPost(obj,"must/signup/")
 export const loginProfile = (obj) => callApiAndReturnDataPost(obj,"must/login/")
-export const getProfileDetails = (obj) => callApiAndReturnDataGet(obj,"profile/detail/")
+export const updateProfileImage = (obj) => callApiAndReturnDataPut(obj,'profile/detail/')
+export const getProfileDetails = (obj) => callApiAndReturnDataGetMod(obj,"profile/detail/")
 export const uploadPost = (obj) => callApiAndReturnDataPost(obj,"profile/posts/")
 export const galleryPosts = (obj) => callApiAndReturnDataGet(obj,"profile/posts/")
 export const markLikeAndDislike = (obj) => callApiAndReturnDataPut(obj,"profile/posts/")
