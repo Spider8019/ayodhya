@@ -16,6 +16,10 @@ export const zeroHeightAndWidth = {
     initial: { x:"-50", opacity:0 },
     final: { x:0, opacity:1 }
  }
+ export const yMove={
+    initial: { y:"50", opacity:0 },
+    final: { y:0, opacity:1 }
+ }
 
  export const opacity={
     initial: {opacity:0 },

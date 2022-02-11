@@ -13,7 +13,7 @@ import styles from "../../../styles/utils/Dialog.module.css"
 import {Select,Avatar} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import { uploadPost } from '../../../globalSetups/api/index.js';
+import { uploadProfilePicture} from '../../../globalSetups/api/index.js';
 import {nanoid} from "nanoid"
 import PreviewPost from "../previewPost"
 import {mutate} from "swr"
@@ -30,7 +30,7 @@ function PaperComponent(props) {
   );
 }
 
-export default function DraggableDialog() {
+export default function DraggableDialog({profileId}) {
   const [open, setOpen] = React.useState(false);
   const [fileBody,setFileBody]=React.useState(null)
   const [file,setFile]=React.useState("/static/Preview.png")
@@ -74,9 +74,27 @@ export default function DraggableDialog() {
 
         }
     }
-    const handleUploadFile=async()=>{
 
-
+  const handleUploadFile=async()=>{
+       setProcessing(true)
+await uploadObject({file:fileBody,filename:"spider8019"+nanoid(10)+"profile."+fileBody.name.substring(fileBody.name.lastIndexOf(".") + 1)},async(err,data)=>{
+  console.log(data,err)
+  if(_.isNull(err)){
+      const payload={
+        location:data.Location,
+        id:profileId
+      }
+      const response=await uploadProfilePicture(payload)
+      if(response.status===200){
+        mutate('GetBasicDetail')
+        handleCloseWithCleanUp()
+      }
+      else{
+        alert("Something went wrong")
+      }
+      setProcessing(false)
+    }
+})
 
     }
 

@@ -12,6 +12,7 @@
 .profileContainer{
     overflow-y:auto;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .parentContainer{
@@ -91,4 +92,12 @@
 }
 .authPostContainer:hover .textForImageAuth{
     opacity:1;
+}
+.badgesContainer{
+    background: url("../../public/static/pages/tabulate_badge.png");
+    background-size:cover;
+    box-shadow:1px 1px 10px rgba(0, 0, 0, 0.164);
+}
+.badge{
+   border:1px solid black;
 }

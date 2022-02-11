@@ -70,5 +70,6 @@ export const postLiteratureMaterial = (obj) => callApiAndReturnDataPost(obj,"boo
 export const getChaptersForABook = (obj) => callApiAndReturnDataGet(obj,'singleObj/getChapters/')
 export const deleteLiteratureSpecific = (obj) => callApiAndReturnDataDelete(obj,'singleObj/getChapters/')
 export const getLiteratureSideBar = (obj) => callApiAndReturnDataGet(obj,'books/getAllDetails/')
-export const getSpecificLiteratureDetails = (obj) => callApiAndReturnDataGet(obj,'books/getAllDetailsOfSpecificLiterature')
-export const getContextForASpecificLiterature = (obj) => callApiAndReturnDataGet(obj,'singleObj/getContext')
+export const getSpecificLiteratureDetails = (obj) => callApiAndReturnDataGet(obj,'books/getAllDetailsOfSpecificLiterature/')
+export const getContextForASpecificLiterature = (obj) => callApiAndReturnDataGet(obj,'singleObj/getContext/')
+export const uploadProfilePicture = (obj) => callApiAndReturnDataPut(obj,'singleObj/profile/')

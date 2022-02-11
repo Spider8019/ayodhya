@@ -20,7 +20,7 @@ const previewPost=({item})=>{
                         height={100}
                         width={100}
                         layout="responsive"
-                        objectFit='cover'
+                    objectFit='cover'
                         objectPosition='center'
                     />
                             <p className={styles.textForImageAuth}>{item.about.slice(0,25)}</p>
