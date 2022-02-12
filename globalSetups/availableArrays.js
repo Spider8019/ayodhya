@@ -1,4 +1,5 @@
 export const defaultOptions={
+    // baseUrl:"https://ikshvaku.vercel.app"
     baseUrl:"https://ikshvaku.vercel.app"
 }
 

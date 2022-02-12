@@ -3,8 +3,8 @@ import Slider from "react-slick";
 import Head from "next/head";
 import styles from "../../styles/pages/Talent.module.css"
 
-export default class SimpleSlider extends Component {
-  render() {
+export default function SimpleSlider() {
+
     const settings = {
       dots: true,
       infinite: true,
@@ -49,5 +49,4 @@ export default class SimpleSlider extends Component {
         </div>
       </>
     );
-  }
 }

@@ -27,7 +27,7 @@ body{
     color:white;
 }
 .basicDarkButton{
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
     border-radius:0.25rem;
     background:#f59e0b;
     color:white;
@@ -63,10 +63,10 @@ input[type="file"] {
     padding:0.5rem;
 }
 .MuiSelect-select{
-    padding:0rem;
-    padding-left:1rem;
-    font-size:0.8rem;
-    background:linear-gradient(white,#ccc);
+    padding:0rem !important;
+    padding-left:1rem !important;
+    font-size:0.8rem !important;
+    background:linear-gradient(white,#ccc) !important;
 }
 .MuiPagination-text{
   background:Red;

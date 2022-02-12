@@ -4,6 +4,7 @@ import styles from "../../styles/Gallery.module.css"
 import Image from 'next/image';
 import {Avatar,IconButton} from "@mui/material"
 import dateFormat from "dateformat"
+import { yMove } from '../../globalSetups/framer';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
@@ -12,10 +13,12 @@ import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import ShareDialog from "../../components/utils/dialogs/sharePage"
 import { getPostsOfProfile } from '../../globalSetups/api';
 import { markLikeAndDislike } from '../../globalSetups/api';
-import { useRouter } from 'next/router';
 import parse from 'html-react-parser';
 import Link from "next/link"
 import Head from "next/head"
+import { motion } from 'framer-motion';
+import VerifiedIcon from '@mui/icons-material/Verified';
+
 
 const Gallery = ({detail}) => {
 
@@ -75,18 +78,25 @@ const Gallery = ({detail}) => {
                 <div className="flex p-2 border-b-2">
                    <div className='pl-2 flex items-center'>
                     <Avatar
-                        src={detail.createdBy.image}
+                        src={detail.createdBy.availableImages[detail.createdBy.image]}
                         alt="Image posted by"
                         sx={{width:50,height:50}}
                     />
                     <p className="ml-4">{detail.createdBy.name}</p>
+                    {detail.createdBy.isVerified && <VerifiedIcon style={{color:"#0080ff",marginLeft:"0.25rem",fontSize:"1.25rem"}}/>} 
                    </div>
                 </div>
                 <div className="flex justify-between flex-col grow" style={{overflow:"auto"}}>
-                    <div className="p-4 ">
+                    <motion.div 
+                        initial="initial"
+                        exit="final"
+                        animate="final"
+                        variants={yMove}
+                        transition={{delay:0.5,duration:0.5}}
+                        className="p-4 ">
                         <p className="text-xs mb-4">{dateFormat(detail.createdAt,"fullDate")}</p>
                         <p>{parse(detail.about)}</p>
-                    </div>
+                    </motion.div>
                     {
                         posts.length>1 && session
                         &&
@@ -131,19 +141,25 @@ const Gallery = ({detail}) => {
                     
                 </div>
                 <div className="border-t-2 p-2 flex justify-between">
-                    <div className="flex items-center">
-                        <IconButton
-                          onClick={()=>{
-                            onLikeShowMore();
-                            !posts && markLikeAndDislike({likedBy:detail.createdBy._id,gigId:detail._id});
-                            setLike(!like)
-                            like ? setLikedBy(likedBy-1) : setLikedBy(likedBy+1)
-                          }}
-                        >
-                            {session && like? <FavoriteIcon style={{color:"#f59e0b"}}/> : <FavoriteBorderIcon/>}
-                        </IconButton>
-                        <p className="pl-2">{likedBy}</p>
-                    </div>
+                    {
+                        session 
+                        ?
+                        <div className="flex items-center">
+                            <IconButton
+                            onClick={()=>{
+                                onLikeShowMore();
+                                !posts && markLikeAndDislike({likedBy:detail.createdBy._id,gigId:detail._id});
+                                setLike(!like)
+                                like ? setLikedBy(likedBy-1) : setLikedBy(likedBy+1)
+                            }}
+                            >
+                                {session && like? <FavoriteIcon style={{color:"#f59e0b"}}/> : <FavoriteBorderIcon/>}
+                            </IconButton>
+                            <p className="pl-2">{likedBy}</p>
+                        </div>
+                        :
+                        <span></span>
+                    }
                     <div className='flex'>
                         <IconButton
                             onClick={()=>setObjectFit(!objectFit)}
@@ -156,8 +172,6 @@ const Gallery = ({detail}) => {
                 </div>
             </div>
       </div>
-      {/* {console.log(detail)}
-     {detail.about} */}
   </div>;
 };
 

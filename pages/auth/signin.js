@@ -72,7 +72,7 @@ export default function Login ({csrfToken}){
                           {passwordShow ? <MoreHorizIcon/> : <AbcIcon/>}
                       </button>
                     </div>
-                    <button className="block basicDarkButton m-2 mt-8 p-2"
+                    <button className="block basicDarkButton m-2 mt-8 p-2 py-2"
                       style={{width:"calc(100% - 1rem)"}}
                     >
                       Login   

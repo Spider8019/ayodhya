@@ -12,6 +12,7 @@ import _ from "lodash"
 import { useRouter } from 'next/router';
 import DashboardPost from "../../components/utils/galleryFrame"
 import Head from "next/head"
+import GalleryLoader from "../../components/global/GalleryLoader"
 
 
 
@@ -31,7 +32,7 @@ const Gallery = ({count}) => {
 
     if(!data){
     return(
-        <h1>Loading</h1>
+        <GalleryLoader/>
         )
     }
     
@@ -60,8 +61,8 @@ const Gallery = ({count}) => {
                                                     <p>{ind.about.slice(0,25)+(ind.about.length>=25?"...":"")}</p>
                                                     <p className='text-xs'>{ind.createdBy.name}</p>
                                                 </div>
+                                                <div className={styles.galleryImgButtons}>
                                                 {session &&
-                                                    <div className={styles.galleryImgButtons}>
                                                         <IconButton 
                                                             onClick={()=>{
                                                                 markLikeAndDislike({likedBy:session.user.id,gigId:ind._id})
@@ -69,6 +70,7 @@ const Gallery = ({count}) => {
                                                         >
                                                             {ind.likedBy.includes(session.user.id) ? <FavoriteIcon style={{color:"#f59e0b"}}/> :<FavoriteBorderIcon style={{color:"white"}}/>}
                                                         </IconButton>
+                                                }
                                                         <IconButton 
                                                             onClick={()=>router.push(`/gallery/${ind._id}`)}
                                                             className={"text-white"}>
@@ -80,7 +82,6 @@ const Gallery = ({count}) => {
                                                             <InterestsIcon/>
                                                         </IconButton>
                                                     </div>
-                                                }
                                             </div>
                                         </div>
                                     )
