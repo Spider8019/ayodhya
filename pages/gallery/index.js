@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/Gallery.module.css'
 import { useSession } from 'next-auth/react';
-import useSWR,{ useSWRConfig } from 'swr';
+import useSWR from 'swr';
 import { IconButton,Pagination,Stack } from '@mui/material';
 import {galleryPosts,markLikeAndDislike,getGigsCount} from "../../globalSetups/api"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -15,7 +15,7 @@ import Head from "next/head"
 
 
 
-const Gallery = ({count}) => {
+const Gallery = () => {
     
     const {data:session,status}=useSession()
     const router=useRouter()
@@ -92,7 +92,7 @@ const Gallery = ({count}) => {
             }
         </div>
  
-         <Stack spacing={2}
+         {/* <Stack spacing={2}
          >
             <Pagination 
                 count={Math.ceil(count/50)} 
@@ -100,7 +100,7 @@ const Gallery = ({count}) => {
                 page={cnt}
                 onChange={(event,value)=>{setCnt(value)}}
             />
-         </Stack>
+         </Stack> */}
         </div>
     )
     
@@ -108,12 +108,12 @@ const Gallery = ({count}) => {
 
 export default Gallery;
 
-export async function getStaticProps(){
-    const count=(await getGigsCount()).data
-    return{
-        props:{
-            count
-        }
-    }
-}
+// export async function getStaticProps(){
+//     const count=(await getGigsCount()).data
+//     return{
+//         props:{
+//             count
+//         }
+//     }
+// }
 
