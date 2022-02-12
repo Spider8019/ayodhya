@@ -15,7 +15,7 @@ import Head from "next/head"
 
 
 
-const Gallery = () => {
+const Gallery = ({count}) => {
     
     const {data:session,status}=useSession()
     const router=useRouter()
@@ -92,7 +92,7 @@ const Gallery = () => {
             }
         </div>
  
-         {/* <Stack spacing={2}
+         <Stack spacing={2}
          >
             <Pagination 
                 count={Math.ceil(count/50)} 
@@ -100,7 +100,7 @@ const Gallery = () => {
                 page={cnt}
                 onChange={(event,value)=>{setCnt(value)}}
             />
-         </Stack> */}
+         </Stack>
         </div>
     )
     
@@ -108,12 +108,12 @@ const Gallery = () => {
 
 export default Gallery;
 
-// export async function getStaticProps(){
-//     const count=(await getGigsCount()).data
-//     return{
-//         props:{
-//             count
-//         }
-//     }
-// }
+export async function getServerSideProps(){
+    const count=(await getGigsCount()).data
+    return{
+        props:{
+            count
+        }
+    }
+}
 
