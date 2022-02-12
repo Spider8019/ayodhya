@@ -28,7 +28,7 @@ export default NextAuth({
         }
       })
     ],
-    secret: 'WwR/NpyYblRyj7pega2ml4oUgh3qLm8M1S++tNpaN+Y=',
+    secret:process.env.NEXTAUTH_URL,
     callbacks: {
       async jwt({ token, user, account }) {
         if (account && user) {
