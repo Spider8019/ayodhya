@@ -273,13 +273,14 @@ export async function  getServerSideProps(context){
 
     const session = await getSession(context)
     if(_.isNull(session)){
-         return {
-             redirect:{
-                 destination:`${defaultOptions.baseUrl}/auth/signin?callbackUrl=${defaultOptions.baseUrl}/dashboard`,
-                 permanent:false
-             }
-         }
+        return {
+            redirect:{
+                destination:`${defaultOptions.baseUrl}/auth/signin?callbackUrl=${defaultOptions.baseUrl}/dashboard`,
+                permanent:false
+            }
+        }
     }
+    console.log(session)
 
     return {
         props:{

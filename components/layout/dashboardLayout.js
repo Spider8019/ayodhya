@@ -7,14 +7,16 @@ import EqualizerOutlinedIcon from '@mui/icons-material/EqualizerOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import styles from "../../styles/pages/Dashboard.module.css"
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import {defaultOptions} from '../../globalSetups/availableArrays'
+import useSWR from 'swr';
+import { getProfileDetails } from '../../globalSetups/api';
 
 
 const Index = ({children}) => {
 
+    
   const router=useRouter()
-
   return <div className={`grid h-screen ${styles.parentContainer}`} style={{gridTemplateColumns:"300px auto"}}>
       <div className={`${styles.sideNavContainer} bg-amber-50`} >
           <div 
@@ -58,9 +60,12 @@ const Index = ({children}) => {
 
       </div>
       <div className={'m-4'}>
-          {children}
+           {children}
       </div>
   </div>;
 };
 
 export default Index;
+
+ 
+ 

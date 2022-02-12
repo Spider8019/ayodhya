@@ -2,13 +2,18 @@ import React from 'react';
 import DashboardLayout from "../../components/layout/dashboardLayout"
 import {Chart} from "react-google-charts"
 import styles from "../../styles/pages/Dashboard.module.css"
-import { useSession } from 'next-auth/react';
+import { useSession,getSession } from 'next-auth/react';
+import _ from "lodash"
 import { Avatar } from '@mui/material';
 import Image from 'next/image';
+import useSWR from "swr";
+import { getProfileDetails } from '../../globalSetups/api';
 
-const Tabulate = () => {
+const Tabulate = ({user}) => {
 
   const {data:session,status}=useSession()
+  const {data:profile,error}=useSWR("GetBasicDetail",()=>getProfileDetails({email:user && user.email}))
+
   const data = [
     [
       "Day",
@@ -45,8 +50,8 @@ const Tabulate = () => {
     <p className='text-2xl'>Tabulate</p>
     <div className='flex items-center'>
       <Avatar
-        src={session && session.user.image}
-        alt={session && session.user.name}
+        src={user.image}
+        alt={user.name}
       />
       <p className='mx-4'>{session && session.user.name}</p>
     </div>
@@ -100,3 +105,24 @@ const Tabulate = () => {
 Tabulate.Layout = DashboardLayout
 
 export default Tabulate;
+
+export async function  getServerSideProps(context){
+
+  const session = await getSession(context)
+  if(_.isNull(session)){
+      return {
+          redirect:{
+              destination:`${defaultOptions.baseUrl}/auth/signin?callbackUrl=${defaultOptions.baseUrl}/dashboard/tabulate`,
+              permanent:false
+          }
+      }
+  }
+  console.log(session)
+
+  return {
+      props:{
+          user:session.user
+      }
+  }
+}
+

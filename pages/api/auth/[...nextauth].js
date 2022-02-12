@@ -33,6 +33,7 @@ export default NextAuth({
       async jwt({ token, user, account }) {
         if (account && user) {
           token.id=user._id 
+          token.picture=user.availableImages[user.image]
           return {
             ...token
           };
@@ -44,7 +45,6 @@ export default NextAuth({
         return session;
       },
       async redirect({ url, baseUrl   }) {
-
         return baseUrl
       }
     },
