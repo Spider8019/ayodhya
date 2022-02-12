@@ -73,13 +73,13 @@ const Gallery = ({count}) => {
                                                 }
                                                         <IconButton 
                                                             onClick={()=>router.push(`/gallery/${ind._id}`)}
-                                                            className={"text-white"}>
-                                                            <ZoomOutMapIcon/>
+                                                         >
+                                                            <ZoomOutMapIcon className={"text-white"}/>
                                                         </IconButton>
                                                         <IconButton 
                                                             onClick={()=>window.open(ind.imageList[0])}
-                                                            className={"text-white"}>
-                                                            <InterestsIcon/>
+                                                        >
+                                                            <InterestsIcon  className={"text-white"}/>
                                                         </IconButton>
                                                     </div>
                                             </div>
