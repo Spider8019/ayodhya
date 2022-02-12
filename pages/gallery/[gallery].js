@@ -13,6 +13,7 @@ import ShareDialog from "../../components/utils/dialogs/sharePage"
 import { getPostsOfProfile } from '../../globalSetups/api';
 import { markLikeAndDislike } from '../../globalSetups/api';
 import { useRouter } from 'next/router';
+import parse from 'html-react-parser';
 import Link from "next/link"
 import Head from "next/head"
 
@@ -84,7 +85,7 @@ const Gallery = ({detail}) => {
                 <div className="flex justify-between flex-col grow" style={{overflow:"auto"}}>
                     <div className="p-4 ">
                         <p className="text-xs mb-4">{dateFormat(detail.createdAt,"fullDate")}</p>
-                        <p>{detail.about}</p>
+                        <p>{parse(detail.about)}</p>
                     </div>
                     {
                         posts.length>1 && session

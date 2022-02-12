@@ -11,97 +11,89 @@ import InterestsIcon from '@mui/icons-material/Interests';
 import _ from "lodash"
 import { useRouter } from 'next/router';
 import DashboardPost from "../../components/utils/galleryFrame"
+import Head from "next/head"
 
-
-export async function getStaticProps(){
-    const count=(await getGigsCount()).data
-    return{
-        props:{
-            count
-        }
-    }
-}
-
-function Page({mutate,page,session}){
-
-    const router=useRouter()
-    const {data,error}=useSWR('FetchingDataForPage',()=>galleryPosts({page:page-1}))
-    if(error){
-        return(
-            <h1>Something went wrong</h1>
-            )
-        }
-
-    if(!data){
-        return(
-            <h1>Loading</h1>
-            )
-        }
-
-    return <>
-        <div  className={styles.galleryRow}>
-        {
-            new Array(5).fill("").map((arr,key)=>{
-                return(
-                    <div key={key} className={styles.galleryColumn}>
-                        {
-                            data.data && data.data.slice((data.data.length/5)*key,(data.data.length/5)*(key+1)).map((ind,index)=>{
-                                return(
-                                    <div key={index} className={styles.galleryImage}>
-                                        <div className={styles.galleryImg}>
-                                            <DashboardPost fileUrl={ind.imageList[0]}/>
-                                        </div>       
-                                        <div className={styles.galleryImgControls}>
-                                            <div className="p-2">
-                                                <p>{ind.about.slice(0,25)+(ind.about.length>=25?"...":"")}</p>
-                                                <p className='text-xs'>{ind.createdBy.name}</p>
-                                            </div>
-                                            {session &&
-                                                <div className={styles.galleryImgButtons}>
-                                                    <IconButton 
-                                                        onClick={()=>{
-                                                            markLikeAndDislike({likedBy:session.user.id,gigId:ind._id})
-                                                        }}
-                                                    >
-                                                        {ind.likedBy.includes(session.user.id) ? <FavoriteIcon style={{color:"#f59e0b"}}/> :<FavoriteBorderIcon style={{color:"white"}}/>}
-                                                    </IconButton>
-                                                    <IconButton 
-                                                        onClick={()=>router.push(`/gallery/${ind._id}`)}
-                                                        className={"text-white"}>
-                                                        <ZoomOutMapIcon/>
-                                                    </IconButton>
-                                                    <IconButton 
-                                                        onClick={()=>window.open(ind.imageList[0])}
-                                                        className={"text-white"}>
-                                                        <InterestsIcon/>
-                                                    </IconButton>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                )
-            })
-        }
-        </div>
-        </>;
-
-}
 
 
 const Gallery = ({count}) => {
     
     const {data:session,status}=useSession()
-    const { mutate } = useSWRConfig()
-    
+    const router=useRouter()
     const [cnt, setCnt] = useState(1)
+
+    const {data,error}=useSWR('FetchingDataForPage',()=>galleryPosts({page:cnt-1}))
+    
+    if(error){
+    return(
+        <h1>Something went wrong</h1>
+        )
+    }
+
+    if(!data){
+    return(
+        <h1>Loading</h1>
+        )
+    }
+    
         
     return(
         <div className="grid place-items-center mb-12">
-         <Page mutate={mutate} page={cnt} session={session}/>
+        <Head>
+            <title>
+                Gallery - Ikshvaku
+            </title>
+        </Head>
+        <>
+            <div  className={styles.galleryRow}>
+            {
+                new Array(5).fill("").map((arr,key)=>{
+                    return(
+                        <div key={key} className={styles.galleryColumn}>
+                            {
+                                data.data && data.data.slice((data.data.length/5)*key,(data.data.length/5)*(key+1)).map((ind,index)=>{
+                                    return(
+                                        <div key={index} className={styles.galleryImage}>
+                                            <div className={styles.galleryImg}>
+                                                <DashboardPost fileUrl={ind.imageList[0]}/>
+                                            </div>       
+                                            <div className={styles.galleryImgControls}>
+                                                <div className="p-2">
+                                                    <p>{ind.about.slice(0,25)+(ind.about.length>=25?"...":"")}</p>
+                                                    <p className='text-xs'>{ind.createdBy.name}</p>
+                                                </div>
+                                                {session &&
+                                                    <div className={styles.galleryImgButtons}>
+                                                        <IconButton 
+                                                            onClick={()=>{
+                                                                markLikeAndDislike({likedBy:session.user.id,gigId:ind._id})
+                                                            }}
+                                                        >
+                                                            {ind.likedBy.includes(session.user.id) ? <FavoriteIcon style={{color:"#f59e0b"}}/> :<FavoriteBorderIcon style={{color:"white"}}/>}
+                                                        </IconButton>
+                                                        <IconButton 
+                                                            onClick={()=>router.push(`/gallery/${ind._id}`)}
+                                                            className={"text-white"}>
+                                                            <ZoomOutMapIcon/>
+                                                        </IconButton>
+                                                        <IconButton 
+                                                            onClick={()=>window.open(ind.imageList[0])}
+                                                            className={"text-white"}>
+                                                            <InterestsIcon/>
+                                                        </IconButton>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    )
+                })
+            }
+            </div>
+        </>;
+ 
          <Stack spacing={2}
          >
             <Pagination 
@@ -117,10 +109,12 @@ const Gallery = ({count}) => {
 };
 
 export default Gallery;
-// import React from 'react';
 
-// const gallery = () => {
-//   return <div>gallery</div>;
-// };
-
-// export default gallery;
+export async function getStaticProps(){
+    const count=(await getGigsCount()).data
+    return{
+        props:{
+            count
+        }
+    }
+}
