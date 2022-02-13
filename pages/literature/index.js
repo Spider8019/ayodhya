@@ -4,6 +4,8 @@ import LiteratureLayout from "../../components/layout/literatureLayout"
 import parse from 'html-react-parser';
 import {getSpecificLiteratureDetails}  from "../../globalSetups/api"
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import Head from 'next/head';
+import Link from "next/link"
 
 const LiteratureContainer = ({data,htmlData,error}) => {
 
@@ -18,20 +20,25 @@ const LiteratureContainer = ({data,htmlData,error}) => {
       </div>
   }
   return <div>
-
+    <Head>
+      <title>
+        Literature - Ikshvaku
+      </title>
+    </Head>
     {
       data.homepage 
       ?
       <div>
-        rajput literature
-        <p className="text-8xl">working on version 1 is in progress</p>
-        <p className="text-8xl">working on version 1 is in progress</p>
-        <p className="text-8xl">working on version 1 is in progress</p>
-        <p className="text-8xl">working on version 1 is in progress</p>
-        <p className="text-8xl">working on version 1 is in progress</p>
-        <p className="text-8xl">working on version 1 is in progress</p>
-        <p className="text-8xl">working on version 1 is in progress</p>
-        <p className="text-8xl">working on version 1 is in progress</p>
+        <p className="text-8xl">Literature</p>
+        <div className='my-4 flex flex-wrap'>
+          <Link
+          href=""
+          >
+            <a className='text-xl bg-amber-50 border border-amber-500 p-8 rounded'>
+              Hanuman Ji
+            </a>        
+          </Link>
+        </div>
       </div>
       :
       <>

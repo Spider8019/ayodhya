@@ -115,7 +115,7 @@ export default function Home() {
                             alt="5 August 2020"
                           />
                         </div>
-                        <div className="p-4 flex flex-col">
+                        <div className=" p-4 flex flex-col">
                           <p className="mb-4">Shri Ram Mandir Ayodhya</p>
                           <p className="text-sm overflow-hidden"
                           >The temple construction is being supervised by the Shri Ram Janmabhoomi Teerth Kshetra. <br/>Architect: Chandrakant Sompura</p>
