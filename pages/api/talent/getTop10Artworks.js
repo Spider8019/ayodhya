@@ -9,8 +9,7 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                // const blogs = await Gigs.find({category:"artwork"}).sort({likedB})
-                const blogs = Gigs.aggregate(
+                const top10 =await Gigs.aggregate(
                     [
                         {"$match":{category:"artworks"}},
                         { "$project": {
@@ -22,13 +21,14 @@ async function handler(req, res) {
                             "dislikedBy": 1,
                             "createdBy":1,
                             "createdAt":1,
-                            "length": { "likedBy":{"$size": "$answers" }}
+                            "length": { "likedBy":{"$size": "$likedBy" }}
                         }},
                         { "$sort": { "length": -1 } },
                         { "$limit": 10 }
                     ]
                 )
-                res.status(200).json(blogs)
+                console.log(top10)
+                res.status(200).json(top10)
                 break;
         case 'POST':
                 console.log(req.body)

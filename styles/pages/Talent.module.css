@@ -4,12 +4,8 @@
 }
 .slickContainer{
 }
-.slickBox{
-    /* height:10rem; */
-    background:Red;
-}
+
 .slickBox h3{
     margin:1rem;
-    background:green;
     height:10rem;
 }

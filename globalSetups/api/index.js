@@ -74,3 +74,4 @@ export const getLiteratureSideBar = (obj) => callApiAndReturnDataGet(obj,'books/
 export const getSpecificLiteratureDetails = (obj) => callApiAndReturnDataGet(obj,'books/getAllDetailsOfSpecificLiterature/')
 export const getContextForASpecificLiterature = (obj) => callApiAndReturnDataGet(obj,'singleObj/getContext/')
 export const uploadProfilePicture = (obj) => callApiAndReturnDataPut(obj,'singleObj/profile/')
+export const getTop10Talents = (obj) => callApiAndReturnDataGetMod(obj, 'talent/getTop10Artworks')
