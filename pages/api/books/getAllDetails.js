@@ -14,7 +14,7 @@ async function handler(req, res) {
                     return{
                         book:item,
                         chapters:_.filter(books,(book)=>{
-                            if(item===book.book && book.chapter!==""){
+                            if(item===book.book && book.chapter!=="****"){
                                 return {chapter:book.chapter}
                             }
                         })}

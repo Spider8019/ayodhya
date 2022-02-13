@@ -15,6 +15,8 @@ import { uploadPost } from '../../../globalSetups/api/index.js';
 import {nanoid} from "nanoid"
 import PreviewPost from "../previewPost"
 import {mutate} from "swr"
+import 'emoji-mart/css/emoji-mart.css'
+import { Picker } from 'emoji-mart'
 
 function PaperComponent(props) {
   return (
@@ -52,6 +54,10 @@ export default function DraggableDialog({name,avatar}) {
     setAbout("");
     setCategory('photography')
   }
+
+  const onEmojiClick = (event) => {
+    setAbout(about + event.native);
+  };
 
   const handleFile=(e)=>{
         var file  = e.target.files[0];
@@ -107,7 +113,7 @@ export default function DraggableDialog({name,avatar}) {
         open={open}
         onClose={handleClose}
         fullWidth={true}
-        maxWidth={'xs'}
+        maxWidth={'md'}
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
       >
@@ -142,30 +148,45 @@ export default function DraggableDialog({name,avatar}) {
               </FormControl>
             </div>
           </div>
-          <div className="addPostDialogBody">
-                <div className="addPostInputText mt-4">
+          <div className="addPostDialogBody ">
+                <div className="addPostInputText mt-4 grid gap-8"
+                  style={{gridTemplateColumns:"1fr 0.4fr"}}
+                >
+                  <div className="flex flex-col">
                     <textarea
-                        className="textarea"
+                        className="textarea flex-1"
                         placeholder='Whats on your mind'
                         type="text"
                         value={about}
                         onChange={e=>setAbout(e.target.value)}
                     >
                     </textarea>
+                    <div>
+                        <label className="mt-4 custom-file-upload w-full text-center">
+                            <input
+                                onChange={handleFile}
+                                type="file"/>
+                            {someData ? 'Replace Media' : 'Add Media'}
+                        </label>
+                        {
+                        someData
+                        &&
+                        <div className='w-full p-2 border border-black'>
+                              <PreviewPost file={file} fileExtension={fileBody && fileBody.name.substring(fileBody.name.lastIndexOf(".") + 1)}/>
+                        </div>
+                        }
+                    </div>
+                  </div>
+                    <Picker 
+                      color="#f59e0b"
+                      set={'facebook'}
+                      onSelect={onEmojiClick}
+                      theme='light'
+                      // style={{height:"10rem"}}
+                      sheetSize={64}
+                    />
                 </div>
-                <label className="my-4 custom-file-upload w-full text-center">
-                    <input
-                        onChange={handleFile}
-                        type="file"/>
-                    {someData ? 'Replace Media' : 'Add Media'}
-                </label>
-                {
-                someData
-                &&
-                <div className='w-full p-2 border border-black'>
-                      <PreviewPost file={file} fileExtension={fileBody && fileBody.name.substring(fileBody.name.lastIndexOf(".") + 1)}/>
-                </div>
-                }
+
             </div>
         </DialogContent>
         <DialogActions>

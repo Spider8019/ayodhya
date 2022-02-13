@@ -13,13 +13,11 @@ async function handler(req, res) {
                 console.log(blogs)
                 res.status(200).json(blogs)
                 break;
-        case 'POST':
+        case 'PUT':
                 console.log(req.body)
-                const payload = new Blogs({
-                    ...req.body
-                })
-                console.log(await payload.save())
-                res.status(200).json({msg:"Blog Published Successfully"})
+                const gigs = await Gigs.updateOne({_id:req.body.gigId},{$inc : {view:1}})
+                console.log(gigs)
+                res.status(200).json({msg:"View Incremented By One"})
                 break;
         default:
                 res.status(400).json({ success: false })

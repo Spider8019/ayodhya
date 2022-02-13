@@ -1,3 +1,4 @@
+
 import React,{useState,useRef,useLayoutEffect, useEffect} from 'react';
 import DashboardLayout from "../../components/layout/dashboardLayout"
 import styles from "../../styles/pages/Dashboard.module.css"
@@ -21,11 +22,13 @@ import ChangeProfileDialog from '../../components/utils/dialogs/changeProfile';
 import Head from "next/head"
 import dateFormat from 'dateformat';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import ShareDialog from "../../components/utils/dialogs/sharePage"
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CloseIcon from '@mui/icons-material/Close';
 import { yMove } from '../../globalSetups/framer';
 import EditIcon from '@mui/icons-material/Edit';
+import millify from "millify";
+import FilterTiltShiftIcon from '@mui/icons-material/FilterTiltShift';
+
 
 const Dashboard = ({user}) => {
 
@@ -237,11 +240,14 @@ const Dashboard = ({user}) => {
                         <div className="border-t-2 p-2 flex justify-between">
                         <div className="flex items-center">
                                 <IconButton
-                               
                                 >
                                     <FavoriteIcon style={{color:"#f59e0b"}}/>
                                 </IconButton>
                                 <p className="pl-2">1</p>
+                                <IconButton className="pl-2">
+                                    <FilterTiltShiftIcon/>
+                                </IconButton>
+                                <p className='pl-2'>{millify(posts.data[selected].view)}</p>
                             </div>
                             <div className='flex'>
                                 <IconButton
@@ -250,7 +256,6 @@ const Dashboard = ({user}) => {
                                     <DashboardOutlinedIcon/>
                                 </IconButton>
 
-                                <ShareDialog/>
                                 <IconButton onClick={()=>setSelected(-1)}>
                                    <CloseIcon/>
                                 </IconButton>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { defaultOptions } from '../../../globalSetups/availableArrays';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
@@ -92,7 +93,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function CustomizedDialogs() {
+export default function CustomizedDialogs({url='https://www.google.com',title='Ikshvaku Ayodhya - Spider8019'}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -117,46 +118,89 @@ export default function CustomizedDialogs() {
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <div className="grid grid-cols-7 gap-4">
-              <EmailShareButton url="https://www.google.com">
+              <EmailShareButton 
+                subject='Share from - Ikshvaku - Ayodhya - Spider8019.com '
+                url={defaultOptions.baseUrl+url}
+                body={title}
+              >
                    <EmailIcon borderRadius={4}/>
               </EmailShareButton>
-              <WhatsappShareButton>
+              <WhatsappShareButton
+                url={defaultOptions.baseUrl+url}
+                title={title}
+              >
                     <WhatsappIcon borderRadius={4}/>
               </WhatsappShareButton>
-              <TelegramShareButton>
+              <TelegramShareButton
+                url={defaultOptions.baseUrl+url}
+                title={title}
+              >
                 <TelegramIcon  borderRadius={4}/>
               </TelegramShareButton>
-              <TwitterShareButton>
+              <TwitterShareButton
+                url={defaultOptions.baseUrl+url}
+                title={title}
+              >
                 <TwitterIcon  borderRadius={4}/>
               </TwitterShareButton>
-              <FacebookShareButton>
+              <FacebookShareButton
+                  url={defaultOptions.baseUrl+url}
+                  title={title}
+              >
                     <FacebookIcon  borderRadius={4}/>
               </FacebookShareButton>
-              <PinterestShareButton>
+              <PinterestShareButton
+                  url={defaultOptions.baseUrl+url}
+                  title={title}
+              >
                     <PinterestIcon  borderRadius={4}/>
               </PinterestShareButton>
-              <InstapaperShareButton>
+              <InstapaperShareButton
+                  url={defaultOptions.baseUrl+url}
+                  title={title}
+              >
                      <InstapaperIcon  borderRadius={4}/>
               </InstapaperShareButton>
-              <LinkedinShareButton>
+              <LinkedinShareButton
+                  url={defaultOptions.baseUrl+url}
+                  title={title}
+              >
                       <LinkedinIcon  borderRadius={4}/>
               </LinkedinShareButton>
-              <OKShareButton>
+              <OKShareButton
+                  url={defaultOptions.baseUrl+url}
+                  title={title}
+              >
                    <OKIcon  borderRadius={4}/>
               </OKShareButton>
-              <FacebookMessengerShareButton>
+              <FacebookMessengerShareButton
+                  url={defaultOptions.baseUrl+url}
+                  title={title}
+              >
                 <FacebookMessengerIcon  borderRadius={4}/>
               </FacebookMessengerShareButton>
-              <RedditShareButton>
+              <RedditShareButton
+                  url={defaultOptions.baseUrl+url}
+                  title={title}
+              >
                   <RedditIcon  borderRadius={4}/>
               </RedditShareButton>
-              <PocketShareButton>
+              <PocketShareButton
+                  url={defaultOptions.baseUrl+url}
+                  title={title}
+              >
                 <PocketIcon  borderRadius={4}/>
               </PocketShareButton>
-              <VKShareButton>
+              <VKShareButton
+                  url={defaultOptions.baseUrl+url}
+                  title={title}
+              >
                 <VKIcon  borderRadius={4}/>
               </VKShareButton>
-              <ViberShareButton>
+              <ViberShareButton
+                  url={defaultOptions.baseUrl+url}
+                  title={title}
+              >
                 <ViberIcon  borderRadius={4}/>
               </ViberShareButton>
           </div>

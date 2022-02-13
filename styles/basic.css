@@ -67,11 +67,12 @@ input[type="file"] {
     padding-left:1rem !important;
     font-size:0.8rem !important;
     background:linear-gradient(white,#ccc) !important;
+    width:8rem !important;
 }
 .MuiPagination-text{
   background:Red;
 }
-.PNFContainer{
+.PNFContainer{  
     height:calc(100vh - 10rem);
     width:100%;
     background:url("../public/static/pages/404.png") no-repeat bottom;

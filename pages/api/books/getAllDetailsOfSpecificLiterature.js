@@ -16,7 +16,8 @@ async function handler(req, res) {
                     res.status(200).json({homepage:true})
                     return
                 }
-                const books = await Literature.findOne({book:query.book,chapter:query.chapter}).populate("createdBy")
+                console.log(query)
+                const books = await Literature.findOne({book:query.book,chapter:query.chapter==='null'?{$eq:''}:query.chapter}).populate("createdBy")
                 console.log(books)
                 res.status(200).json({homepage:false,data:books})
                 break;

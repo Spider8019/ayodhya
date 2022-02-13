@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {getSpecificGalleryPost} from "../../globalSetups/api"
 import styles from "../../styles/Gallery.module.css"
 import Image from 'next/image';
@@ -11,32 +11,43 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { getSession,useSession } from 'next-auth/react';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import ShareDialog from "../../components/utils/dialogs/sharePage"
-import { getPostsOfProfile } from '../../globalSetups/api';
-import { markLikeAndDislike } from '../../globalSetups/api';
+import { markLikeAndDislike,getPostsOfProfile,incrementView } from '../../globalSetups/api';
 import parse from 'html-react-parser';
 import Link from "next/link"
 import Head from "next/head"
 import { motion } from 'framer-motion';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import millify from "millify";
+import FilterTiltShiftIcon from '@mui/icons-material/FilterTiltShift';
+import { useRouter } from 'next/router';
 
 
 const Gallery = ({detail}) => {
 
   const [posts,setPosts]=useState([])
   const [objectFit,setObjectFit]=useState(false)
+  const router=useRouter()
 
   const {data:session,status}=useSession()
   const [like,setLike]=useState(session && detail.likedBy.includes(session.user.id) )
   const [likedBy,setLikedBy]=useState(session && detail.likedBy.length)
 
   const onLikeShowMore=async()=>{
-    // if(!posts){
+    if(!posts){
         const data = await getPostsOfProfile({createdBy:detail.createdBy._id})
         if(data.status===200)
           setPosts(data.data)
-    // }
+    }
   }
 
+  useEffect(()=>{
+    const abortCont=new AbortController();
+    (async()=>{
+        await incrementView({gigId:detail._id})
+    })();
+
+    return ()=>abortCont.abort()
+  },[])
 
   return <div className={`${styles.specContainerParent}`}>
       <Head>
@@ -155,7 +166,11 @@ const Gallery = ({detail}) => {
                             >
                                 {session && like? <FavoriteIcon style={{color:"#f59e0b"}}/> : <FavoriteBorderIcon/>}
                             </IconButton>
-                            <p className="pl-2">{likedBy}</p>
+                            <p className="px-2">{likedBy}</p>
+                            <IconButton className="pl-2">
+                                    <FilterTiltShiftIcon/>
+                            </IconButton>
+                            <p className='pl-2'>{millify(detail.view)}</p>
                         </div>
                         :
                         <span></span>
@@ -167,7 +182,7 @@ const Gallery = ({detail}) => {
                             <DashboardOutlinedIcon/>
                         </IconButton>
 
-                        <ShareDialog/>
+                        <ShareDialog url={router.asPath} title={detail.about}/>
                     </div>
                 </div>
             </div>

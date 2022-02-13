@@ -30,7 +30,7 @@ const Layout = ({children}) => {
                                 key={index}
                                 className={`p-1 pl-4 border-l-4 ${router.query.book && router.query.book.includes(item.book) ? "border-amber-500" :"border-transparent"}`}
                             >
-                                <Link prefetch={false} href={`?book=${item.book}&chapter=`}
+                                <Link prefetch={false} href={`?book=${item.book}&chapter=****`}
                                 >
                                     <a 
                                         className={`flex align-center `}

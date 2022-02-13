@@ -23,9 +23,9 @@ const Gallery = ({count}) => {
     const [cnt, setCnt] = useState(1)
 
     const {data,error}=useSWR('FetchingDataForPage',()=>galleryPosts({page:cnt-1}))
-    
+
     if(error){
-    return(
+        return(
         <h1>Something went wrong</h1>
         )
     }
@@ -35,7 +35,6 @@ const Gallery = ({count}) => {
         <GalleryLoader/>
         )
     }
-    
         
     return(
         <div className="grid place-items-center mb-12">
