@@ -18,7 +18,7 @@ const Navbar = () => {
     if (["/auth/signin","/signup","/dashboard","/dashboard/tabulate","/dashboard/blog","/dashboard/devLiterature"].includes(router.pathname))
       return null;
 
-    return (
+    return (  
         <div className='flex flex-col'>
             <div className="px-10 py-4 flex justify-between items-center">
                 <div className='flex items-center'>
@@ -85,7 +85,7 @@ const Navbar = () => {
                  <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.talent')}</a>
                </Link>
               </li>
-              <li className={router.pathname == "/gallery" ? "bg-amber-600" : ""}>
+              <li className={router.pathname.includes("/gallery") ? "bg-amber-600" : ""}>
                <Link href="/gallery">
                  <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.gallery')}</a>
                </Link>

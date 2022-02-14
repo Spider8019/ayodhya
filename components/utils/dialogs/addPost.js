@@ -155,7 +155,7 @@ export default function DraggableDialog({name,avatar}) {
                   <div className="flex flex-col">
                     <textarea
                         className="textarea flex-1"
-                        placeholder='Whats on your mind'
+                        placeholder={category==="music"?'Track Title':'Whats on your mind'}
                         type="text"
                         value={about}
                         onChange={e=>setAbout(e.target.value)}
@@ -165,13 +165,14 @@ export default function DraggableDialog({name,avatar}) {
                         <label className="mt-4 custom-file-upload w-full text-center">
                             <input
                                 onChange={handleFile}
+                                accept={category==="music"?"audio/*":category==="dance"?"video/*":"image/*,video/*"}
                                 type="file"/>
                             {someData ? 'Replace Media' : 'Add Media'}
                         </label>
                         {
                         someData
                         &&
-                        <div className='w-full p-2 border border-black'>
+                        <div className='w-full p-2 mt-4 border border-black'>
                               <PreviewPost file={file} fileExtension={fileBody && fileBody.name.substring(fileBody.name.lastIndexOf(".") + 1)}/>
                         </div>
                         }

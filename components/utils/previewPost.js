@@ -34,15 +34,26 @@ const previewPost=({file,fileExtension})=>{
                 </>)
         case "mp4":
         case "mov":
-        case "ogg":
             return(
                 <video className="rounded" style={{height:"calc(100% - 0.5rem)",width:"100%"}} controls>
                     <source src={file} type="video/mp4"/>
                     Your browser does not support the video tag.
                 </video>
             )
+        case 'mp3':
+            return(
+                <div>
+                    <audio controls
+                     className="w-full"
+                    >
+                        <source src={file} type="audio/mpeg"/>
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            )
+            break;
         default:
-            return(<p className="text-red-500 text-center">Extension doesn&apos;t match</p>)
+            return(<p className="text-red-500 text-center">.{fileExtension} Extension is not supported</p>)
             
     }
 }

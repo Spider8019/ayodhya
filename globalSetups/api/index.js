@@ -75,3 +75,4 @@ export const getSpecificLiteratureDetails = (obj) => callApiAndReturnDataGet(obj
 export const getContextForASpecificLiterature = (obj) => callApiAndReturnDataGet(obj,'singleObj/getContext/')
 export const uploadProfilePicture = (obj) => callApiAndReturnDataPut(obj,'singleObj/profile/')
 export const getTop10Talents = (obj) => callApiAndReturnDataGetMod(obj, 'talent/getTop10Artworks')
+export const getAudios = (obj) => callApiAndReturnDataGetMod(obj,"audio/")

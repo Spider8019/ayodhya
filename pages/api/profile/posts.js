@@ -13,7 +13,7 @@ async function handler(req, res) {
         case 'GET':
                 console.log("get request")
                 console.log(req.query)
-                const gallery = await Gigs.find({}).sort({createdAt:-1}).populate('createdBy').limit(50).skip(50*(req.query.page))
+                const gallery = await Gigs.find({category:{$ne:"music"}}).sort({createdAt:-1}).populate('createdBy').limit(50).skip(50*(req.query.page))
                 res.status(200).json(gallery)
                 break;
         case 'POST':
