@@ -15,19 +15,20 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';    
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
-const albumArt = require( 'album-art' )
+import Cubes from "../../components/three"
+import Head from "next/head"
 
 const Audio = () => {
 
   const {data:audios,error:audiosError}=useSWR("GetAllAudios",()=>getAudios())
   const [active,setActive]=useState({
       status:false,
-      src:"https://ikshvaku-s3.s3.ap-south-1.amazonaws.com/spider8019J4LFGPBLU2.mp3",
+      src:"",
       volume:0.5,
       playbackRate:1,
-      trackId:-1,
+      trackId:0,
       about:"_____ _________ _______ ____________",
-      trackBy:"____________"
+      trackBy:"____________ ________ ____"
   })
   const audioRef=useRef(null)
   const [current,setCurrent]=useState(0)
@@ -98,7 +99,9 @@ const Audio = () => {
 
    return (
        <>
-
+        <Head>
+            <title>Music Player - Ikshvaku</title>
+        </Head>
         <div
        id="player"
        style={{overflowX:"hidden",height:"100vh",display:"grid",gridTemplateRows:"85% 15%"}}
@@ -112,20 +115,20 @@ const Audio = () => {
                         volume={active.volume}
                         style={{display:"none"}}
                         ref={audioRef}
-                        src={active.src}
+                        src={active.src && active.src}
                         onCanPlay={()=>audioRef.current.play()}
                         onEnded={()=>{
                             if(active.trackId===audios.length-1)
-                                setActive({...active,src:audios[0].imageList[0],trackId:0})
+                                setActive({...active,trackBy:audios[0].createdBy.name,about:audios[0].about,src:audios[0].imageList[0],trackId:0})
                             else
-                                setActive({...active,src:audios[active.trackId+1].imageList[0],trackId:active.trackId+1})
+                                setActive({...active,trackBy:audios[active.trackId+1].createdBy.name,about:audios[active.trackId].about,src:audios[active.trackId+1].imageList[0],trackId:active.trackId+1})
                         }}
                     />
-                    <div className='bg-amber-500 h-2/4 w-full'>
-                        daf;slkdfj
+                    <div className='h-full w-full'>
+                        <Cubes/>
                     </div>
                 </div>
-               <div className='grid place-items-center'>
+               <div className='grid place-items-center bg-slate-50'>
                    <div className='w-2/3'
                     style={{height:"90%"}}
                    > 
@@ -155,14 +158,14 @@ const Audio = () => {
                     </div>
                     <div 
                         style={{
-                        transform:"translate(-100%,-6px)",
+                        transform:"translate(-50%,-6px)",
                         left:(current/(audioRef.current ? audioRef.current.duration : 1))*100+"%"}}
                         className="seekToButton absolute h-4 w-4 bg-amber-500 rounded-full">
                     </div>
                 </div>
                 <div className='flex items-center'>
                     <IconButton>
-                        <SkipPreviousOutlinedIcon className="text-4xl text-amber-500"/>
+                        <SkipPreviousOutlinedIcon className="text-4xl "/>
                     </IconButton>
                     <IconButton
                       onClick={togglePlay}
@@ -170,16 +173,16 @@ const Audio = () => {
                         {active.status
                         ?
                         <PauseOutlinedIcon
-                        className='text-6xl text-amber-500'
+                        className='text-6xl'
                         />
                         :
                         <PlayArrowOutlinedIcon
-                            className='text-6xl text-amber-500'
+                            className='text-6xl'
                         />
                         }
                     </IconButton>
                     <IconButton>
-                        <SkipNextOutlinedIcon  className="text-4xl text-amber-500"/>
+                        <SkipNextOutlinedIcon  className="text-4xl "/>
                     </IconButton>
                     <p className="text-sm ml-4">{("0"+Math.floor(audioRef.current && audioRef.current.currentTime/60)).slice(-2)}:{("0"+Math.floor(audioRef.current && audioRef.current.currentTime%60)).slice(-2)}/{("0"+Math.floor(audioRef.current && audioRef.current.duration/60)).slice(-2)}:{("0"+Math.floor(audioRef.current && audioRef.current.duration%60)).slice(-2)}</p>
                 </div>
