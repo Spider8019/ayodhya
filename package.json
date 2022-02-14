@@ -12,6 +12,7 @@
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.8",
+    "@react-three/fiber": "^7.0.26",
     "album-art": "^2.0.2",
     "aws-sdk": "^2.1066.0",
     "axios": "^0.25.0",
@@ -43,7 +44,8 @@
     "react-slick": "^0.28.1",
     "suneditor": "^2.42.0",
     "suneditor-react": "^3.3.1",
-    "swr": "^1.1.2"
+    "swr": "^1.1.2",
+    "three": "^0.137.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",

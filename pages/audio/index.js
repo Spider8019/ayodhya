@@ -68,7 +68,6 @@ const Audio = () => {
         //     console.log(x)
         //     console.log(URL.createObjectURL(x))
 
-        //     // alert(data)
         // })();
 
 
