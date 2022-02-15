@@ -54,6 +54,11 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li>
+                    <Link href="/audio#player">
+                      <a>Music</a>
+                    </Link>
+                  </li>
+                  <li>
                     <Link href="/gallery">
                       <a>Gallery</a>
                     </Link>

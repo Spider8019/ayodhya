@@ -9,12 +9,9 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                const blogs = await Gigs.findOne({_id:req.query.gigId}).populate('createdBy')
-                res.status(200).json(blogs)
-                break;
-        case 'PUT':
-                const gigs = await Gigs.updateOne({_id:req.body.gigId},{$inc : {view:1}})
-                res.status(200).json({msg:"View Incremented By One"})
+                console.log(req.query.date)
+                const gigs = await Gigs.find({category:{$ne:"music"},_id:{$ne:req.query.notId},createdAt:{$gte:new Date(Date.parse(req.query.date)-864000000),$lte:new Date(Date.parse(req.query.date)+864000000)}}).populate('createdBy','name image availableImages').limit(25)
+                res.status(200).json(gigs)
                 break;
         default:
                 res.status(400).json({ success: false })

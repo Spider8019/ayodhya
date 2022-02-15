@@ -12,7 +12,7 @@ body{
 .GFG {
     color:transparent;
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: #aaa;
+    -webkit-text-stroke-color: #000;
 }
 .basicButton{
     padding:0.5rem 1rem;
@@ -77,4 +77,8 @@ input[type="file"] {
     width:100%;
     background:url("../public/static/pages/404.png") no-repeat bottom;
     background-size:cover;
+}
+.playerLeftContainer{
+    background-size:contain !important;
+    background:url('../public/static/pages/player.png') no-repeat left;
 }

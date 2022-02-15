@@ -29,7 +29,9 @@ async function handler(req, res) {
                 res.status(200).json({msg:"Post created Successfully"})
                 break;
         case 'PUT':
+                console.log(req.body)
                 const selectedGig=await Gigs.findOne({_id:req.body.gigId},{likedBy:1});
+                console.log(selectedGig)
                 if(selectedGig.likedBy.includes(req.body.likedBy)){
                     await Gigs.updateOne({_id:req.body.gigId},{$pull :{likedBy:req.body.likedBy}})
                 }else{

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { getTourismBlogs } from '../../globalSetups/api';
 import { availableTravelBlogType } from '../../globalSetups/availableArrays';
 import TourismLoader from "../../components/global/TourismLoader"
+import Head from "next/head"
 
 const Tourism = () => {
   
@@ -16,6 +17,9 @@ const Tourism = () => {
       return <h1>There is some error</h1>
   }
   return <>
+        <Head>
+            <title>Tourism - Ikshvaku</title>
+        </Head>
         <div className="m-20 grid grid-cols-4 gap-8">
             {data.data && data.data.map((item,key)=>{
                 return(

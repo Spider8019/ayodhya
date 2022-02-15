@@ -11,7 +11,7 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { getSession,useSession } from 'next-auth/react';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import ShareDialog from "../../components/utils/dialogs/sharePage"
-import { markLikeAndDislike,getPostsOfProfile,incrementView } from '../../globalSetups/api';
+import { markLikeAndDislike,getPostsOfProfile,incrementView,getRelatedGalleryPosts } from '../../globalSetups/api';
 import parse from 'html-react-parser';
 import Link from "next/link"
 import Head from "next/head"
@@ -20,6 +20,7 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import millify from "millify";
 import FilterTiltShiftIcon from '@mui/icons-material/FilterTiltShift';
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
 
 
 const Gallery = ({detail}) => {
@@ -31,9 +32,10 @@ const Gallery = ({detail}) => {
   const {data:session,status}=useSession()
   const [like,setLike]=useState(session && detail.likedBy.includes(session.user.id) )
   const [likedBy,setLikedBy]=useState(session && detail.likedBy.length)
+  const {data:relatedGigs,error:relatedGigsError}=useSWR("GettingRelatedGigs",()=>getRelatedGalleryPosts({date:detail.createdAt,notId:detail._id}))
 
   const onLikeShowMore=async()=>{
-    if(!posts){
+    if(posts.length===0){
         const data = await getPostsOfProfile({createdBy:detail.createdBy._id})
         if(data.status===200)
           setPosts(data.data)
@@ -113,7 +115,7 @@ const Gallery = ({detail}) => {
                         &&
                         <div className={styles.morePostsSpec}>
                         {
-                         posts && posts.map(item=>{
+                         posts.map(item=>{
                                 return(
                                     item._id!==detail._id
                                     &&
@@ -159,11 +161,13 @@ const Gallery = ({detail}) => {
                             <IconButton
                             onClick={()=>{
                                 onLikeShowMore();
-                                !posts && markLikeAndDislike({likedBy:detail.createdBy._id,gigId:detail._id});
+                                markLikeAndDislike({likedBy:session.user.id,gigId:detail._id});
                                 setLike(!like)
                                 like ? setLikedBy(likedBy-1) : setLikedBy(likedBy+1)
                             }}
                             >
+                                
+                                {/* {detail.likedBy.includes(session.user.id) ? <FavoriteIcon style={{color:"#f59e0b"}}/> :<FavoriteBorderIcon/>} */}
                                 {session && like? <FavoriteIcon style={{color:"#f59e0b"}}/> : <FavoriteBorderIcon/>}
                             </IconButton>
                             <p className="px-2">{likedBy}</p>
@@ -186,6 +190,47 @@ const Gallery = ({detail}) => {
                     </div>
                 </div>
             </div>
+      </div>
+      <div className={`${styles.relatedGigsContaianer}`}>
+          {
+              !relatedGigs 
+              ?
+              <h1>Loading...</h1>
+              :
+              <div className={styles.relatedGigsContaianerMain}>
+                  {relatedGigs.map((item,key)=>{
+                      return(
+                          <Link key={key}
+                           href={`/gallery/${item._id}`}
+                          >
+                              <a
+                                
+                                className="rounded overflow-hidden bg-slate-50"
+                                style={{gridArea:"a"+key,boxShadow:"1px 1px 10px rgba(0,0,0,0.2)"}}
+
+                              >
+                                <div className='flex items-center p-2'>
+                                    <Avatar 
+                                     src={item.createdBy.availableImages[item.createdBy.image]}
+                                     alt={item.createdBy.name}
+                                    />
+                                    <p className='text-sm ml-4 no-wrap'>{item.createdBy.name}</p>
+                                </div>
+                                <Image
+                                    key={key}
+                                    src={item.imageList[0]}
+                                    height={1}
+                                    width={1}
+                                    layout="responsive"
+                                    alt={key}
+                                    className="p-2 m-4"
+                                />
+                              </a>
+                          </Link>
+                      )
+                  })}
+              </div>
+          }
       </div>
   </div>;
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/Gallery.module.css'
 import { useSession } from 'next-auth/react';
-import useSWR from 'swr';
+import useSWR,{mutate} from 'swr';
 import { IconButton,Pagination,Stack } from '@mui/material';
 import {galleryPosts,markLikeAndDislike,getGigsCount} from "../../globalSetups/api"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -35,7 +35,8 @@ const Gallery = ({count}) => {
         <GalleryLoader/>
         )
     }
-        
+       
+    console.log(data)
     return(
         <div className="grid place-items-center mb-12">
         <Head>
@@ -49,7 +50,7 @@ const Gallery = ({count}) => {
                     return(
                         <div key={key} className={styles.galleryColumn}>
                             {
-                                data.data && data.data.slice((data.data.length/5)*key,(data.data.length/5)*(key+1)).map((ind,index)=>{
+                                data && data.slice((data.length/5)*key,(data.length/5)*(key+1)).map((ind,index)=>{
                                     return(
                                         <div key={index} className={styles.galleryImage}>
                                             <div className={styles.galleryImg}>
@@ -64,14 +65,17 @@ const Gallery = ({count}) => {
                                                 {session &&
                                                         <IconButton 
                                                             onClick={()=>{
+                                                                // mutate("FetchingDataForPage",[],false)
                                                                 markLikeAndDislike({likedBy:session.user.id,gigId:ind._id})
                                                             }}
                                                         >
                                                             {ind.likedBy.includes(session.user.id) ? <FavoriteIcon style={{color:"#f59e0b"}}/> :<FavoriteBorderIcon style={{color:"white"}}/>}
                                                         </IconButton>
                                                 }
+                                                {console.log(key+index)}
                                                         <IconButton 
-                                                            onClick={()=>router.push(`/gallery/${ind._id}`)}
+                                                            onClick={()=>{router.push(`/gallery/${ind._id}`)
+                                                        }}
                                                          >
                                                             <ZoomOutMapIcon className={"text-white"}/>
                                                         </IconButton>

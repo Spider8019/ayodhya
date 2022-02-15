@@ -46,13 +46,13 @@
 
 }
 .specContainerParent{
-    height:100vh;
+    min-height:100vh;
     display:grid;
     place-items:center;
 }
 .specContainer{
     width:80vw;
-    margin:0 auto;
+    margin:5rem auto;
     background:white;
     box-shadow:2px 2px 20px rgba(0, 0, 0, 0.363);
     display:grid;
@@ -60,6 +60,21 @@
     justify-content: space-between;
     height:80vh;
      max-height: 80vh;
+
+}
+.relatedGigsContaianerMain{
+    margin:5rem  0;
+    width:80vw;
+    display:grid;
+    grid-gap:2rem;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-areas: 'a0 a1 a2 a2 a3'
+                         'a4 a4 a2 a2 a5'
+                         'a6 a7 a8 a9 a10'
+                         'a11 a12 a13 a14 a15'
+                         'a16 a16 a17 a18 a19'
+                         'a16 a16 a20 a21 a19'
+                         'a22 a23 a24 a25 a25';
 }
 .specImgContainer{
     width:100%;

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect,useState,useRef } from 'react'
 import useSWR, { mutate } from 'swr'
-import  {getAudios} from "../../globalSetups/api"
+import  {getAudios,markLikeAndDislike,incrementView} from "../../globalSetups/api"
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import PauseOutlinedIcon from '@mui/icons-material/PauseOutlined';
 import { IconButton } from '@mui/material';
@@ -12,16 +12,19 @@ import Script from 'next/script'
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
-import VolumeMuteIcon from '@mui/icons-material/VolumeMute';    
-import VolumeDownIcon from '@mui/icons-material/VolumeDown';
-import Cubes from "../../components/three"
+import LoaderPlayer from "../../components/global/LoaderPlayer"
+import {siedEntrance,hRise,xMove} from "../../globalSetups/framer"
 import Head from "next/head"
 import Image from 'next/image';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import { getSession } from 'next-auth/react';
+import NumberFormat from 'react-number-format';
 
-const Audio = () => {
+const Audio = ({user}) => {
 
-  const [shuffled,setShuffled]=useState([])
   const {data:audios,error:audiosError}=useSWR("GetAllAudios",()=>getAudios())
+  const timePlay=useRef(0)
   const [active,setActive]=useState({
       status:false,
       src:"",
@@ -39,15 +42,17 @@ const Audio = () => {
     const interval=setInterval(()=>{
         if(!_.isNull(audioRef.current))
          setCurrent(audioRef.current.currentTime)
+        if(audioRef.current && !audioRef.current.paused)
+         timePlay.current+=1
+        if(timePlay.current===30){
+            incrementView({gigId:audios[active.trackId]._id})
+        }
     },1000)
 
 
     return ()=>clearInterval(interval)
   })
 
-  useEffect(()=>{
-
-  },[shuffled])
   const togglePlay=()=>{
       if(audioRef.current.paused)
         audioRef.current.play()
@@ -64,13 +69,14 @@ const Audio = () => {
   }
   if(!audios){
       return(
-          <p>Loading...</p>
+          <LoaderPlayer/>
           )
         }
 
 
     const changeSong = (audio,trackId)=>{
         
+        timePlay.current=0;
         if(trackId===active.trackId)
             togglePlay()
         else{
@@ -89,11 +95,6 @@ const Audio = () => {
             setActive({...active,volume:vol})
         }
     }
-    // const audioContext = new AudioContext();
-    // const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(audioRef.current);
-    // const analyserNode = audioContext.createAnalyser();
-    // mediaStreamAudioSourceNode.connect(analyserNode);
- 
 
 
    return (
@@ -105,12 +106,10 @@ const Audio = () => {
        id="player"
        style={{overflowX:"hidden",height:"100vh",display:"grid",gridTemplateRows:"85% 15%"}}
        >
-{console.log(audioRef.current)}
             <div
                 className='grid grid-cols-2'
             >
-                <div className='m-12'>
-
+                <div className='p-12 playerLeftContainer'>
                     <audio controls
                         volume={active.volume}
                         style={{display:"none"}}
@@ -124,9 +123,22 @@ const Audio = () => {
                                 setActive({...active,trackBy:audios[active.trackId+1].createdBy.name,about:audios[active.trackId].about,src:audios[active.trackId+1].imageList[0],trackId:active.trackId+1})
                         }}
                     />
-                    <div className='h-full w-full'>
-                        <Cubes/>
+                    <div 
+                        className='h-full grid place-items-center  w-full'>
+                        {/* <Cubes/> */}
+                        <div>
+                            <span 
+                                className="signature text-2xl">Total Listens</span>
+                            <NumberFormat
+                                    value={audios[active.trackId].view}
+                                    className="text-8xl text-center GFG font-bold mt-4"
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    renderText={(value, props) => <div {...props}>{value}</div>}
+                            />
+                        </div>
                     </div>
+
                 </div>
                <div className='grid place-items-center bg-slate-50'>
                    <div className='w-2/3'
@@ -204,6 +216,15 @@ const Audio = () => {
                         <p>{audios[active.trackId].about}</p>
                         <p className="text-sm">{audios[active.trackId].createdBy.name}</p>
                     </div>
+                    <div className='flex ml-2'>
+                        <IconButton
+                            onClick={()=>{
+                                markLikeAndDislike({likedBy:user.id,gigId:audios[active.trackId]._id})
+                            }}
+                        >
+                            {audios[active.trackId].likedBy.includes(user.id) ? <ThumbUpAltIcon/> : <ThumbUpOutlinedIcon/>}
+                        </IconButton>
+                    </div>
                 </div>
                 <div className="justify-self-end">
                     <IconButton
@@ -217,12 +238,6 @@ const Audio = () => {
                     </IconButton>
                     <IconButton onClick={()=>changeVolume(0)}>
                         <VolumeOffIcon/>
-                    </IconButton>
-                    <IconButton onClick={()=>changeVolume(0.33)}>
-                        <VolumeMuteIcon/>
-                    </IconButton>
-                    <IconButton onClick={()=>changeVolume(0.66)}>
-                        <VolumeDownIcon/>
                     </IconButton>
                     <IconButton onClick={()=>changeVolume(1)}>
                         <VolumeUpIcon/>
@@ -252,6 +267,7 @@ const Audio = () => {
         .progressBarContainer:hover .seekToButton::after{
             opacity:1;
         }
+
       `}</style>
        </>
 
@@ -259,3 +275,12 @@ const Audio = () => {
 }
 
 export default Audio
+
+export async function getServerSideProps(context){
+    const session = await getSession(context)
+    return{
+        props:{
+            user:session.user
+        }
+    }
+}
