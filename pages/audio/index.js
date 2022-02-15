@@ -217,13 +217,17 @@ const Audio = ({user}) => {
                         <p className="text-sm">{audios[active.trackId].createdBy.name}</p>
                     </div>
                     <div className='flex ml-2'>
-                        <IconButton
-                            onClick={()=>{
-                                markLikeAndDislike({likedBy:user.id,gigId:audios[active.trackId]._id})
-                            }}
-                        >
-                            {audios[active.trackId].likedBy.includes(user.id) ? <ThumbUpAltIcon/> : <ThumbUpOutlinedIcon/>}
-                        </IconButton>
+                        {
+                            !_.isEmpty(user)
+                            &&
+                            <IconButton
+                                onClick={()=>{
+                                    markLikeAndDislike({likedBy:user.id,gigId:audios[active.trackId]._id})
+                                }}
+                            >
+                                {audios[active.trackId].likedBy.includes(user.id) ? <ThumbUpAltIcon/> : <ThumbUpOutlinedIcon/>}
+                            </IconButton>
+                        }
                     </div>
                 </div>
                 <div className="justify-self-end">
@@ -280,7 +284,7 @@ export async function getServerSideProps(context){
     const session = await getSession(context)
     return{
         props:{
-            user:session.user
+            user:session ? session.user : {}
         }
     }
 }

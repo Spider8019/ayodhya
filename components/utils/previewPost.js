@@ -41,6 +41,7 @@ const previewPost=({file,fileExtension})=>{
                 </video>
             )
         case 'mp3':
+        case 'mpeg':
             return(
                 <div>
                     <audio controls
