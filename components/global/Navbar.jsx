@@ -85,6 +85,11 @@ const Navbar = () => {
                  <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.talent')}</a>
                </Link>
               </li>
+              <li className={router.pathname.includes("/audio") ? "bg-amber-600" : ""}>
+               <Link href="/audio#player">
+                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>Music</a>
+               </Link>
+              </li>
               <li className={router.pathname.includes("/gallery") ? "bg-amber-600" : ""}>
                <Link href="/gallery">
                  <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.gallery')}</a>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect,useState,useRef } from 'react'
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 import  {getAudios} from "../../globalSetups/api"
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import PauseOutlinedIcon from '@mui/icons-material/PauseOutlined';
@@ -17,9 +17,11 @@ import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import Cubes from "../../components/three"
 import Head from "next/head"
+import Image from 'next/image';
 
 const Audio = () => {
 
+  const [shuffled,setShuffled]=useState([])
   const {data:audios,error:audiosError}=useSWR("GetAllAudios",()=>getAudios())
   const [active,setActive]=useState({
       status:false,
@@ -43,6 +45,10 @@ const Audio = () => {
 
     return ()=>clearInterval(interval)
   })
+
+  useEffect(()=>{
+
+  },[shuffled])
   const togglePlay=()=>{
       if(audioRef.current.paused)
         audioRef.current.play()
@@ -63,26 +69,16 @@ const Audio = () => {
           )
         }
 
-        // (async()=>{
-        //     const data=await axios.get(audios[0].imageList[0])
-        //     var x=new Blob([data.data],{type:"audio/mp3"})
-        //     console.log(x)
-        //     console.log(URL.createObjectURL(x))
-
-        // })();
-
-
 
     const changeSong = (audio,trackId)=>{
-        console.log(trackId,active.trackId)
+        
         if(trackId===active.trackId)
             togglePlay()
         else{
-            console.log(audioRef.current)
             audioRef.current.src=audio.imageList[0]
             setActive({...active,trackBy:audio.createdBy.name,about:audio.about,status:true,trackId:trackId,src:audio.imageList[0]})
         }
-        // togglePlay()
+
     }
     const seekTo=(e)=>{
         var rect = e.target.getBoundingClientRect();
@@ -94,6 +90,10 @@ const Audio = () => {
             setActive({...active,volume:vol})
         }
     }
+    // const audioContext = new AudioContext();
+    // const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(audioRef.current);
+    // const analyserNode = audioContext.createAnalyser();
+    // mediaStreamAudioSourceNode.connect(analyserNode);
  
 
 
@@ -106,17 +106,18 @@ const Audio = () => {
        id="player"
        style={{overflowX:"hidden",height:"100vh",display:"grid",gridTemplateRows:"85% 15%"}}
        >
-
+{console.log(audioRef.current)}
             <div
                 className='grid grid-cols-2'
             >
                 <div className='m-12'>
+
                     <audio controls
                         volume={active.volume}
                         style={{display:"none"}}
                         ref={audioRef}
-                        src={active.src && active.src}
-                        onCanPlay={()=>audioRef.current.play()}
+                        src={audios[active.trackId].imageList[0]}
+                        onCanPlay={()=>active.status ? audioRef.current.play() :console.log(active.status)}
                         onEnded={()=>{
                             if(active.trackId===audios.length-1)
                                 setActive({...active,trackBy:audios[0].createdBy.name,about:audios[0].about,src:audios[0].imageList[0],trackId:0})
@@ -164,8 +165,11 @@ const Audio = () => {
                     </div>
                 </div>
                 <div className='flex items-center'>
-                    <IconButton>
-                        <SkipPreviousOutlinedIcon className="text-4xl "/>
+                    <IconButton
+                        disabled={active.trackId===0?true:false}
+                        onClick={()=>changeSong(audios[active.trackId-1],active.trackId-1)}
+                    >
+                        <SkipPreviousOutlinedIcon style={{fontSize:"2.5rem"}}/>
                     </IconButton>
                     <IconButton
                       onClick={togglePlay}
@@ -173,26 +177,42 @@ const Audio = () => {
                         {active.status
                         ?
                         <PauseOutlinedIcon
-                        className='text-6xl'
+                        style={{fontSize:"4rem"}}
                         />
                         :
                         <PlayArrowOutlinedIcon
-                            className='text-6xl'
+                        style={{fontSize:"4rem"}}
                         />
                         }
                     </IconButton>
-                    <IconButton>
-                        <SkipNextOutlinedIcon  className="text-4xl "/>
+                    <IconButton
+                        disabled={active.trackId===audios.length-1?true:false}
+                        onClick={()=>changeSong(audios[active.trackId+1],active.trackId+1)}
+                    >
+                        <SkipNextOutlinedIcon style={{fontSize:"2.5rem"}}/>
                     </IconButton>
                     <p className="text-sm ml-4">{("0"+Math.floor(audioRef.current && audioRef.current.currentTime/60)).slice(-2)}:{("0"+Math.floor(audioRef.current && audioRef.current.currentTime%60)).slice(-2)}/{("0"+Math.floor(audioRef.current && audioRef.current.duration/60)).slice(-2)}:{("0"+Math.floor(audioRef.current && audioRef.current.duration%60)).slice(-2)}</p>
                 </div>
-                <div className="justify-self-center">
-                    <p>{active.about}</p>
-                    <p className="text-sm">{active.trackBy}</p>
+                <div className="justify-self-center flex items-center">
+                    <Image src={audios[active.trackId].createdBy.availableImages[audios[active.trackId].createdBy.image]}
+                        alt="profile image"
+                        height={50}
+                        width={50}
+                        objectFit="cover"
+                        className="rounded"
+                    />
+                    <div className="ml-4">
+                        <p>{audios[active.trackId].about}</p>
+                        <p className="text-sm">{audios[active.trackId].createdBy.name}</p>
+                    </div>
                 </div>
                 <div className="justify-self-end">
                     <IconButton
-                    onClick={()=>console.log(_.shuffle(audios))}
+                    onClick={()=>{
+                        let audiosx=_.concat(_.shuffle(audios.slice(0,active.trackId)),audios[active.trackId],_.shuffle(audios.slice(active.trackId+1,)))
+                        mutate("GetAllAudios",audios=audiosx,false)
+                        }
+                    }
                     >
                         <ShuffleIcon/>
                     </IconButton>
