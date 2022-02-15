@@ -13,7 +13,6 @@ import ShuffleIcon from '@mui/icons-material/Shuffle';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import LoaderPlayer from "../../components/global/LoaderPlayer"
-import {siedEntrance,hRise,xMove} from "../../globalSetups/framer"
 import Head from "next/head"
 import Image from 'next/image';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -23,7 +22,7 @@ import NumberFormat from 'react-number-format';
 
 const Audio = ({user}) => {
 
-  const {data:audios,error:audiosError}=useSWR("GetAllAudios",()=>getAudios())
+  const {data:audios,error:audiosError}=useSWR("GetAllAudios",()=>getAudios({id:""}))
   const timePlay=useRef(0)
   const [active,setActive]=useState({
       status:false,
@@ -151,7 +150,7 @@ const Audio = ({user}) => {
                                 className={`${active.trackId===key?'bg-amber-100':'bg-transparent'} cursor-pointer border-b border-amber-500 p-2`}
                             >
                                 <div>
-                                    <p className="text-sm">{audio.about.slice(0,75)}</p>
+                                    <p className="text-sm">{audio.about.split("****")[0]}</p>
                                     <p className='text-xs'>{audio.createdBy.name}</p>
                                 </div>
                             </div>
@@ -213,7 +212,7 @@ const Audio = ({user}) => {
                         className="rounded"
                     />
                     <div className="ml-4">
-                        <p>{audios[active.trackId].about}</p>
+                        <p>{audios[active.trackId].about.split("****")[0]}</p>
                         <p className="text-sm">{audios[active.trackId].createdBy.name}</p>
                     </div>
                     <div className='flex ml-2'>

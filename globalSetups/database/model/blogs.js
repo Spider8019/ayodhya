@@ -31,7 +31,6 @@ const BlogsSchema = new mongoose.Schema({
     createdBy:{ 
         type:mongoose.Schema.Types.ObjectId,
         ref:Profile,
-        default:[]
     },
     createdAt:{
         type:Date,

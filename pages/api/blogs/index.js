@@ -1,4 +1,4 @@
-import Gigs from "../../../globalSetups/database/model/gigs"
+import Blogs from "../../../globalSetups/database/model/blogs"
 import  _ from "lodash"
 import mongoose from "mongoose"
 
@@ -9,11 +9,12 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                const findBy= req.query.id === "" ? {} : {createdBy:req.query.id}
-                const audios=await Gigs.find({...findBy,category:'music'}).populate('createdBy','name image availableImages')
-                res.status(200).json(audios)
+                console.log(req.query.id)
+                const findBy=req.query.id==="" ? {}: {createdBy:req.query.id}
+                const books = await Blogs.find(findBy)
+                console.log(books,findBy)
+                res.status(200).json(books)
                 break;
-
         default:
                 res.status(400).json({ success: false })
                 break

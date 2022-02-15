@@ -77,3 +77,4 @@ export const uploadProfilePicture = (obj) => callApiAndReturnDataPut(obj,'single
 export const getTop10Talents = (obj) => callApiAndReturnDataGetMod(obj, 'talent/getTop10Artworks')
 export const getAudios = (obj) => callApiAndReturnDataGetMod(obj,"audio/")
 export const getRelatedGalleryPosts = (obj) => callApiAndReturnDataGetMod(obj,"singleObj/gallery/allRelatedObject")
+export const getBlogs = (obj) => callApiAndReturnDataGetMod(obj,"blogs/")

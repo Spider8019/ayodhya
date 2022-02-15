@@ -9,10 +9,13 @@ import InterestsIcon from '@mui/icons-material/Interests';
 import dateFormat from "dateformat";
 import {IconButton} from "@mui/material"
 import ShareBox from "../../components/utils/dialogs/sharePage.js"
+import Head from "next/head"
 
 const TourSpecific = ({detail,about}) => {
-  document.title=detail.heading + " by " + detail.createdBy.name + " -\nIkshvaku Ayodhya"
   return <div>
+        <Head>
+            <title>{detail.heading + " by " + detail.createdBy.name + " -\nIkshvaku Ayodhya"}</title>
+        </Head>
         <div className="m-20">
             <div className={`${styles.mainBody}`}>
                 <div>
@@ -53,7 +56,7 @@ const TourSpecific = ({detail,about}) => {
                        <div className={`${styles.aboutWriterContainer} grid `}>
                             <Image
                                 className='rounded'
-                                src={detail.createdBy.image}
+                                src={detail.createdBy.availableImages[detail.createdBy.image]}
                                 alt="Blog Writer Avatar"
                                 width={100}
                                 height={100}

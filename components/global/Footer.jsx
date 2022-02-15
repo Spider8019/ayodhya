@@ -26,50 +26,71 @@ const Footer = () => {
   return <div
             className="bg-amber-500 "
          >
-            <div className="py-8 px-20 flex">
-                <ul className="grid grid-cols-1 gap-2">
+            <div className="py-8 px-20 grid grid-cols-6">
+                <ul className="flex flex-col">
                   <li>
                     <Link href="/gallery">
-                      <a>Home</a>
+                      <a className="my-2 block">Home</a>
                     </Link>
                   </li>
                   <li>
                     <Link href="/gallery">
-                      <a>About</a>
+                      <a className="my-2 block">About</a>
                     </Link>
                   </li>
                   <li>
                     <Link href="/gallery">
-                      <a>Tourism</a>
+                      <a className="my-2 block">Tourism</a>
                     </Link>
                   </li>
                   <li>
                     <Link href="/gallery">
-                      <a>Literature</a>
+                      <a className="my-2 block">Literature</a>
                     </Link>
                   </li>
                   <li>
                     <Link href="/gallery">
-                      <a>Talent</a>
+                      <a className="my-2 block">Talent</a>
                     </Link>
                   </li>
                   <li>
                     <Link href="/audio#player">
-                      <a>Music</a>
+                      <a className="my-2 block">Music</a>
                     </Link>
                   </li>
                   <li>
                     <Link href="/gallery">
-                      <a>Gallery</a>
+                      <a className="my-2 block">Gallery</a>
                     </Link>
                   </li>
                 </ul>
-                <ul className="grid grid-cols-1 gap-2 ml-12">
+                <ul className="flex flex-col ">
                   <li>
-                    <Link href="/literature?book=The%20Ramayana&chapter=">
-                      <a>The Ramayana</a>
+                    <Link href="/literature?book=The%20Ramayana&chapter=****">
+                      <a className="my-2 block">The Ramayana</a>
                     </Link>
                   </li>
+                  <li>
+                    <Link href="/literature?book=Hanuman%Ji&chapter=****">
+                      <a className="my-2 block">Hanuman Ji</a>
+                    </Link>
+                  </li>
+                </ul>
+                <ul>
+
+                </ul>
+                <ul>
+
+                </ul>
+                <ul>
+
+</ul>
+                <ul>
+                      <li>
+                          <Link href="#">
+                            <a className="my-2 block font-semibold">References</a>
+                          </Link>
+                        </li>
                 </ul>
             </div>
             <div className="bg-amber-400 py-8 px-20 flex justify-between">
