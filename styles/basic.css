@@ -6,6 +6,10 @@ body{
     src:url('/static/fonts/signatureAmsterdam.ttf')
 
 }
+#nprogress .bar{ 
+    background: #f59e0b;
+    height:3px;
+}
 .signature{
     font-family:"signature";
 }

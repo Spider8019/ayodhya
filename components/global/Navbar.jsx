@@ -29,7 +29,7 @@ const Navbar = () => {
                     src="/static/withOutBgLogo.png"
                     alt="Without Background Logo"
                   />
-                  <h1 className="text-4xl">{t('common:title')}</h1>
+                  <h1 className="text-4xl ml-2">{t('common:title')}</h1>
                 </div>
                 <div className="flex">
                   <ChangePageLanguage/>
