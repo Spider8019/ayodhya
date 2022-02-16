@@ -77,7 +77,11 @@ const Footer = () => {
                   </li>
                 </ul>
                 <ul>
-
+                <li>
+                    <Link href="/thanksto">
+                      <a className="my-2 block">Thanks To</a>
+                    </Link>
+                  </li>
                 </ul>
                 <ul>
 
