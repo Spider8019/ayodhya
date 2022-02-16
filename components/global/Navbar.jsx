@@ -50,7 +50,7 @@ const Navbar = () => {
                         passHref={true}
                         href="/dashboard">
                         <Avatar 
-                          className='ml-2 border-2 border-amber-500'
+                          className='cursor-pointer ml-2 border-2 border-amber-500'
                           alt={session.user.name}  
                           src={session.user.image} />
                       </Link>

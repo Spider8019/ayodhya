@@ -216,6 +216,18 @@ export default function Home() {
                 variants={siedEntrance}
                 className="text-8xl font-semibold">Talent&apos;s</motion.h1>
           </motion.div>
+          <motion.div
+            style={{height:"60vh"}}
+            className="grid place-items-center">
+            <div className="grid place-items-center">
+                <h1>
+                  Modernize, streamline, and expedite your talent communication.
+                </h1>
+                <Link href="/talent">
+                  <a className="mt-4 block basicDarkButton">Explore Talents from Ayodhya</a>
+                </Link>
+            </div>
+          </motion.div>
         <div></div>
       </motion.div>
 

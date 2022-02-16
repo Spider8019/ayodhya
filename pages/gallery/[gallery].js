@@ -57,7 +57,9 @@ const Gallery = ({detail}) => {
                 {"@"+detail.createdBy.name}
           </title>
       </Head>
-      <div className={`rounded overflow-hidden ${styles.specContainer}`}>
+      <div className={`rounded overflow-hidden ${styles.specContainer}`}
+        style={{margin:"5rem 0"}}
+      >
 
                     {
                         ["jpeg","jpg","png","tiff"].includes(detail.imageList[0].substring(detail.imageList[0].lastIndexOf(".") + 1))
@@ -72,12 +74,14 @@ const Gallery = ({detail}) => {
                             width={1}
                             src={detail.imageList[0]}
                             alt="Image"
+                            objectPosition="center"
+                            objectFit={objectFit?"cover":"contain"}
                         />
                         </div>
                         :
                         <video 
                             className='object-center'
-                            style={{height:"80vh",width:"100%",outline:"none",objectFit:objectFit?"cover":"contain",objectPosition:"center !important"}}
+                            style={{height:"calc(100vh - 10rem)",width:"100%",outline:"none",objectFit:objectFit?"cover":"contain",objectPosition:"center !important"}}
                             controls
                             loop
                             autoPlay
@@ -195,7 +199,7 @@ const Gallery = ({detail}) => {
           {
               !relatedGigs 
               ?
-              <h1>Loading...</h1>
+              <h1 className='mb-20'>Loading...</h1>
               :
               <div className={styles.relatedGigsContaianerMain}>
                   {relatedGigs.map((item,key)=>{
@@ -223,6 +227,7 @@ const Gallery = ({detail}) => {
                                     width={1}
                                     layout="responsive"
                                     alt={key}
+                                    objectFit="cover"
                                     className="p-2 m-4"
                                 />
                               </a>

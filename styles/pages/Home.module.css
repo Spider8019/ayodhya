@@ -21,13 +21,11 @@
 }
 .talentsContainer{
   display:grid;
-  height:80vh;
+  height:60vh;
   grid-template-columns: 1fr 1fr;
 }
 .talentsHeading{
   margin-left:4rem;
-  background: url('/static/lgradient.png') no-repeat left;
-  background-size:contain;
 }
 
 

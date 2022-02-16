@@ -184,8 +184,9 @@ const Dashboard = ({user}) => {
                >
                <div
                 className="grid grid-cols-2 bg-white rounded"  
-                style={{width:"80vw",height:"80vh",background:"white",zIndex:"20",boxShadow:"1px 1px 20px #000"}}>
-                   <div className={`rounded overflow-hidden ${galStyles.specContainer}`}>
+                style={{width:"80vw",height:"calc(100vh - 10rem)",background:"white",zIndex:"20",boxShadow:"1px 1px 20px #000"}}>
+                   <div className={`rounded ${galStyles.specContainer}`}
+                   >
                    {
                         ["jpeg","jpg","png","tiff"].includes(posts.data[selected].imageList[0].substring(posts.data[selected].imageList[0].lastIndexOf(".") + 1))
                         ?
@@ -194,17 +195,19 @@ const Dashboard = ({user}) => {
                         >
                         <Image
                             className={galStyles.customimg}
-                            layout="responsive"
+                            layout="fill"
                             height={1}
                             width={1}
                             src={posts.data[selected].imageList[0]}
                             alt="Image"
+                            objectPosition="center"
+                            objectFit={objectFit?"cover":"contain"}
                         />
                         </div>
                         :
                         <video 
                             className='object-center'
-                            style={{height:"80vh",width:"100%",outline:"none",objectFit:objectFit?"cover":"contain",objectPosition:"center !important"}}
+                            style={{height:"calc(100vh - 10rem)",width:"100%",outline:"none",objectFit:objectFit?"cover":"contain",objectPosition:"center !important"}}
                             controls
                             loop
                             src={posts.data[selected].imageList[0]}
@@ -213,7 +216,9 @@ const Dashboard = ({user}) => {
                     }
 
                     </div> 
-                    <div className={`${galStyles.specText}`}>
+                    <div className={`${galStyles.specText}`}
+                        style={{height:"calc(100vh -10rem)"}}
+                    >
                         <div className="flex p-2 border-b-2">
                             <div className='pl-2 flex items-center'>
                                 <Avatar

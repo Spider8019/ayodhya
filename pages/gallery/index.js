@@ -72,7 +72,6 @@ const Gallery = ({count}) => {
                                                             {ind.likedBy.includes(session.user.id) ? <FavoriteIcon style={{color:"#f59e0b"}}/> :<FavoriteBorderIcon style={{color:"white"}}/>}
                                                         </IconButton>
                                                 }
-                                                {console.log(key+index)}
                                                         <IconButton 
                                                             onClick={()=>{router.push(`/gallery/${ind._id}`)
                                                         }}
