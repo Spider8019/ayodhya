@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                   crossOrigin="anonymous" 
                   referrerpolicy="no-referrer" />
                 <meta name='description' content='This website was designed to promote tourism in the city of Ayodhya in the state of Uttar Pradesh. There are also opportunities to identify the top talents in the city in categories such as arts, music, dancing, photography, and many more.' />
-                <meta name='keywords' content='meta ikshvaku ayodhya ram talent bhajans' />
+                <meta name='keywords' content='spider8019 aman pratap singh meta ikshvaku ayodhya ram talent bhajans' />
           </Head>
             <Component {...pageProps} />
         </NestedLayout>
