@@ -1,5 +1,5 @@
 export const defaultOptions={
-    baseUrl:"https://ikshvaku.vercel.app"
+    baseUrl:"https://www.ikshvaku.club"
 }
 
 export const availableTravelBlogType=[{
