@@ -27,6 +27,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                   integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ==" 
                   crossOrigin="anonymous" 
                   referrerpolicy="no-referrer" />
+                <meta name='description' content='This website was designed to promote tourism in the city of Ayodhya in the state of Uttar Pradesh. There are also opportunities to identify the top talents in the city in categories such as arts, music, dancing, photography, and many more.' />
+                <meta name='keywords' content='meta ikshvaku ayodhya ram talent bhajans' />
           </Head>
             <Component {...pageProps} />
         </NestedLayout>
