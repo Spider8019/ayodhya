@@ -10,9 +10,6 @@ const d=new Date()
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                console.log(req.query)
-                console.log(d.getMonth())
-
                 const books = await Calendar.findOne({date:req.query.date,month:d.getMonth(),year:d.getFullYear()})
                 res.status(200).json(books)
                 break;
