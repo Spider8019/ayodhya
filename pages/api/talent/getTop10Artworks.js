@@ -11,14 +11,13 @@ async function handler(req, res) {
         case 'GET':
                 const top10 =await Gigs.aggregate(
                     [
-                        {"$match":{category:"artworks"}},
+                        {"$match":{category:req.query.category}},
                         { "$project": {
                             "about": 1,
                             "category": 1,
                             "imageList":1,
                             "view": 1,
                             "likedBy": 1,
-                            "dislikedBy": 1,
                             "createdBy":1,
                             "createdAt":1,
                             "length": { "likedBy":{"$size": "$likedBy" }}
@@ -27,16 +26,7 @@ async function handler(req, res) {
                         { "$limit": 10 }
                     ]
                 )
-                console.log(top10)
                 res.status(200).json(top10)
-                break;
-        case 'POST':
-                console.log(req.body)
-                const payload = new Blogs({
-                    ...req.body
-                })
-                console.log(await payload.save())
-                res.status(200).json({msg:"Blog Published Successfully"})
                 break;
         default:
                 res.status(400).json({ success: false })

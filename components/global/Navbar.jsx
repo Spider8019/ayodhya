@@ -38,6 +38,7 @@ const Navbar = () => {
                     (!session && status==='unauthenticated')
                     &&
                       <button 
+                        ariaLabel="internationalizationButton"
                         className='basicDarkButton' 
                         style={{marginLeft:"1rem"}}
                         onClick={()=>signIn(null,{ callbackUrl: `${defaultOptions.baseUrl}/dashboard`})}
@@ -50,9 +51,9 @@ const Navbar = () => {
                         passHref={true}
                         href="/dashboard">
                         <Avatar 
-                          className='cursor-pointer ml-2 border-2 border-amber-500'
-                          alt={session.user.name}  
-                          src={session.user.image} />
+                        >
+                             <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
+                        </Avatar>
                       </Link>
                   }
                 </div>

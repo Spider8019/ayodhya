@@ -171,7 +171,6 @@ const Gallery = ({detail}) => {
                             }}
                             >
                                 
-                                {/* {detail.likedBy.includes(session.user.id) ? <FavoriteIcon style={{color:"#f59e0b"}}/> :<FavoriteBorderIcon/>} */}
                                 {session && like? <FavoriteIcon style={{color:"#f59e0b"}}/> : <FavoriteBorderIcon/>}
                             </IconButton>
                             <p className="px-2">{likedBy}</p>
@@ -209,8 +208,8 @@ const Gallery = ({detail}) => {
                           >
                               <a
                                 
-                                className="rounded overflow-hidden bg-slate-50"
-                                style={{gridArea:"a"+key,boxShadow:"1px 1px 10px rgba(0,0,0,0.2)"}}
+                                className="rounded overflow-hidden "
+                                style={{gridArea:"a"+key,boxShadow:"1px 1px 10px rgba(0,0,0,0.164)"}}
 
                               >
                                 <div className='flex items-center p-2'>
@@ -220,6 +219,8 @@ const Gallery = ({detail}) => {
                                     />
                                     <p className='text-sm ml-4 no-wrap'>{item.createdBy.name}</p>
                                 </div>
+                                { ["jpeg","jpg","png","tiff"].includes(item.imageList[0].substring(item.imageList[0].lastIndexOf(".") + 1))
+                                ?
                                 <Image
                                     key={key}
                                     src={item.imageList[0]}
@@ -230,6 +231,16 @@ const Gallery = ({detail}) => {
                                     objectFit="cover"
                                     className="p-2 m-4"
                                 />
+                                :
+                                <video
+                                    autoPlay
+                                    muted
+                                    style={{height:"100%",objectFit:"cover"}}
+                                    src={item.imageList[0]}
+                                >
+
+                                </video>
+                                }
                               </a>
                           </Link>
                       )
