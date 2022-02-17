@@ -15,7 +15,7 @@ const Navbar = () => {
     const router=useRouter()
     const { data: session, status } = useSession()
 
-    if (["/auth/signin","/signup","/dashboard","/dashboard/tabulate","/dashboard/blog","/dashboard/devLiterature"].includes(router.pathname))
+    if (["/auth/signin","/signup","/dashboard","/dashboard/tabulate","/dashboard/blog","/dashboard/devLiterature","/dashboard/addEvent"].includes(router.pathname))
       return null;
 
     return (  
@@ -38,7 +38,7 @@ const Navbar = () => {
                     (!session && status==='unauthenticated')
                     &&
                       <button 
-                        ariaLabel="internationalizationButton"
+                        aria-label="internationalizationButton"
                         className='basicDarkButton' 
                         style={{marginLeft:"1rem"}}
                         onClick={()=>signIn(null,{ callbackUrl: `${defaultOptions.baseUrl}/dashboard`})}

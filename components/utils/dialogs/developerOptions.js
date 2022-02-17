@@ -37,6 +37,8 @@ export default function BasicMenu() {
         }}
       >
         <MenuItem onClick={()=>router.push("/dashboard/devLiterature")}>Literature Section</MenuItem>
+        <MenuItem onClick={()=>router.push("/dashboard/addEvent")}>Add Event</MenuItem>
+
         {/* <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem> */}
       </Menu>

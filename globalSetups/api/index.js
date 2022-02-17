@@ -79,3 +79,5 @@ export const getTop10Talents = (obj) => callApiAndReturnDataGetMod(obj, 'talent/
 export const getAudios = (obj) => callApiAndReturnDataGetMod(obj,"audio/")
 export const getRelatedGalleryPosts = (obj) => callApiAndReturnDataGetMod(obj,"singleObj/gallery/allRelatedObject")
 export const getBlogs = (obj) => callApiAndReturnDataGetMod(obj,"blogs/")
+export const postEvent = (obj) => callApiAndReturnDataPost(obj,"calendar/")
+export const getEvent = (obj) => callApiAndReturnDataGetMod(obj,"calendar/")

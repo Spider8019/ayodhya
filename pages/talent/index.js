@@ -28,7 +28,7 @@ export default function SimpleSlider() {
     if(!top10 || !top10Photos)
        return <h1>loading</h1>
     if(top10Error || top10PhotosError){
-        return <p>error while fetching</p>
+        return <p>Error while fetching</p>
     }
     return (
       <>
