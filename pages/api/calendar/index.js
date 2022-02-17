@@ -1,4 +1,4 @@
-import Calendar from "../../../globalSetups/database/model/Calendar"
+import Calendar from "../../../globalSetups/database/model/calendar"
 import  _ from "lodash"
 import mongoose from "mongoose"
 
