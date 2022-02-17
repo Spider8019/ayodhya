@@ -79,14 +79,12 @@ export default function DraggableDialog({name,avatar}) {
     const handleUploadFile=async()=>{
       setProcessing(true)
       await uploadObject({file:fileBody,filename:"spider8019"+nanoid(10)+"."+fileBody.name.substring(fileBody.name.lastIndexOf(".") + 1)},async(err,data)=>{
-        console.log(data,err)
         if(_.isNull(err)){
             const payload={
               location:data.Location,
               category,
               about,
             }
-            console.log(data)
             const response=await uploadPost(payload)
             if(response.status===200){
               mutate('GetPostsOfAuthenticatedPerson')
@@ -197,6 +195,7 @@ export default function DraggableDialog({name,avatar}) {
                 Cancel
             </button>
             <button 
+                style={{pointerEvents:processing?"none":"auto",cursor:processing?"no-drop":"pointer"}}
                 className="basicDarkButton px-4 py-2"
                 onClick={handleUploadFile}>
                     {processing ? <p>Uploading...</p> : <p>Upload</p>}
