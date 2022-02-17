@@ -140,7 +140,7 @@ export default function SimpleSlider() {
                 <Slider {...settings}
                 >
                 {
-                    top10.map((item,key)=>{
+                    top10Others.map((item,key)=>{
                         return(
                             <div 
                                 key={key}

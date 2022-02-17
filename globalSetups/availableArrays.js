@@ -1,5 +1,5 @@
 export const defaultOptions={
-    baseUrl:"https://www.ikshvaku.club"
+    baseUrl:"http://localhost:3000"
 }
 
 export const availableTravelBlogType=[{

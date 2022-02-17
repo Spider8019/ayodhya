@@ -9,6 +9,7 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
+                console.log(req.query)
                 const top10 =await Gigs.aggregate(
                     [
                         {"$match":{category:req.query.category}},
