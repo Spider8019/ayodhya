@@ -135,8 +135,7 @@ export default function SimpleSlider() {
                 }
                 </Slider>
             </div>
-        </div>
-        <h2 className="text-2xl my-8">Others</h2>
+            <h2 className="text-2xl my-8">Others</h2>
             <div className={styles.slickContainer}>
                 <Slider {...settings}
                 >
@@ -184,6 +183,8 @@ export default function SimpleSlider() {
                 }
                 </Slider>
             </div>
+        </div>
+      
 
       </>
     );
