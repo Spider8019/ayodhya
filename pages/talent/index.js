@@ -26,7 +26,7 @@ export default function SimpleSlider() {
     const {data:top10Photos,error:top10PhotosError}=useSWR('top10TalentsPhotos',()=>getTop10Talents({category:"photography"}))
     const {data:top10Others,error:top10OthersError}=useSWR('top10TalentsOthers',()=>getTop10Talents({category:"others"}))
 
-    if(!top10 || !top10Photos || top10Others)
+    if(!top10 || !top10Photos || !top10Others)
        return <h1>loading</h1>
     if(top10Error || top10PhotosError || top10OthersError){
         return <p>Error while fetching</p>
