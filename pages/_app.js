@@ -4,6 +4,8 @@ import { SessionProvider } from "next-auth/react"
 import Router from "next/router"
 import Head from 'next/head'
 import NProgress from "nprogress"
+import {  ToastContainer } from 'react-toastify';
+
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const NestedLayout= Component.Layout || EmptyLayout
@@ -30,7 +32,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 
           </Head>
-            <Component {...pageProps} />
+          <ToastContainer />
+          <Component {...pageProps} />
         </NestedLayout>
       </Layout>
     </SessionProvider>

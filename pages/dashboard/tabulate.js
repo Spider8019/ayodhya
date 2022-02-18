@@ -9,6 +9,7 @@ import Image from 'next/image';
 import useSWR from "swr";
 import { getProfileDetails, getPostsOfProfile, getAudios, getBlogs } from '../../globalSetups/api';
 import Head from "next/head"
+import TabulateLoader from "../../components/global/TabulateLoader"
 
 const Tabulate = ({ user }) => {
 
@@ -27,7 +28,7 @@ const Tabulate = ({ user }) => {
   if (error || postsError || songsError || blogsError)
     return <h1>Error for {user.id}{console.log(songsError)}{console.log(postsError)}</h1>
   if (!profile || !posts || !postsSong || !blogs) {
-    return <p>Loading</p>
+    return <TabulateLoader/>
   }
 
   if (postInsights.current.length === 1 && songsInsights.current.length === 1 && blogsInsights.current.length === 1) {

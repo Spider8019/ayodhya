@@ -195,7 +195,7 @@ export default function DraggableDialog({name,avatar}) {
                 Cancel
             </button>
             <button 
-                style={{pointerEvents:processing?"none":"auto",cursor:processing?"not-allowed":"pointer"}}
+                style={{pointerEvents:processing?"none":"auto",cursor:processing?"no-drop":"pointer"}}
                 className="basicDarkButton px-4 py-2"
                 onClick={handleUploadFile}>
                     {processing ? <p>Uploading...</p> : <p>Upload</p>}

@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import DashboardLayout from "../../components/layout/dashboardLayout"
 import { postEvent } from '../../globalSetups/api'
 import Head from 'next/head'
+import { notifysuccess, notifywarn } from '../../components/snackbar'
 
 const AddEvent = () => {
 
@@ -15,7 +16,13 @@ const AddEvent = () => {
 
   const handleSubmit = async() =>{
     const response=await postEvent(event)
-    console.log(response)
+    if(response.status===200){
+        notifysuccess("Event add successfully")
+    }
+    else{
+        console.log(response)
+        notifywarn("Something didn't work out. To see it, open devtools.")
+    }
   }
   return (
     <div className='p-4'>

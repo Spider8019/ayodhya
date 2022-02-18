@@ -19,6 +19,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { getSession } from 'next-auth/react';
 import NumberFormat from 'react-number-format';
+import {notify, notifyerror} from "../../components/snackbar"
 
 const Audio = ({user}) => {
 
@@ -93,6 +94,9 @@ const Audio = ({user}) => {
             audioRef.current.volume=vol;
             setActive({...active,volume:vol})
         }
+        else{
+            notifyerror("Volume is not valid. It should be in the range of 0 to 1.")
+        }
     }
 
 
@@ -101,6 +105,7 @@ const Audio = ({user}) => {
         <Head>
             <title>Music Player - Ikshvaku</title>
         </Head>
+
         <div
        id="player"
        style={{overflowX:"hidden",height:"100vh",display:"grid",gridTemplateRows:"85% 15%"}}
@@ -222,6 +227,7 @@ const Audio = ({user}) => {
                             <IconButton
                                 onClick={()=>{
                                     markLikeAndDislike({likedBy:user.id,gigId:audios[active.trackId]._id})
+                                    !audios[active.trackId].likedBy.includes(user.id) ? notify("Favourably received") : notify('Successfully despised')
                                 }}
                             >
                                 {audios[active.trackId].likedBy.includes(user.id) ? <ThumbUpAltIcon/> : <ThumbUpOutlinedIcon/>}
