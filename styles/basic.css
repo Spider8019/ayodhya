@@ -74,7 +74,6 @@ input[type="file"] {
     width:8rem !important;
 }
 .MuiPagination-text{
-  background:Red;
 }
 .PNFContainer{  
     height:calc(100vh - 10rem);
@@ -85,4 +84,29 @@ input[type="file"] {
 .playerLeftContainer{
     background-size:contain !important;
     background:url('../public/static/pages/player.png') no-repeat left;
+}
+/* // Styling the default Slick dots */
+
+.slick-dots {
+	display: flex;
+	justify-content: center;
+	list-style-type: none;
+    padding-top:2rem;
+    }
+.slick-dots li {
+    height:0.3rem;
+    width:0.3rem;
+    background:#ccc;
+    border-radius: 5rem;
+    transition:all 0.3s ease;
+    overflow: hidden;
+}
+.slick-dots button {
+    width:2rem;
+    text-indent: -9999px;
+}
+
+.slick-dots li.slick-active {
+    width:2rem;
+    background-color: orange;
 }

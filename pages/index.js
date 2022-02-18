@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef,useState } from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,8 +10,10 @@ import { siedEntrance } from "../globalSetups/framer"
 import { useInView } from 'react-intersection-observer';
 import _ from "lodash"
 import { getEvent } from "../globalSetups/api"
+import useSWR, { mutate } from "swr"
+import axios from "axios"
 
-export default function Home({ todaysEvent }) {
+export default function Home({ todaysEventx }) {
 
   const { scrollY, scrollYProgress } = useViewportScroll()
 
@@ -19,8 +21,13 @@ export default function Home({ todaysEvent }) {
   const yearsFromKarsevak = useTransform(scrollY, [1800, 2200], [0.2, 1]);
   const yearsFromBabarInvade = useTransform(scrollY, [1400, 1800], [0.2, 1]);
   const yearsFrom1400 = useTransform(scrollY, [1000, 1400], [0.2, 1]);
-  const d = useRef(new Date())
-  d.current.setDate(1)
+
+
+  // const d = useRef(new Date())
+  // d.current.setDate(1)
+  const [d,setD]=useState(new Date())
+  const [todaysEvent,setTodaysEvent]=useState({})
+
 
   const { ref: heroSec, inView } = useInView({ threshold: 0.5 });
   const { ref: heroTalent, inView: heroTalentInView } = useInView({ threshold: 0.5 });
@@ -30,10 +37,15 @@ export default function Home({ todaysEvent }) {
 
   useEffect(() => {
     document.querySelector("body").style.fontFamily = router.locale === "hn" ? "Noto Sans Devanagari" : "Noto Sans Display";
-
-
   }, [])
-
+  useEffect(()=>{
+    (async()=>{
+      const response=await getEvent({ date: d.getDate() })
+      setTodaysEvent(response)
+    })()
+  },[d])
+  console.log(d.getDate())
+  
   return (
     <>
       <Head>
@@ -239,7 +251,7 @@ export default function Home({ todaysEvent }) {
               Modernize, streamline, and expedite your talent communication.
             </h1>
             <Link href="/talent">
-              <a className="mt-4 block basicDarkButton">Explore Talents from Ayodhya</a>
+              <a className="mt-4 block basicDarkButton">Explore Talents from Ayodhya{new Date(d.getFullYear(),d.getMonth(),1).getDay()}</a>
             </Link>
           </div>
         </motion.div>
@@ -254,7 +266,7 @@ export default function Home({ todaysEvent }) {
         <div
           className="grid place-items-center text-center"
         >{
-          todaysEvent
+          !_.isEmpty(todaysEvent)
           &&
           <div 
             className="calendarLeftContainer"
@@ -277,16 +289,19 @@ export default function Home({ todaysEvent }) {
         </div>
         <div className="grid place-items-center">
           <div className="grid grid-cols-7 w-2/3 items-center">
-            {_.concat(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],new Array(d.current.getDay()).fill(""), new Array(new Date(d.current.getFullYear(), d.current.getMonth()+1, 0).getDate()).fill("")).map((item, key) => {
+            {_.concat(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],new Array(new Date(d.getFullYear(),d.getMonth(),1).getDay()-1).fill(""), new Array(new Date(d.getFullYear(), d.getMonth()+1, 0).getDate()).fill("")).map((item, key) => {
               return (
-                key > 6 && key < 7 + d.current.getDay()
+                key > 6 && key < 6 + new Date(d.getFullYear(),d.getMonth(),1).getDay()
                   ?
-                  <p></p>
+                  <p key={key}></p>
                   :
                   <div key={key}
-                    style={{ background: key - 6 - d.current.getDay() === new Date().getDate() ? "orange" : "#eee", color: key - 6 - d.current.getDay() === new Date().getDate() ? "white" : "black" }}
+                    value={key}
+                    onClick={()=>setD(new Date(new Date().getFullYear(),new Date().getMonth(),key-(new Date(d.getFullYear(),d.getMonth(),1).getDay())-5))}
+                    style={{ background: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === d.getDate() ? "#ffd793" :key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate()?"#f59e0b": "#eee", 
+                             color: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate() ? "white" : key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay()  === d.getDate()?"red": "black" }}
                     className="cursor-pointer rounded self-center grid place-items-center text-sm m-1 p-4 ">
-                    <p className="">{(key > (6 + d.current.getDay())) ? key - 6 - d.current.getDay() : <span className="font-semibold">{item}</span>}</p>
+                    <p className="">{(key >= (6 + new Date(d.getFullYear(),d.getMonth(),1).getDay())) ? key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() : <span className="font-semibold">{item}</span>}</p>
                   </div>
               )
             })}
