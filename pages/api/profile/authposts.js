@@ -16,6 +16,9 @@ async function handler(req, res) {
         case 'POST':
                 res.status(200).json("a;aldk")
                 break;
+        case 'PUT':
+                console.log("reserved for editing post")
+                break;
         default:
                 res.status(400).json({ success: false })
                 break

@@ -81,3 +81,5 @@ export const getRelatedGalleryPosts = (obj) => callApiAndReturnDataGetMod(obj,"s
 export const getBlogs = (obj) => callApiAndReturnDataGetMod(obj,"blogs/")
 export const postEvent = (obj) => callApiAndReturnDataPost(obj,"calendar/")
 export const getEvent = (obj) => callApiAndReturnDataGetMod(obj,"calendar/")
+export const editProfileAboutName = (obj) => callApiAndReturnDataPut(obj,'profile/byId/')
+export const editProfileCoverImage = (obj) => callApiAndReturnDataPut(obj,"profile/coverImage")

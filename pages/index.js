@@ -13,7 +13,7 @@ import { getEvent } from "../globalSetups/api"
 import useSWR, { mutate } from "swr"
 import axios from "axios"
 
-export default function Home({ todaysEventx }) {
+export default function Home() {
 
   const { scrollY, scrollYProgress } = useViewportScroll()
 
@@ -278,6 +278,7 @@ export default function Home({ todaysEventx }) {
                 className="rounded-full"
                 width="300"
                 height="300"
+                objectFit="cover"
               />
             </div>
             <div className=" px-20 my-8 z-30">
@@ -297,8 +298,10 @@ export default function Home({ todaysEventx }) {
                   :
                   <div key={key}
                     value={key}
-                    onClick={()=>setD(new Date(new Date().getFullYear(),new Date().getMonth(),key-(new Date(d.getFullYear(),d.getMonth(),1).getDay())-5))}
-                    style={{ background: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === d.getDate() ? "#ffd793" :key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate()?"#f59e0b": "#eee", 
+                    onClick={()=>{key<=6?console.log("You can't select month"):setD(new Date(new Date().getFullYear(),new Date().getMonth(),key-(new Date(d.getFullYear(),d.getMonth(),1).getDay())-5))}}
+                    style={{ 
+                             cursor:key<=6?"no-drop":"pointer",
+                             background: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === d.getDate() ? "#ffd793" :key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate()?"#f59e0b": "#eee", 
                              color: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate() ? "white" : key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay()  === d.getDate()?"red": "black" }}
                     className="cursor-pointer rounded self-center grid place-items-center text-sm m-1 p-4 ">
                     <p className="">{(key >= (6 + new Date(d.getFullYear(),d.getMonth(),1).getDay())) ? key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() : <span className="font-semibold">{item}</span>}</p>
@@ -322,17 +325,6 @@ export default function Home({ todaysEventx }) {
 }
 
 
-export async function getServerSideProps(context) {
 
-  const date = new Date()
-  console.log(date.getDate() - 1)
-  const todaysEvent = await getEvent({ date: date.getDate() })
-  console.log(todaysEvent)
-  return {
-    props: {
-      todaysEvent
-    }
-  }
-}
 
 

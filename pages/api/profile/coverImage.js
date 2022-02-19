@@ -8,14 +8,11 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 
 async function handler(req, res) {
     switch(req.method){
-        case 'GET':
-                const profile=await Profile.findOne({_id:req.query.id})
-                res.status(200).json(profile)
-                break;
         case 'PUT':
                 // for editing name and about of profile
-                await Profile.updateOne({email:req.body.email},{name:req.body.name,about:req.body.about})
-                res.status(200).json({msg:"Update your profile successfully"})
+                const det=await Profile.updateOne({email:req.body.email},{coverImage:req.body.coverImage})
+                console.log(det)
+                res.status(200).json({msg:"Update your cover Image successfully"})
                 break;
         default:
                 res.status(400).json({ success: false })

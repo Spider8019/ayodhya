@@ -12,6 +12,7 @@ import _ from "lodash"
 import useSWR, { mutate } from 'swr';
 import Loader from "../../components/global/DashboardLoader"
 import AddPost from "../../components/utils/dialogs/addPost"
+import ChangeProfileDetails from "../../components/utils/dialogs/editDetail"
 import { defaultOptions } from '../../globalSetups/availableArrays';
 import DeveloperOptions from "../../components/utils/dialogs/developerOptions"
 import DashboardPost from "../../components/utils/dashboardPost"
@@ -25,19 +26,31 @@ import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CloseIcon from '@mui/icons-material/Close';
 import { yMove } from '../../globalSetups/framer';
-import EditIcon from '@mui/icons-material/Edit';
 import millify from "millify";
 import FilterTiltShiftIcon from '@mui/icons-material/FilterTiltShift';
+import { notifyerror, notifysuccess, notifywarn } from '../../components/snackbar';
+import { deleteObject,uploadObject } from '../../globalSetups/aws/s3';
+import { nanoid } from 'nanoid';
+import { editProfileCoverImage } from '../../globalSetups/api';
 
+const Dashboard = ({user,msg}) => {
 
-const Dashboard = ({user}) => {
 
   const [selected,setSelected]=useState(-1)
   const [objectFit,setObjectFit]=useState(true)
+  const [coverImage,setCoverImage]=useState(null)
+  const [fileCoverImage,setFileCoverPreview]=useState("")
+  const [coverProcessing,setCoverProcessing]=useState(false)
   const ref=useRef(null)
   const {data:profile}=useSWR("GetBasicDetail",()=>getProfileDetails({email:user && user.email}))
   const {data:posts,error}=useSWR("GetPostsOfAuthenticatedPerson",()=>getPostsOfProfile({createdBy:user.id}))
-  
+
+  useEffect(()=>{
+        if(msg==="0"){
+            notifywarn("You are not a developer")
+        }
+    },[])
+
   if(error){
       return <h1>some error </h1>
     }
@@ -47,11 +60,48 @@ const Dashboard = ({user}) => {
         )
     }
 
-    window.onclick = function(event) {
+  window.onclick = function(event) {
         if (event.target == ref.current) {
             setSelected(-1)
         }
-      }
+   }
+
+  const handleFile=(e)=>{
+    setFileCoverPreview(URL.createObjectURL(e.target.files[0]))
+    setCoverImage(e.target.files[0])
+  }
+
+  const handleUploadCover = async()=>{
+    setCoverProcessing(true)
+    await deleteObject({url:profile.coverImage},async(dltErr,dltData)=>{
+        if(_.isNull(dltErr)){
+            await uploadObject({file:coverImage,filename:"spider8019"+nanoid(10)+"."+coverImage.name.substring(coverImage.name.lastIndexOf(".") + 1)},async(err,data)=>{
+                if(_.isNull(err)){
+                    const payload={
+                      coverImage:data.Location,
+                      email:profile.email
+                    }
+                    const response=await editProfileCoverImage(payload)
+                    if(response.status===200){
+                        setCoverImage(null);
+                        setFileCoverPreview(null) 
+                        setCoverProcessing(false)
+                        notifysuccess("Your cover image has been successfully updated.")          
+                        mutate("GetBasicDetail",{...profile,coverImage:data.Location},false)
+                    }
+                    else{
+                      notifyerror(err)
+                      setCoverProcessing(true)
+                    }
+                  }
+              })
+        }
+        else{
+            notifyerror(errDlt)
+            setCoverProcessing(true)
+        }
+    })
+  }
 
   return <>
       <Head>
@@ -65,17 +115,36 @@ const Dashboard = ({user}) => {
             <div className="relative"
             >
               <div
-                className={`relative h-40 rounded-2xl w-full overflow-hidden`}
+                className={`relative h-40 rounded w-full overflow-hidden`}
                 style={{height:'10rem'}}
                >
                 <Image
                    layout='fill'
                    objectFit='cover'
-                   src={profile.coverImage}
+                   src={fileCoverImage?fileCoverImage:profile.coverImage}
                    alt="Your Cover Image"
+                   priority
                 />
               </div>
-              <EditIcon className="absolute text-white bottom-2 right-2 z-20"/>
+              <div 
+                style={{pointerEvents:coverProcessing?"none":"auto",cursor:coverProcessing?"no-drop":"pointer",background:"rgba(0,0,0,0.64)"}}
+                className='flex text-sm rounded absolute bottom-2 right-2 z-20 text-white'>
+                {fileCoverImage && <p 
+                    className='cursor-pointer border-r p-2 border-amber-500'
+                    onClick={()=>{setCoverImage(null);setFileCoverPreview("")}}
+                >Cancel</p>}
+                {fileCoverImage && <motion.p 
+                    className='cursor-pointer border-r p-2 border-amber-500'
+                    onClick={handleUploadCover}
+                >{coverProcessing?"Uploading...":"Upload"}</motion.p>}
+                <label className="cursor-pointer p-2 ">
+                    <input
+                        onChange={handleFile}
+                        accept={"image/*"}
+                        type="file"/>
+                        Change
+                </label>
+              </div>
             </div>
             <div 
              className='p-4 grid justify-between  w-full'
@@ -170,6 +239,12 @@ const Dashboard = ({user}) => {
                <AddPost 
                     name={profile.name} 
                     avatar={profile.availableImages[profile.image]}/>
+               <div className='my-2'></div>
+               <ChangeProfileDetails
+                    name={profile.name}
+                    about={profile.about}
+                    email={profile.email}
+               />
            </div>
          </div>
       </div>
@@ -281,6 +356,7 @@ export default Dashboard;
 
 export async function  getServerSideProps(context){
 
+    const {query}=context;
     const session = await getSession(context)
     if(_.isNull(session)){
         return {
@@ -290,11 +366,11 @@ export async function  getServerSideProps(context){
             }
         }
     }
-    console.log(session)
 
     return {
         props:{
-            user:session.user
+            user:session.user,
+            msg:query.msg?query.msg:null
         }
     }
  }

@@ -12,6 +12,7 @@ import { nanoid } from 'nanoid';
 import _ from "lodash"
 import axios from 'axios';
 import "suneditor/dist/css/suneditor.min.css";
+import Head from 'next/head';
 
 
 const DevLiterature = ({uniqueBooks}) => {
@@ -52,7 +53,6 @@ const DevLiterature = ({uniqueBooks}) => {
     }
   }
   const handleSubmitLiterature=async()=>{
-    console.log(contentFlag)
     if(contentFlag.length!==0)
       {
         alert(contentFlag)
@@ -84,21 +84,35 @@ const DevLiterature = ({uniqueBooks}) => {
   }
 
   return <div>
-     <p className="text-2xl">Add/Modify Literature</p>
-     <p>{session && session.user.name}</p>
+     <Head>
+        <title>Add Literature - Developer</title>
+     </Head>
+     <div className='flex justify-between mb-8'>
+        <p className="text-2xl">Add/Modify Literature</p>
+        <div className='flex items-center'>
+          <Avatar
+            src={session && session.user.image}
+            alt={session && session.user.name}
+          />
+          <p className='mx-4 text-sm'>{session && session.user.name}</p>
+        </div>
+     </div>
      <div>
          <div className="grid grid-cols-2 items-center my-4 justify-between gap-8 ">
              <FormControl>
                 <Select
                     value={selectedBook}
                     onChange={(e)=>onChangeBook(e)}
+                    className="min-w-40"
                     inputProps={{ 'aria-label': 'Without label' }}
                   >
-                    <MenuItem value={"addNew"}>+ Add New Book</MenuItem>
+                    <MenuItem value={"addNew"}
+                    >+ Add New Book</MenuItem>
                       {
                       uniqueBooks.map((item,key)=>{
                         return(
-                          <MenuItem  key={key} value={item} >{item}</MenuItem>
+                          <MenuItem  key={key} value={item}
+                          >{item}</MenuItem>
                         )
                       })
                     }
@@ -122,6 +136,7 @@ const DevLiterature = ({uniqueBooks}) => {
                 <Select
                     value={selectedChapter}
                     onChange={(e)=>onChangeChapter(e)}
+                    className="min-w-40"
                     inputProps={{ 'aria-label': 'Without label' }}
                   >
                     <MenuItem value={"addNew"}>+ Add New Chapter</MenuItem>
@@ -165,7 +180,7 @@ const DevLiterature = ({uniqueBooks}) => {
         {parse(content)}
        </div>
      </div>
-     <button className='mt-4 py-2 basicDarkButton'
+     <button className='py-2 basicDarkButton'
             onClick={handleSubmitLiterature}
          >
            Add/Edit

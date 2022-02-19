@@ -28,7 +28,7 @@ const Blog = ({user}) => {
   return <div>
       <h1 className="text-2xl">Write Blogs</h1>
       <CreateNewBlog session={session}/>
-      <div className='flex flex-wrap mt-20'>{
+      <div className='flex flex-wrap mt-8'>{
         blogs.map((blog,key)=>{
             return(
                 <Link

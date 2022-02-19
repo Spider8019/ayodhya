@@ -181,7 +181,6 @@ export default function DraggableDialog({name,avatar}) {
                       set={'facebook'}
                       onSelect={onEmojiClick}
                       theme='light'
-                      // style={{height:"10rem"}}
                       sheetSize={64}
                     />
                 </div>

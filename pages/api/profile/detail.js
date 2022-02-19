@@ -16,7 +16,7 @@ async function handler(req, res) {
 
                 break;
         case 'PUT':
-                console.log(req.body)
+                //for editing profile image
                 const response=await Profile.updateOne({_id:req.body.id},{$inc : {'image' :req.body.step}})
                 res.status(200).json({msg:"Image change Successfully",...response})
                 break;
