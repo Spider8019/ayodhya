@@ -10,6 +10,7 @@ import useSWR from "swr";
 import { getProfileDetails, getPostsOfProfile, getAudios, getBlogs } from '../../globalSetups/api';
 import Head from "next/head"
 import TabulateLoader from "../../components/global/TabulateLoader"
+import {BrowserView,isMobile} from "react-device-detect"
 
 const Tabulate = ({ user }) => {
 
@@ -62,7 +63,7 @@ const Tabulate = ({ user }) => {
       </div>
       <div
         className='grid my-12 items-center '
-        style={{ gridTemplateColumns: "auto 250px" }}
+        style={{ gridTemplateColumns: isMobile?"1fr":"auto 250px" }}
       >
         <div className="w-full">
           <Chart
@@ -75,14 +76,16 @@ const Tabulate = ({ user }) => {
           <div>
           </div>
         </div>
-        <div className={`pt-4 self-stretch rounded-2xl ml-4 ${styles.badgesContainer}`}>
-          <p className='text-center'>Your Unlocks</p>
-          <div>
-            <div className={`p-2 rounded bg-white m-4 ${styles.badge}`}>
-              Artist
+        <BrowserView>
+            <div className={`pt-4 self-stretch rounded-2xl ml-4 ${styles.badgesContainer}`}>
+              <p className='text-center'>Your Unlocks</p>
+              <div>
+                <div className={`p-2 rounded bg-white m-4 ${styles.badge}`}>
+                  Artist
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+        </BrowserView>
       </div>
       <div className="grid grid-cols-3 gap-4">
         {[{ src: "/static/pages/tabulate1.png" }, { src: "/static/pages/tabulate2.png" }, { src: "/static/pages/tabulate3.png" }].map((item, key) => {

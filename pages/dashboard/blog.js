@@ -25,7 +25,7 @@ const Blog = ({user}) => {
       )
   }
 
-  return <div>
+  return <div className='min-h-screen'>
       <h1 className="text-2xl">Write Blogs</h1>
       <CreateNewBlog session={session}/>
       <div className='flex flex-wrap mt-8'>{
@@ -37,7 +37,7 @@ const Blog = ({user}) => {
                 >
                         <a
                             style={{backgroundSize:"contain",boxShadow:"1px 1px 10px rgba(0, 0, 0, 0.164)"}}
-                            className="border-2 overflow-hidden h-32 rounded-xl cursor-pointer flex py-4 px-8 items-center border-amber-500"
+                            className="border-2 w-full sm:w-fit overflow-hidden h-32 rounded-xl cursor-pointer flex py-4 px-8 items-center border-amber-500"
                         >
                             <div className='rounded'>
                                 <Image

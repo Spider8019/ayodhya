@@ -32,7 +32,6 @@ import { notifyerror, notifysuccess, notifywarn } from '../../components/snackba
 import { deleteObject,uploadObject } from '../../globalSetups/aws/s3';
 import { nanoid } from 'nanoid';
 import { editProfileCoverImage } from '../../globalSetups/api';
-import FilterBAndWIcon from '@mui/icons-material/FilterBAndW';
 import {isMobile} from "react-device-detect"
 
 const Dashboard = ({user,msg}) => {
@@ -129,7 +128,7 @@ const Dashboard = ({user,msg}) => {
               </div>
               <div 
                 style={{pointerEvents:coverProcessing?"none":"auto",cursor:coverProcessing?"no-drop":"pointer",background:"rgba(0,0,0,0.64)"}}
-                className='flex text-sm rounded absolute top-2 sm:bottom-2 right-2 z-20 text-white'>
+                className='flex text-sm rounded absolute top-2 right-2 z-20 text-white'>
                 {fileCoverImage && <p 
                     className='cursor-pointer border-r p-2 border-amber-500'
                     onClick={()=>{setCoverImage(null);setFileCoverPreview("")}}
@@ -219,9 +218,9 @@ const Dashboard = ({user,msg}) => {
          </div>
          <div className={`${styles.dashboardBody}`}>
             
-            <div>
+            <div className="order-6 sm:order-2 mx-4" >
                 <p className='text-xl mb-4'>Your Creations</p>
-                <div className={`grid grid-cols-1 sm:grid-cols-3 gap-8 px-4`}>
+                <div className={`h-full grid grid-cols-2 sm:grid-cols-3 gap-x-4 `}>
                     { 
                         posts.data && posts.data.map((item,key)=>{
                             return(
@@ -238,7 +237,7 @@ const Dashboard = ({user,msg}) => {
                     }
                 </div>
             </div>
-           <div className="m-2">
+           <div className="mx-4 sm:mx-0 order-5">
                <AddPost 
                     name={profile.name} 
                     avatar={profile.availableImages[profile.image]}/>
@@ -258,21 +257,20 @@ const Dashboard = ({user,msg}) => {
             <motion.div 
                 ref={ref}
                 layoutId={"dashboardPosts"+selected} 
-                style={{backdropFilter:"blur(5px)",zIndex:"20",position:"fixed",background:"transparent",height:"100vh",width:"100vw",display:"Grid",placeItems:"Center",top:"0%",left:"0%"}}
+                style={{backdropFilter:"blur(5px)",zIndex:"20",position:"fixed",background:"transparent",height:"100vh",width:"100vw",display:"Grid",placeItems:isMobile?"end":"center",bottom:"0%",left:"0%"}}
                >
                <div
-                className="grid grid-cols-2 bg-white rounded"  
-                style={{width:"80vw",height:"calc(100vh - 10rem)",background:"white",zIndex:"20",boxShadow:"1px 1px 20px #000"}}>
-                   <div className={`rounded ${galStyles.specContainer}`}
-                   >
+                className=" grid grid-cols-1 sm:grid-cols-2  grid-rows-2 sm:grid-rows-1 bg-white rounded"  
+                style={{width:isMobile?"100vw":"80vw",height:isMobile?"calc(100vh - 60px)":"calc(100vh - 10rem)",zIndex:"20",boxShadow:"1px 1px 20px #000"}}>
+
                    {
                         ["jpeg","jpg","png","tiff"].includes(posts.data[selected].imageList[0].substring(posts.data[selected].imageList[0].lastIndexOf(".") + 1))
                         ?
                         <div 
                             className={`${galStyles.specImgContainer}`}
+                            style={{width:"100%",height:"100%"}}
                         >
                         <Image
-                            className={galStyles.customimg}
                             layout="fill"
                             height={1}
                             width={1}
@@ -285,7 +283,7 @@ const Dashboard = ({user,msg}) => {
                         :
                         <video 
                             className='object-center'
-                            style={{height:"calc(100vh - 10rem)",width:"100%",outline:"none",objectFit:objectFit?"cover":"contain",objectPosition:"center !important"}}
+                            style={{height:"100%",width:"100%",outline:"none",objectFit:objectFit?"cover":"contain",objectPosition:"center !important"}}
                             controls
                             loop
                             src={posts.data[selected].imageList[0]}
@@ -293,9 +291,7 @@ const Dashboard = ({user,msg}) => {
                         </video>
                     }
 
-                    </div> 
                     <div className={`${galStyles.specText}`}
-                        style={{height:"calc(100vh -10rem)"}}
                     >
                         <div className="flex p-2 border-b-2">
                             <div className='pl-2 flex items-center'>

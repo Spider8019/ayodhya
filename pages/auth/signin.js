@@ -7,7 +7,7 @@ import AbcIcon from '@mui/icons-material/Abc';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import _ from "lodash"
 import {getCsrfToken, signIn } from "next-auth/react"
-
+import {BrowserView} from "react-device-detect"
 
 export default function Login ({csrfToken}){
 
@@ -32,9 +32,9 @@ export default function Login ({csrfToken}){
         <meta name="description" content="Login Page" />
         <link rel="icon" href="/static/withOutBgLogo.png" />
       </Head>
-      <div className={` rounded-xl ${styles.loginMain} grid grid-cols-2 `}>
+      <div className={` rounded-xl ${styles.loginMain} grid grid-cols-1 sm:grid-cols-2 `}>
         <div className='grid place-items-center'>
-           <div className="w-2/3">
+           <div className=" sm:w-2/3">
              <center>
                 <Image
                     layout="intrinsic"
@@ -95,19 +95,22 @@ export default function Login ({csrfToken}){
              </center>
            </div>
         </div>
+
         <div className={`rounded-xl relative`}>
-          <div  
-            className='rounded-xl absolute w-full bottom-0 right-0' 
-            style={{height:"115%"}}>
-            <Image
-              className='rounded-xl'
-              layout="fill"
-              objectFit='contain'
-              objectPosition="bottom right"
-              src="/static/pages/login.png"
-              alt="Image Ramayan Login"
-            />      
-          </div>    
+          <BrowserView>
+              <div  
+                className='rounded-xl absolute w-full bottom-0 right-0' 
+                style={{height:"115%"}}>
+                <Image
+                  className='rounded-xl'
+                  layout="fill"
+                  objectFit='contain'
+                  objectPosition="bottom right"
+                  src="/static/pages/login.png"
+                  alt="Image Ramayan Login"
+                />      
+              </div>    
+          </BrowserView>
         </div>
       </div>
   </div>;

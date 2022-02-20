@@ -17,6 +17,7 @@ import PreviewPost from "../previewPost"
 import {mutate} from "swr"
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
+import {isMobile} from "react-device-detect"
 
 function PaperComponent(props) {
   return (
@@ -111,7 +112,7 @@ export default function DraggableDialog({name,avatar}) {
         open={open}
         onClose={handleClose}
         fullWidth={true}
-        maxWidth={'md'}
+        maxWidth={isMobile?"xl":"md"}
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
       >
@@ -148,7 +149,7 @@ export default function DraggableDialog({name,avatar}) {
           </div>
           <div className="addPostDialogBody ">
                 <div className="addPostInputText mt-4 grid gap-8"
-                  style={{gridTemplateColumns:"1fr 0.4fr"}}
+                  style={{gridTemplateColumns:isMobile?"1fr":"1fr 0.4fr"}}
                 >
                   <div className="flex flex-col">
                     <textarea

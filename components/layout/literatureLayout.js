@@ -2,11 +2,14 @@ import React from 'react';
 import { literatureSideBar } from '../../globalSetups/availableArrays';
 import {useRouter} from "next/router"
 import Link from 'next/link';
+import { IconButton } from '@mui/material';
 import {getLiteratureSideBar} from "../../globalSetups/api"
 import styles from "../../styles/pages/Dashboard.module.css"
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import useSWR from "swr"
 import LoaderSideBar from "../global/LoaderSideBar"
+import MenuIcon from '@mui/icons-material/Menu';
+import {isMobile,MobileView} from "react-device-detect"
 
 const Layout = ({children}) => {
 
@@ -15,8 +18,13 @@ const Layout = ({children}) => {
   if(error)
     return "error"
 
-  return <div className={`grid h-screen ${styles.parentContainer}`} style={{gridTemplateColumns:"300px auto"}}>
+  return <div className={`grid h-screen ${styles.parentContainer}`} style={{gridTemplateRows:"1fr",gridTemplateColumns:isMobile?"1fr":"300px auto"}}>
       <div className={`${styles.sideNavContainer}`} >
+          <MobileView>
+            <IconButton className="absolute top-4 left-4">
+                <MenuIcon/>
+            </IconButton>
+          </MobileView>
           {
               !literatureSideBar
               ?

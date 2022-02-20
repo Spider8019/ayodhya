@@ -11,18 +11,18 @@
 }
 .profileContainer{
     overflow-y:auto;
-    min-height: 100vh;
+    min-height: 100%;
     overflow-x: hidden;
 }
-
 .parentContainer{
-    min-height:100%;
+    height:100%;
 }
 .dashboardBody{
     position:relative;
     top:-5rem;
     display:grid;
     grid-template-columns: 0.75fr 0.25fr;
+    gap:1rem;
 }
 .addGig{
     border-radius:1rem;
@@ -32,7 +32,7 @@
     /* width:30vw; */
 }
 .authPostContainer,.authPostVideoContainer{
-    border-radius:0.5rem;
+    border-radius:0.25rem;
     overflow: hidden;
     background:white;
     position:relative;
@@ -55,7 +55,7 @@
     width:100%;
     height:100%;
     content:'';
-    background:#00000060;
+    background:#00000027;
     clip-path: polygon(0 14%, 100% 89%, 100% 100%, 0% 100%);
     z-index:10;
     opacity:0;
@@ -68,7 +68,7 @@
     width:100%;
     height:100%;
     content:'';
-    background:#00000062;
+    background:#00000036;
     z-index:10;
     clip-path: polygon(0 90%, 100% 50%, 100% 100%, 0% 100%);
     opacity:0;
@@ -104,25 +104,24 @@
 @media only screen and (max-width:640px) {
     .parentContainer{
         position:relative;
-        grid-template-columns: 1fr;
-        background:pink;
-        height:fit-content;
+        grid-template-columns: 1fr !important;
     }
     .sideNavContainer{
         z-index:200;
         width:100%;
-        background:white;
+        background:rgba(255, 166, 0, 0.295);
+        backdrop-filter: blur(10px);
         height:fit-content;
         padding:2;
         display:grid;
         grid-template-columns: 1fr 4fr;
+        justify-content: center  ;
     }
     .profileContainer{
-        height:500vh;
         overflow: scroll;
     }
     .dashboardBody{
-        top:-2rem;  
+        top:-5rem;  
         grid-template-columns: 1fr;
     }
 }

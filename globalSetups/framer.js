@@ -4,7 +4,7 @@ export const zeroHeightAndWidth = {
         overflow:"hidden",
     },
     final:{
-        maxHeight:"550px",
+        maxHeight:"700px",
         transition: {
             delayChildren: 0.5,
             staggerChildren: 0.2

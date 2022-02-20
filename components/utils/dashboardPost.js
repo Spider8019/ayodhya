@@ -19,8 +19,8 @@ const previewPost=({item})=>{
                         alt={nanoid(10)}
                         height={100}
                         width={100}
-                        layout="responsive"
-                    objectFit='cover'
+                        layout="fill"
+                        objectFit='cover'
                         objectPosition='center'
                     />
                             <p className={styles.textForImageAuth}>{item.about.slice(0,25)}</p>
@@ -31,13 +31,13 @@ const previewPost=({item})=>{
         case "mov":
         case "ogg":
             return(
-                <div className={`${styles.authPostVideoContainer}`}>
-                    <VideoFrame muted={true} videoURL={item.imageList[0]}/>
-                    <div className={`${styles.playPostButton}`}>
-                        <PlayArrowOutlinedIcon className="text-white"/>
-                        <p className={`${styles.textVideoPost} text-sm text-white`}>{item.about.slice(0,25)}</p>
+                    <div className={`${styles.authPostVideoContainer}`}>
+                        <VideoFrame muted={true} videoURL={item.imageList[0]}/>
+                        <div className={`${styles.playPostButton}`}>
+                            <PlayArrowOutlinedIcon className="text-white"/>
+                            <p className={`${styles.textVideoPost} text-sm text-white`}>{item.about.slice(0,25)}</p>
+                        </div>
                     </div>
-                </div>
             )
         default:
             return(<p className="text-red-500 text-center">Something is wrong</p>)

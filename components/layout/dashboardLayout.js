@@ -10,9 +10,9 @@ import styles from "../../styles/pages/Dashboard.module.css"
 import { signOut, useSession } from 'next-auth/react';
 import {defaultOptions} from '../../globalSetups/availableArrays'
 import useSWR from 'swr';
-import {isMobile} from "react-device-detect"
+import {isMobile,BrowserView,MobileView} from "react-device-detect"
 import { getProfileDetails } from '../../globalSetups/api';
-
+import FilterVintageIcon from '@mui/icons-material/FilterVintage';
 
 const Index = ({children}) => {
 
@@ -21,20 +21,25 @@ const Index = ({children}) => {
   return <div className={`grid h-screen ${styles.parentContainer}`} style={{gridTemplateColumns:isMobile?"1fr":"300px auto"}}>
       <div className={`${styles.sideNavContainer} bg-amber-50`} >
           <div 
-            className="mx-auto my-0 sm:my-8 grid place-items-center"
+            className="mx-auto my-0 sm:my-8 grid sm:place-items-center"
           >
               <Link href="/">
                   <a>
-                    <Image
-                        height={isMobile?50:100}
-                        width={isMobile?50:100}
-                        src="/static/withOutBgLogo.png"
-                        alt="Dashboard Ikshvaku Logo"
-                    />
+                    <BrowserView>
+                        <Image
+                            height={100}
+                            width={100}
+                            src="/static/withOutBgLogo.png"
+                            alt="Dashboard Ikshvaku Logo"
+                        />                    
+                    </BrowserView>
+                    <MobileView>
+                        <FilterVintageIcon className="mt-4"/>
+                    </MobileView>
                   </a>
               </Link>
           </div>
-          <ul className=" my-4 grid grid-cols-4 sm:block">
+          <ul className=" sm:my-4 grid grid-cols-4 sm:block">
               <li className={`p-2 my-2 sm:pl-8 border-l-4 ${router.pathname == "/dashboard" ? " border-transparent sm:border-amber-500":"border-transparent"}`}>
                   <Link href="/dashboard">
                       <a className="flex align-center"><HomeOutlinedIcon/><span className="hidden sm:block ml-2">Dashboard</span></a>
