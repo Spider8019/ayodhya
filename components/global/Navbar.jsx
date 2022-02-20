@@ -100,7 +100,7 @@ const Navbar = () => {
                     &&
                       <button 
                         aria-label="internationalizationButton"
-                        className='basicDarkButton' 
+                        className={isMobile?'basicButton':'basicDarkButton'}
                         style={{marginLeft:"1rem"}}
                         onClick={()=>signIn(null,{ callbackUrl: `${defaultOptions.baseUrl}/dashboard`})}
                       >Login</button>
