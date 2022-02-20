@@ -42,7 +42,10 @@ const ProfileSchema = new mongoose.Schema({
             type:Array,
             "default":['https://ikshvaku-s3.s3.ap-south-1.amazonaws.com/static/images.png','https://ikshvaku-s3.s3.ap-south-1.amazonaws.com/static/1a3ea756b8ec93542184c8bb4631205e.jpg','/static/preview.png']
     },
-    coverImage:String,
+    coverImage:{
+        type:String,
+        default:"https://images.unsplash.com/photo-1645280403333-3775178fc8c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=60"
+    },
     aadhar:String,
 })
 

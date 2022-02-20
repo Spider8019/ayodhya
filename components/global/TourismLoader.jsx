@@ -3,7 +3,7 @@ import {Skeleton} from "@mui/material"
 
 const DashboardLoader = () => {
   return (
-      <div className='m-20 grid grid-cols-4 gap-8'>
+      <div className='m-8 sm:m-20 grid grid-cols-1 sm:grid-cols-4 gap-8'>
           {
               new Array(10).fill("").map((item,key)=>{
                   return(

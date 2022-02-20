@@ -30,22 +30,16 @@ import {
   ViberShareButton,
   VKShareButton,
   WhatsappShareButton,
-  WorkplaceShareButton,
   EmailIcon,
   FacebookIcon,
   FacebookMessengerIcon,
-  HatenaIcon,
   InstapaperIcon,
-  LineIcon,
   LinkedinIcon,
-  LivejournalIcon,
-  MailruIcon,
   OKIcon,
   PinterestIcon,
   PocketIcon,
   RedditIcon,
   TelegramIcon,
-  TumblrIcon,
   TwitterIcon,
   ViberIcon,
   VKIcon,
@@ -117,7 +111,7 @@ export default function CustomizedDialogs({url='https://www.google.com',title='I
           Share Page
         </BootstrapDialogTitle>
         <DialogContent dividers>
-          <div className="grid grid-cols-7 gap-4">
+          <div className="grid grid-cols-4 sm:grid-cols-7 gap-4">
               <EmailShareButton 
                 subject='Share from - Ikshvaku - Ayodhya - Spider8019.com '
                 url={defaultOptions.baseUrl+url}

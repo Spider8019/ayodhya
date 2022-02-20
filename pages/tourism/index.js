@@ -20,13 +20,13 @@ const Tourism = () => {
         <Head>
             <title>Tourism - Ikshvaku</title>
         </Head>
-        <div className="m-20 grid grid-cols-4 gap-8">
+        <div className="m-8 sm:m-20 grid grid-cols-1 min-h-screen sm:grid-cols-4 gap-8">
             {data.data && data.data.map((item,key)=>{
                 return(
                     <Link href={`/tourism/${item._id}`}
                     key={key}>
                         <a
-                            className="flex py-4 px-8 items-center rounded border-2 border-amber-500"
+                            className="flex py-4 px-8 items-center rounded border-2 h-fit border-amber-500"
                         >
                             <div className='rounded'>
                                 <Image

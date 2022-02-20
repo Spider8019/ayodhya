@@ -5,9 +5,6 @@
     width:90%;
     margin:5rem auto;
 }
-.galleryColumn{
-
-}
 .galleryImage{
     position:relative;
     width:100%; 
@@ -52,7 +49,7 @@
 }
 .specContainer{
     width:80vw;
-    margin:0 auto;
+    /* margin:5rem auto; */
     background:white;
     box-shadow:2px 2px 20px rgba(0, 0, 0, 0.363);
     display:grid;
@@ -94,9 +91,38 @@
     height:200px;
     display:grid;
     grid-template-columns: repeat(4,1fr);
-
     background:#ddd;
 }
 .morePostsSpec>a{
     height:150px;
+}
+@media only screen and (max-width:640px) {
+    .galleryRow{
+        grid-template-columns: 1fr;
+        width:95vw;
+        margin:2rem auto;
+    }
+    .specContainer{
+        width:95vw;
+        height:fit-content;
+        display:flex;
+        flex-direction: column;
+    }
+    .relatedGigsContaianerMain{
+        margin:  0 auto;
+        width:95vw;
+        grid-gap:1rem;
+        display:grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-areas: "a0 a1"
+        "a2 a3"
+        "a4 a5"
+        "a6 a7"
+        "a8 a9"
+        "a10 a11"
+        "a12 a13"
+        "a14 a15"
+        "a16 a17"
+        "a18 a19";
+    }
 }

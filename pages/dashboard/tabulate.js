@@ -27,7 +27,7 @@ const Tabulate = ({ user }) => {
 
   if (error || postsError || songsError || blogsError)
     return <h1>Error for {user.id}{console.log(songsError)}{console.log(postsError)}</h1>
-  if (!profile || !posts || !postsSong || !blogs) {
+  if (  !profile || !posts || !postsSong || !blogs) {
     return <TabulateLoader/>
   }
 

@@ -9,31 +9,92 @@ import _ from "lodash"
 import { useSession,signIn } from "next-auth/react"
 import { Avatar } from '@mui/material'
 import { defaultOptions } from '../../globalSetups/availableArrays'
+import {  isMobile,isBrowser } from 'react-device-detect';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Divider from '@mui/material/Divider';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Navbar = () => {
     let  { t }= useTranslation()
     const router=useRouter()
     const { data: session, status } = useSession()
 
+
+    const [state, setState] = React.useState({
+      top: false,
+      left: false,
+      bottom: false,
+      right: false,
+    });
+  
+    const toggleDrawer = (anchor, open) => (event) => {
+      if (
+        event &&
+        event.type === 'keydown' &&
+        (event.key === 'Tab' || event.key === 'Shift')
+      ) {
+        return;
+      }
+  
+      setState({ ...state, [anchor]: open });
+    };
+  
+    const list = () => (
+      <ul 
+      className={`${router.pathname.includes("/literature")&&"stickyNavbarLowerOne"} text-black sm:text-white bg-white sm:bg-amber-500 flex flex-col sm:flex-row w-full}`}
+      >
+          <li className={router.pathname == "/" ? "sm:bg-amber-600 bg-amber-500" : ""}>
+          <Link href="/">
+            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.home')}</a>
+          </Link>
+          </li>
+          <li className={router.pathname == "/about" ? "sm:bg-amber-600 bg-amber-500" : ""}>
+          <Link href="/about">
+            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.about')}</a>
+          </Link>
+          </li>
+          <li className={router.pathname.includes("/tourism") ? "sm:bg-amber-600 bg-amber-500" : ""}>
+          <Link href="/tourism">
+            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.tourism')}</a>
+          </Link>
+          </li>
+          <li className={router.pathname.includes("/literature") ?"sm:bg-amber-600 bg-amber-500" : ""}>
+          <Link href="/literature">
+            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.library')}</a>
+          </Link>
+          </li>
+          <li className={router.pathname.includes("/talent") ? "sm:bg-amber-600 bg-amber-500" : ""}>
+          <Link href="/talent">
+            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.talent')}</a>
+          </Link>
+          </li>
+          <li className={router.pathname.includes("/audio") ? "sm:bg-amber-600 bg-amber-500" : ""}>
+          <Link href="/audio#player">
+            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>Music</a>
+          </Link>
+          </li>
+          <li className={router.pathname.includes("/gallery") ? "sm:bg-amber-600 bg-amber-500" : ""}>
+          <Link href="/gallery">
+            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.gallery')}</a>
+          </Link>
+          </li>
+      </ul>
+    );
+
     if (["/auth/signin","/signup","/dashboard","/dashboard/tabulate","/dashboard/blog","/dashboard/devLiterature","/dashboard/addEvent"].includes(router.pathname))
       return null;
-
-    return (  
+    
+    if(isMobile){
+      return (  
         <div className='flex flex-col'>
-            <div className="px-10 py-4 flex justify-between items-center">
+            <div 
+              className="bg-amber-500 px-2 py-4 flex justify-between items-center">
                 <div className='flex items-center'>
-                  <Image
-                    layout='intrinsic'
-                    height={90}
-                    width={90}
-                    src="/static/withOutBgLogo.png"
-                    alt="Without Background Logo"
-                  />
-                  <h1 className="text-4xl ml-2">{t('common:title')}</h1>
+                  <MenuIcon onClick={toggleDrawer("top", true)}/>
+                  <h1 className="text-xl ml-2">{t('common:title')}</h1>
                 </div>
                 <div className="flex">
                   <ChangePageLanguage/>
-                  <Forecast/>
                   {
                     (!session && status==='unauthenticated')
                     &&
@@ -44,60 +105,49 @@ const Navbar = () => {
                         onClick={()=>signIn(null,{ callbackUrl: `${defaultOptions.baseUrl}/dashboard`})}
                       >Login</button>
                   }
-                  {
-                    session
-                    &&
-                      <Link 
-                        passHref={true}
-                        href="/dashboard">
-                        <Avatar  
-                          className="ml-2 cursor-pointer"
-                        >
-                             <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
-                        </Avatar>
-                      </Link>
-                  }
                 </div>
             </div>
-            <ul 
-              className={`${router.pathname.includes("/literature")&&"stickyNavbarLowerOne"} bg-amber-500 flex w-full}`}
-            >
-              <li className={router.pathname == "/" ? "bg-amber-600" : ""}>
-               <Link href="/">
-                 <a className='p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.home')}</a>
-               </Link>
-              </li>
-              <li className={router.pathname == "/about" ? "bg-amber-600" : ""}>
-               <Link href="/about">
-                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.about')}</a>
-               </Link>
-              </li>
-              <li className={router.pathname.includes("/tourism") ? "bg-amber-600" : ""}>
-               <Link href="/tourism">
-                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.tourism')}</a>
-               </Link>
-              </li>
-              <li className={router.pathname.includes("/literature") ? "bg-amber-600" : ""}>
-               <Link href="/literature">
-                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.library')}</a>
-               </Link>
-              </li>
-              <li className={router.pathname.includes("/talent") ? "bg-amber-600" : ""}>
-               <Link href="/talent">
-                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.talent')}</a>
-               </Link>
-              </li>
-              <li className={router.pathname.includes("/audio") ? "bg-amber-600" : ""}>
-               <Link href="/audio#player">
-                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>Music</a>
-               </Link>
-              </li>
-              <li className={router.pathname.includes("/gallery") ? "bg-amber-600" : ""}>
-               <Link href="/gallery">
-                 <a className=' p-2 grid items-center  border-r-2 text-white border-white'>{t('common:navbar.gallery')}</a>
-               </Link>
-              </li>
-            </ul>
+            <div>
+              {['top'].map((anchor) => (
+                <React.Fragment key={anchor}>
+                  <SwipeableDrawer
+                    anchor={anchor}
+                    open={state[anchor]}
+                    onClose={toggleDrawer(anchor, false)}
+                    onOpen={toggleDrawer(anchor, true)}
+                  >
+                      {
+                        session
+                        &&
+                          <div className="py-4 px-2 flex items-center">
+                            <Link 
+                              passHref={true}
+                              href="/dashboard">
+                              <Avatar  
+                                className="ml-2 cursor-pointer"
+                              >
+                                  <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
+                              </Avatar>
+                            </Link>
+                            <div className='ml-4'>
+                              <p>{session.user.name}</p>
+                              <p className='text-sm'>{session.user.email}</p>
+                            </div>
+
+                          </div>
+                      }
+                      <Divider/>
+                      {list()}
+                      <div className="italic px-2 py-4 text-sm text-right">
+                        <p>Developed by </p>
+                        <p>Spider8019</p>
+                        <p>All rights reserved.</p>
+                      </div>
+                  </SwipeableDrawer>
+                </React.Fragment>
+              ))}
+            </div>
+
             <style jsx>{`
               .stickyNavbarLowerOne {
                 position:sticky;
@@ -105,7 +155,61 @@ const Navbar = () => {
               }
             `}</style>
         </div>
-    )
+      )
+    }
+
+    if(isBrowser){
+      return (  
+          <div className='flex flex-col'>
+              <div className="px-10 py-4 flex justify-between items-center">
+                  <div className='flex items-center'>
+                    <Image
+                      layout='intrinsic'
+                      height={90}
+                      width={90}
+                      src="/static/withOutBgLogo.png"
+                      alt="Without Background Logo"
+                    />
+                    <h1 className="text-4xl ml-2">{t('common:title')}</h1>
+                  </div>
+                  <div className="flex">
+                    <ChangePageLanguage/>
+                    <Forecast/>
+                    {
+                      (!session && status==='unauthenticated')
+                      &&
+                        <button 
+                          aria-label="internationalizationButton"
+                          className='basicDarkButton' 
+                          style={{marginLeft:"1rem"}}
+                          onClick={()=>signIn(null,{ callbackUrl: `${defaultOptions.baseUrl}/dashboard`})}
+                        >Login</button>
+                    }
+                    {
+                      session
+                      &&
+                        <Link 
+                          passHref={true}
+                          href="/dashboard">
+                          <Avatar  
+                            className="ml-2 cursor-pointer"
+                          >
+                               <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
+                          </Avatar>
+                        </Link>
+                    }
+                  </div>
+              </div>
+              {list()}
+              <style jsx>{`
+                .stickyNavbarLowerOne {
+                  position:sticky;
+                  top:0;
+                }
+              `}</style>
+          </div>
+      )
+    }
 }
 
 export default Navbar

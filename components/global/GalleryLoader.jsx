@@ -1,11 +1,12 @@
 import React from 'react';
 import {Skeleton} from "@mui/material"
+import {isMobile} from "react-device-detect"
 
 const DashboardLoader = () => {
   return <div style={{margin:"5rem auto",width:"90vw"}}>
-          <div className="grid my-8 grid-cols-5 gap-4 "
+          <div className="grid my-8 grid-cols-1 sm:grid-cols-5 gap-4 "
           >
-                     {new Array(10).fill("").map((item,key)=>{
+                     {new Array(isMobile?1:10).fill("").map((item,key)=>{
                         return(
                             <Skeleton
                             animation="wave"

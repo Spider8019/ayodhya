@@ -16,7 +16,7 @@
 }
 
 .parentContainer{
-    height:100%;
+    min-height:100%;
 }
 .dashboardBody{
     position:relative;
@@ -100,4 +100,29 @@
 }
 .badge{
    border:1px solid black;
+}
+@media only screen and (max-width:640px) {
+    .parentContainer{
+        position:relative;
+        grid-template-columns: 1fr;
+        background:pink;
+        height:fit-content;
+    }
+    .sideNavContainer{
+        z-index:200;
+        width:100%;
+        background:white;
+        height:fit-content;
+        padding:2;
+        display:grid;
+        grid-template-columns: 1fr 4fr;
+    }
+    .profileContainer{
+        height:500vh;
+        overflow: scroll;
+    }
+    .dashboardBody{
+        top:-2rem;  
+        grid-template-columns: 1fr;
+    }
 }

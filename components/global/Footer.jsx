@@ -27,7 +27,7 @@ const Footer = () => {
   return <div
     className="bg-amber-500 "
   >
-    <div className="py-8 px-20 grid grid-cols-6">
+    <div className="py-8 sm:px-20 px-4 grid sm:grid-cols-6 grid-cols-2">
       <ul className="flex flex-col">
         <li>
           <Link href="/gallery">
@@ -98,7 +98,11 @@ const Footer = () => {
         </li>
       </ul>
     </div>
-    <div className="bg-amber-400 py-8 px-20 flex justify-between">
+    <div className="bg-amber-400 py-8 sm:px-20 px-4 
+      flex
+      flex-col-reverse
+      sm:flex-row
+      sm:justify-between">
       <div>
         <div>
           <p>Ayodhya</p>
@@ -108,9 +112,9 @@ const Footer = () => {
           <p className='text-xs'>© 2006–2022 Ikshvaku & Spider8019, Inc. All rights reserved.</p>
         </div>
       </div>
-      <div className='w-3/12'>
+      <div className='w-full mb-8 rounded-0 sm:mb-0 sm:w-3/12'>
         <p className="text-xl mb-4 ">Contributors</p>
-        <div className='flex flex-wrap'>
+        <div className='flex smflex-wrap'>
           {contributors.map((item, key) => {
             return (
               <BootstrapTooltip key={key} title={item.name}>

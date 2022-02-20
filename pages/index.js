@@ -10,6 +10,7 @@ import { siedEntrance } from "../globalSetups/framer"
 import { useInView } from 'react-intersection-observer';
 import _ from "lodash"
 import { getEvent } from "../globalSetups/api"
+import {isMobile,BrowserView,MobileView} from "react-device-detect"
 import useSWR, { mutate } from "swr"
 import axios from "axios"
 
@@ -56,7 +57,7 @@ export default function Home() {
 
 
       <motion.div
-        style={{ width: "100%", height: "calc(100vh - 10rem)", position: "relative" }}
+        style={{width: "100%", height: isMobile?"60vh":"calc(100vh - 10rem)", position: "relative" }}
         className="grid place-items-center" >
         <Image
           layout="fill"
@@ -66,10 +67,10 @@ export default function Home() {
           priority={true}
         />
         <motion.div
-          className="absolute top-auto left-1/4 -translate-x-100 p-5 rounded"
-          style={{ background: "rgba(245,158,11,0.7)", transform: "translateX(-100%)" }}>
-          <motion.h1 className="text-white text-2xl font-semibold">THE NEW <br /> AYODHYA</motion.h1>
-          <motion.p className="text-white text-xs mt-2">PEERLESS REFINEMENT AND LUXURY</motion.p>
+          className=" absolute top-auto left-2/4 sm:left-1/4 p-5 rounded"
+          style={{ width:isMobile?"80vw":"fit-content",background: "rgba(245,158,11,0.7)", transform: isMobile?"translateX(-50%)":"translateX(-100%)" }}>
+          <motion.h1 className="text-white text-4xl sm:text-2xl sm:uppercase font-semibold">The New <br /> Ayodhya</motion.h1>
+          <motion.p className="text-white text-xl sm:text-xs mt-2">PEERLESS REFINEMENT AND LUXURY</motion.p>
           <button
             className="mt-2 basicButton"
             onClick={() => router.push("/gallery")}
@@ -80,21 +81,29 @@ export default function Home() {
       <motion.div
         className="grid"
         ref={heroSec}
-        style={{ gridTemplateColumns: "0.4fr 0.8fr" }}
+        style={{ gridTemplateColumns: isMobile?"1fr":"0.4fr 0.8fr" }}
       >
         <motion.div className={`${styles.aug5Text} grid place-items-center `}>
-          <motion.div className="w-2/4">
+          <motion.div className="my-20 sm:my-0 w-2/4">
             <p className="text-center leading-8">On August 5 of 2022, Prime Minister Narendra Modi attended Ram Mandir&apos;s bhoomi pujan in Ayodhya.</p>
           </motion.div>
         </motion.div>
         <motion.div className="grid items-center">
           <motion.div className={`${styles.aug5container} lgBg`}>
+            <MobileView className="mb-20">
+              <Image 
+                src="/static/withOutBgLogo.png"
+                height={200}
+                width={200}
+                alt="Ikshvaku Spider8019 Logo"
+              />
+            </MobileView>
             <motion.p
               initial="initial"
               exit="initial"
               animate={inView && "final"}
               variants={{ ...siedEntrance, final: { ...siedEntrance.final, transition: { duration: 0.5, delay: 0.5 } } }}
-              className={`${styles.overlayingText} text-amber-500  text-8xl font-semibold`}>5<sup>th</sup> August</motion.p>
+              className={`${styles.overlayingText} text-amber-500 text-4xl sm:text-8xl font-semibold`}>5<sup>th</sup> August</motion.p>
             <motion.p
               initial="initial"
               exit="initial"
@@ -109,10 +118,12 @@ export default function Home() {
       <motion.div className={styles.timelineContainerAnimate}>
         <motion.div className={styles.timelineContainer}>
           <div className="absolute left-2/4 top-0 -translate-x-2/4">
-            <h1 className="text-2xl">Finally good time comes</h1>
+            <BrowserView>
+                <h1 className="text-2xl">Finally good time comes</h1>
+            </BrowserView>
           </div>
           <div>
-            <div className="grid grid-cols-4 gap-20 mx-20">
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-8 sm:gap-20 mx-8 sm:mx-20">
               <motion.div
                 whileHover={
                   {
@@ -121,13 +132,11 @@ export default function Home() {
                   }
                 }
                 className="h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
-                style={{ opacity: yearsFrom5Aug, boxShadow: "2px 2px 20px #00000041" }}
+                style={{ opacity: isMobile?1:yearsFrom5Aug, boxShadow: "2px 2px 20px #00000041" }}
               >
-                <div className="bg-black" style={{ width: "100%", height: "160px" }}>
+                <div className="bg-black" style={{ position:"Relative",width: "100%", height: "160px" }}>
                   <Image
-                    layout="responsive"
-                    height={100}
-                    width={160}
+                    layout="fill"
                     objectFit='cover'
                     src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202102/ram_temple_1_1200x768.jpeg?beWwolAYI9RjhIeuQv85qWoj6Gd_fYQW&size=770:433"
                     alt="5 August 2020"
@@ -147,13 +156,11 @@ export default function Home() {
                   }
                 }
                 className="h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
-                style={{ opacity: yearsFromKarsevak, boxShadow: "2px 2px 20px #00000041" }}
+                style={{ opacity: isMobile?1:yearsFromKarsevak, boxShadow: "2px 2px 20px #00000041" }}
               >
-                <div className="bg-black" style={{ width: "100%", height: "160px" }}>
+                <div className="bg-black" style={{ position:"relative",width:"100%",height:"160px" }}>
                   <Image
-                    layout="responsive"
-                    height={100}
-                    width={160}
+                    layout="fill"
                     objectFit='cover'
                     src="https://gumlet.assettype.com/swarajya%2F2017-04%2F58ad8b07-27c7-40d9-a5d3-4c53abac41b4%2Fbabri.jpg?rect=0%2C0%2C636%2C358&q=75&auto=format%2Ccompress&w=1200"
                     alt="5 August 2020"
@@ -173,13 +180,11 @@ export default function Home() {
                   }
                 }
                 className="h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
-                style={{ opacity: yearsFromBabarInvade, boxShadow: "2px 2px 20px #00000041" }}
+                style={{ opacity: isMobile?1:yearsFromBabarInvade, boxShadow: "2px 2px 20px #00000041" }}
               >
-                <div className="bg-black" style={{ width: "100%", height: "160px" }}>
+                <div className="bg-black" style={{position:"relative", width: "100%", height: "160px" }}>
                   <Image
-                    layout="responsive"
-                    height={100}
-                    width={160}
+                    layout="fill"
                     objectFit='cover'
                     src="https://thetalentedworld.net/wp-content/uploads/2021/07/Zaheeruddin-Babar.jpg"
                     alt="5 August 2020"
@@ -199,13 +204,11 @@ export default function Home() {
                   }
                 }
                 className="h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
-                style={{ opacity: yearsFrom1400, boxShadow: "2px 2px 20px #00000041" }}
+                style={{ opacity: isMobile?1:yearsFrom1400, boxShadow: "2px 2px 20px #00000041" }}
               >
-                <div className="bg-black" style={{ width: "100%", height: "160px" }}>
+                <div className="bg-black" style={{ position:"relative",width: "100%", height: "160px" }}>
                   <Image
-                    layout="responsive"
-                    height={100}
-                    width={160}
+                    layout="fill"
                     objectFit='cover'
                     src="https://images.sadhguru.org/sites/default/files/styles/wisdom_grid_image_style/public/media_files/Kaliyuga.jpg"
                     alt="5 August 2020"
@@ -232,10 +235,9 @@ export default function Home() {
             exit="initial"
             animate={heroTalentInView && "final"}
             variants={siedEntrance}
-            className="text-8xl font-semibold">Talent&apos;s</motion.h1>
+            className="text-5xl sm:text-8xl font-semibold">Talent&apos;s</motion.h1>
         </motion.div>
         <motion.div
-          style={{ height: "60vh" }}
           className="grid place-items-center">
           <div className="grid place-items-center">
             <Image 
@@ -251,7 +253,7 @@ export default function Home() {
               Modernize, streamline, and expedite your talent communication.
             </h1>
             <Link href="/talent">
-              <a className="mt-4 block basicDarkButton">Explore Talents from Ayodhya{new Date(d.getFullYear(),d.getMonth(),1).getDay()}</a>
+              <a className="mt-4 block basicDarkButton">Explore Talents from Ayodhya</a>
             </Link>
           </div>
         </motion.div>
@@ -260,8 +262,8 @@ export default function Home() {
 
 
       <motion.div
-        className="grid grid-cols-2 "
-        style={{ height: "100vh" }}
+        className="grid grid-cols-1 sm:grid-cols-2"
+        style={{ minHeight: "100vh" }}
       >
         <div
           className="grid place-items-center text-center"
@@ -276,20 +278,20 @@ export default function Home() {
               <Image src={todaysEvent.imgUrl}
                 alt="Todays Event Image Url"
                 className="rounded-full"
-                width="300"
-                height="300"
+                width={isMobile?200:300}
+                height={isMobile?200:300}
                 objectFit="cover"
               />
             </div>
-            <div className=" px-20 my-8 z-30">
+            <div className="px-8 sm:px-20 my-8 z-30">
               <p className="text-3xl font-semibold ">{todaysEvent.heading}</p>
               <p className="mt-8">{todaysEvent.about}</p>
             </div>
           </div>
         }
         </div>
-        <div className="grid place-items-center">
-          <div className="grid grid-cols-7 w-2/3 items-center">
+        <div className="grid place-items-center sm:mb-0 mb-20">
+          <div className="grid grid-cols-7 p-4 sm:p-0 w-full sm:w-2/3 items-center">
             {_.concat(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],new Array(new Date(d.getFullYear(),d.getMonth(),1).getDay()-1).fill(""), new Array(new Date(d.getFullYear(), d.getMonth()+1, 0).getDate()).fill("")).map((item, key) => {
               return (
                 key > 6 && key < 6 + new Date(d.getFullYear(),d.getMonth(),1).getDay()
@@ -303,7 +305,7 @@ export default function Home() {
                              cursor:key<=6?"no-drop":"pointer",
                              background: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === d.getDate() ? "#ffd793" :key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate()?"#f59e0b": "#eee", 
                              color: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate() ? "white" : key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay()  === d.getDate()?"red": "black" }}
-                    className="cursor-pointer rounded self-center grid place-items-center text-sm m-1 p-4 ">
+                    className="cursor-pointer rounded self-center grid place-items-center text-sm m-1 p-2 sm:p-4 ">
                     <p className="">{(key >= (6 + new Date(d.getFullYear(),d.getMonth(),1).getDay())) ? key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() : <span className="font-semibold">{item}</span>}</p>
                   </div>
               )

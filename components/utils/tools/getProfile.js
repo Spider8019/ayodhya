@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import {Box,LinearProgress} from '@mui/material';
+import {isMobile} from "react-device-detect"
 
 
 const GetProfile = ({id}) => {
@@ -25,7 +26,6 @@ const GetProfile = ({id}) => {
   return (
     <div className="relative w-full" onMouseLeave={()=>setShowing(false)}>
         <IconButton onMouseEnter={getProfileById}
-            
         >
             <PermIdentityIcon style={{fontSize:"20px",color:"white",cursor:"pointer"}}/>
         </IconButton>
@@ -33,7 +33,7 @@ const GetProfile = ({id}) => {
         showing
         &&
         <div className="absolute  top-0 bg-white rounded"
-            style={{width:"calc(25vw - 4rem - 24px)",left:"0"}}
+            style={{width:isMobile?"calc(95vw - 4rem - 6px)":"calc(25vw - 4rem - 24px)",left:"0"}}
         >
             {_.isEmpty(data)
             ?

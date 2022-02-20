@@ -32,6 +32,8 @@ import { notifyerror, notifysuccess, notifywarn } from '../../components/snackba
 import { deleteObject,uploadObject } from '../../globalSetups/aws/s3';
 import { nanoid } from 'nanoid';
 import { editProfileCoverImage } from '../../globalSetups/api';
+import FilterBAndWIcon from '@mui/icons-material/FilterBAndW';
+import {isMobile} from "react-device-detect"
 
 const Dashboard = ({user,msg}) => {
 
@@ -115,8 +117,7 @@ const Dashboard = ({user,msg}) => {
             <div className="relative"
             >
               <div
-                className={`relative h-40 rounded w-full overflow-hidden`}
-                style={{height:'10rem'}}
+                className={`relative h-60 sm:h-40 rounded w-full overflow-hidden`}
                >
                 <Image
                    layout='fill'
@@ -128,7 +129,7 @@ const Dashboard = ({user,msg}) => {
               </div>
               <div 
                 style={{pointerEvents:coverProcessing?"none":"auto",cursor:coverProcessing?"no-drop":"pointer",background:"rgba(0,0,0,0.64)"}}
-                className='flex text-sm rounded absolute bottom-2 right-2 z-20 text-white'>
+                className='flex text-sm rounded absolute top-2 sm:bottom-2 right-2 z-20 text-white'>
                 {fileCoverImage && <p 
                     className='cursor-pointer border-r p-2 border-amber-500'
                     onClick={()=>{setCoverImage(null);setFileCoverPreview("")}}
@@ -149,10 +150,10 @@ const Dashboard = ({user,msg}) => {
             <div 
              className='p-4 grid justify-between  w-full'
              >
-             <div className="flex items-center relative -top-2/4"
+             <div className="flex flex-wrap items-center relative -top-1/3 sm:-top-2/4"
              >
                 <div 
-                 className="border-8 border-white bg-white rounded-full"
+                 className="mx-auto border-8 border-white bg-white rounded-full"
                  style={{height:"166px",width:"166px"}}
                 >
                     {
@@ -180,9 +181,9 @@ const Dashboard = ({user,msg}) => {
                     }
                 </div>
                 <div 
-                    className='mt-4 relative top-1/4 -translate-y-1/4 flex items-center'
+                    className='mx-auto sm:mt-4 relative sm:top-1/4 sm:-translate-y-1/4 sm:flex items-center justify-center'
                 >
-                    <div className="flex flex-col mr-4 ">
+                    <div className="flex justify-center sm:flex-col sm:mr-4 ">
                         <IconButton
                             disabled={profile.image===profile.availableImages.length-1?true:false}
                             onClick={()=>{
@@ -203,10 +204,12 @@ const Dashboard = ({user,msg}) => {
                         </IconButton>
                     </div>
                     <div>
-                        <div className='flex items-center'>
+                        <div className='flex flex-col sm:flex-row items-center'>
                             <p className="text-3xl">{profile.name}</p>
-                            {profile.isVerified && <IconButton className="ml-2"><VerifiedIcon style={{color:"#0080ff"}}/></IconButton>} 
-                            {profile.isDeveloper && <DeveloperOptions className="ml-2"/>}
+                            <div className="flex">
+                                {profile.isVerified && <IconButton className="ml-2"><VerifiedIcon style={{color:"#0080ff"}}/></IconButton>} 
+                                {profile.isDeveloper && <DeveloperOptions className="ml-2"/>}
+                            </div>
                         </div>
                         <p className='text-sm mt-1'>{profile.about}  </p>
                     </div>
@@ -218,7 +221,7 @@ const Dashboard = ({user,msg}) => {
             
             <div>
                 <p className='text-xl mb-4'>Your Creations</p>
-                <div className={`grid grid-cols-3 gap-8 px-4`}>
+                <div className={`grid grid-cols-1 sm:grid-cols-3 gap-8 px-4`}>
                     { 
                         posts.data && posts.data.map((item,key)=>{
                             return(

@@ -1,12 +1,13 @@
 import React from 'react';
 import {Skeleton} from "@mui/material"
+import {isMobile} from "react-device-detect"
 
 const DashboardLoader = () => {
   return (
-    <div className='grid my-12' style={{ height: "calc(100vh - 2rem)", gridTemplateColumns: "repeat(4,1fr)" }}>
+    <div className='grid my-12' style={{ height: isMobile?"fit-content":"calc(100vh - 2rem)", gridTemplateColumns: isMobile?"1fr":"repeat(4,1fr)" }}>
 
             {
-                new Array(4).fill("").map((item,key)=>{
+                new Array(isMobile?1:4).fill("").map((item,key)=>{
                     return(
                         <Skeleton
                             key={key}

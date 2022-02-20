@@ -10,9 +10,9 @@ import millify from "millify";
 import FilterTiltShiftIcon from '@mui/icons-material/FilterTiltShift';
 import { IconButton } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShareDialog from "../../components/utils/dialogs/sharePage"
 import TalentLoader from "../../components/global/TalentLoader"
 import GetProfile from "../../components/utils/tools/getProfile";
+import {isMobile} from "react-device-detect"
 
 export default function SimpleSlider() {
 
@@ -20,8 +20,10 @@ export default function SimpleSlider() {
       dots: true,
       infinite:false,
       speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 1
+      slidesToShow: isMobile?1:4,
+      slidesToScroll: 1,
+      lazyLoad: true,
+      draggable:true
     };
     const {data:top10,error:top10Error}=useSWR('top10Talents',()=>getTop10Talents({category:"artworks"}))
     const {data:top10Photos,error:top10PhotosError}=useSWR('top10TalentsPhotos',()=>getTop10Talents({category:"photography"}))
@@ -37,9 +39,9 @@ export default function SimpleSlider() {
                 <link rel="stylesheet" type="text/css" charSet="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
                 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
           </Head>
-          <div className={`my-20 ${styles.parentContainer}`}>
+          <div className={`${styles.parentContainer}`}>
 
-            <h2 className="text-2xl mb-8">Artworks</h2>
+            <h2 className="text-2xl mb-8 mt-8 sm:mt-0">Artworks</h2>
             {
                 !top10
                 ?
@@ -147,7 +149,7 @@ export default function SimpleSlider() {
                     </Slider>
                 </div>      
             }
-            <h2 className="text-2xl my-8">Others</h2>
+            <h2 className="text-2xl my-8 ">Others</h2>
             {
                 !top10Others
                 ?
@@ -182,7 +184,7 @@ export default function SimpleSlider() {
                                         <video 
                                             controls
                                             controlsList="nodownload"
-                                            style={{height:"calc(25vw - 4.5rem )",objectFit:"cover"}}
+                                            style={{height:isMobile?"calc(95vw - 1rem)":"calc(25vw - 4.5rem )",objectFit:"cover"}}
                                             >
                                                 <source src={item.imageList[0]}/>
                                             </video>
@@ -213,7 +215,7 @@ export default function SimpleSlider() {
                     </Slider>
                 </div>
             }
-            </div>
+          </div>
 
       </>
     );

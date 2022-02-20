@@ -13,11 +13,11 @@ const DashboardLoader = () => {
                 animation="wave" 
                 variant="rectangular" 
             />
-            <Skeleton 
-                className='rounded w-20 mt-2 h-2'
-                animation="text" 
-                variant="rectangular" 
-            />
+        <Skeleton 
+            className='rounded w-20 mt-2 h-2'
+            animation="wave" 
+            variant="rectangular" 
+        />
       </div>
     </div>
     <div
@@ -26,9 +26,10 @@ const DashboardLoader = () => {
     >
       <div className="w-full h-full">
             <Skeleton 
-                    className='rounded h-full'
-                    animation="wave" 
-                    variant="rectangular" 
+                className='rounded'
+                animation="wave" 
+                variant="rectangular" 
+                height={420}
             />
         <div>
         </div>
@@ -38,6 +39,7 @@ const DashboardLoader = () => {
             className='rounded h-full w-full'
             animation="wave" 
             variant="rectangular" 
+            height={420}
         />
       </div>
     </div>
@@ -48,9 +50,10 @@ const DashboardLoader = () => {
             key={key}
           >
             <Skeleton 
-                className="rounded h-32 w-full"
+                className="rounded w-full"
                 animation="wave" 
                 variant="rectangular" 
+                height={100}
             />
           </div>
         )

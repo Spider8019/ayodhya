@@ -57,8 +57,7 @@ const Gallery = ({detail}) => {
                 {"@"+detail.createdBy.name}
           </title>
       </Head>
-      <div className={`rounded overflow-hidden ${styles.specContainer}`}
-        style={{margin:"5rem 0"}}
+      <div className={`sm:my-20 my-4 mx-auto rounded overflow-hidden ${styles.specContainer}`}
       >
 
                     {
@@ -206,13 +205,11 @@ const Gallery = ({detail}) => {
                           <Link key={key}
                            href={`/gallery/${item._id}`}
                           >
-                              <a
-                                
-                                className="rounded overflow-hidden "
+                              <a                    
+                                className="rounded overflow-hidden"
                                 style={{gridArea:"a"+key,boxShadow:"1px 1px 10px rgba(0,0,0,0.164)"}}
-
                               >
-                                <div className='flex items-center p-2'>
+                                <div className=' items-center p-2 sm:flex hidden'>
                                     <Avatar 
                                      src={item.createdBy.availableImages[item.createdBy.image]}
                                      alt={item.createdBy.name}
