@@ -13,6 +13,7 @@ import {  isMobile,isBrowser } from 'react-device-detect';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
+import styles from "../../styles/pages/Home.module.css"
 
 const Navbar = () => {
     let  { t }= useTranslation()
@@ -83,15 +84,70 @@ const Navbar = () => {
 
     if (["/auth/signin","/signup","/dashboard","/dashboard/tabulate","/dashboard/blog","/dashboard/devLiterature","/dashboard/addEvent"].includes(router.pathname))
       return null;
+
+    if(isBrowser){
+        return (  
+            <div className='flex flex-col'>
+                <div className="sm:px-10 sm:py-4 flex justify-between sm:bg-white items-center">
+                    <div className='flex items-center'>
+                      <Image
+                        layout='intrinsic'
+                        height={90}
+                        width={90}
+                        src="/static/withOutBgLogo.png"
+                        alt="Without Background Logo"
+                      />
+                      <h1 className="sm:text-4xl sm:ml-2">{t('common:title')}</h1>
+                    </div>
+                    <div className="flex">  
+                      <ChangePageLanguage/>
+                      <Forecast/>
+                      {
+                        (!session && status==='unauthenticated')
+                        &&
+                          <button 
+                            aria-label="internationalizationButton"
+                            className='basicDarkButton' 
+                            style={{marginLeft:"1rem"}}
+                            onClick={()=>signIn(null,{ callbackUrl: `${defaultOptions.baseUrl}/dashboard`})}
+                          >Login</button>
+                      }
+                      {
+                        session
+                        &&
+                          <Link 
+                            passHref={true}
+                            href="/dashboard">
+                            <Avatar  
+                              className="ml-2 cursor-pointer"
+                            >
+                                <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
+                            </Avatar>
+                          </Link>
+                      }
+                    </div>
+                </div>
+                {list()}
+                <style jsx>{`
+                  .stickyNavbarLowerOne {
+                    position:sticky;
+                    top:0;
+                  }
+                `}</style>
+            </div>
+        )
+      }
     
     if(isMobile){
       return (  
-        <div className='flex flex-col'>
+        <div>
             <div 
-              className="bg-amber-500 px-2 py-4 flex justify-between items-center">
+              className={`${styles.navbarContainer} p-4`}
+            >
                 <div className='flex items-center'>
                   <MenuIcon onClick={toggleDrawer("top", true)}/>
-                  <h1 className="text-xl ml-2">{t('common:title')}</h1>
+                  <h1 className={`${styles.navbarContainerHeading}`}
+                  >{t('common:title')}</h1>
                 </div>
                 <div className="flex">
                   <ChangePageLanguage/>
@@ -148,68 +204,12 @@ const Navbar = () => {
               ))}
             </div>
 
-            <style jsx>{`
-              .stickyNavbarLowerOne {
-                position:sticky;
-                top:0;
-              }
-            `}</style>
         </div>
       )
     }
 
-    if(isBrowser){
-      return (  
-          <div className='flex flex-col'>
-              <div className="px-10 py-4 flex justify-between items-center">
-                  <div className='flex items-center'>
-                    <Image
-                      layout='intrinsic'
-                      height={90}
-                      width={90}
-                      src="/static/withOutBgLogo.png"
-                      alt="Without Background Logo"
-                    />
-                    <h1 className="text-4xl ml-2">{t('common:title')}</h1>
-                  </div>
-                  <div className="flex">
-                    <ChangePageLanguage/>
-                    <Forecast/>
-                    {
-                      (!session && status==='unauthenticated')
-                      &&
-                        <button 
-                          aria-label="internationalizationButton"
-                          className='basicDarkButton' 
-                          style={{marginLeft:"1rem"}}
-                          onClick={()=>signIn(null,{ callbackUrl: `${defaultOptions.baseUrl}/dashboard`})}
-                        >Login</button>
-                    }
-                    {
-                      session
-                      &&
-                        <Link 
-                          passHref={true}
-                          href="/dashboard">
-                          <Avatar  
-                            className="ml-2 cursor-pointer"
-                          >
-                               <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
-                          </Avatar>
-                        </Link>
-                    }
-                  </div>
-              </div>
-              {list()}
-              <style jsx>{`
-                .stickyNavbarLowerOne {
-                  position:sticky;
-                  top:0;
-                }
-              `}</style>
-          </div>
-      )
-    }
+
+    return null;
 }
 
 export default Navbar

@@ -1,8 +1,9 @@
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { isMobile } from 'react-device-detect';
 
     const payload={
-      position: "top-right",
+      position: isMobile?"top-center":"top-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,

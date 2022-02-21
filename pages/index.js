@@ -1,4 +1,5 @@
 import { useEffect, useRef,useState } from "react"
+import {isMobile,BrowserView,MobileView} from "react-device-detect"
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,9 +11,6 @@ import { siedEntrance } from "../globalSetups/framer"
 import { useInView } from 'react-intersection-observer';
 import _ from "lodash"
 import { getEvent } from "../globalSetups/api"
-import {isMobile,BrowserView,MobileView} from "react-device-detect"
-import useSWR, { mutate } from "swr"
-import axios from "axios"
 
 export default function Home() {
 
@@ -56,7 +54,7 @@ export default function Home() {
 
 
       <motion.div
-        style={{width: "100%", height: isMobile?"60vh":"calc(100vh - 10rem)", position: "relative" }}
+        style={{width: "100%", height: isMobile?"80vh":"calc(100vh - 10rem)", position: "relative" }}
         className="grid place-items-center" >
         <Image
           layout="fill"
@@ -66,8 +64,8 @@ export default function Home() {
           priority={true}
         />
         <motion.div
-          className=" absolute top-auto left-2/4 sm:left-1/4 p-5 rounded"
-          style={{ width:isMobile?"80vw":"fit-content",background: "rgba(245,158,11,0.7)", transform: isMobile?"translateX(-50%)":"translateX(-100%)" }}>
+          className={`absolute top-auto left-2/4 sm:left-1/4 p-5 rounded ${styles.heroChildDiv}`}
+        >
           <motion.h1 className="text-white text-4xl sm:text-2xl sm:uppercase font-semibold">The New <br /> Ayodhya</motion.h1>
           <motion.p className="text-white text-xl sm:text-xs mt-2">PEERLESS REFINEMENT AND LUXURY</motion.p>
           <button
@@ -75,12 +73,10 @@ export default function Home() {
             onClick={() => router.push("/gallery")}
           >VIEW GALLERY </button>
         </motion.div>
-        {/* <p>{t('common:home.body')}</p> */}
       </motion.div>
       <motion.div
-        className="grid"
+        className={`grid ${styles.aug5ParentContainer}`}
         ref={heroSec}
-        style={{ gridTemplateColumns: isMobile?"1fr":"0.4fr 0.8fr" }}
       >
         <motion.div className={`${styles.aug5Text} grid place-items-center `}>
           <motion.div className="my-20 sm:my-0 w-2/4">

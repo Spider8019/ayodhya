@@ -40,7 +40,31 @@
   top:0;
   /* position:relative; */
 }
+.aug5ParentContainer{
+  display:grid;
+  grid-template-columns: 0.4fr 0.8fr;
+}
+.navbarContainer{
+  display:flex;
+  justify-content: space-between;
+}
+.navbarContainerHeading{
+  margin-left: 1rem !important;
+  background:orange;
+  font-size:1.2rem;
+}
+.heroChildDiv{
+  transform:translate(-100%);
+  background:rgba(245,158,11,0.7);
+}
 @media only screen and (max-width:640px) {
+  .heroChildDiv{
+    width:80vw;
+    transform:translate(-50%);
+  }
+  .aug5ParentContainer{
+    grid-template-columns: 1fr;
+  }
   .aug5container{
      padding:0 !important;
      height:fit-content !important;

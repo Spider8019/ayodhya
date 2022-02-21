@@ -113,6 +113,7 @@
         height:fit-content;
         display:flex;
         flex-direction: column;
+        max-height: fit-content;
     }
     .relatedGigsContaianerMain{
         margin:  0 auto;

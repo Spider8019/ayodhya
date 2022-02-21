@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import {signupProfile} from "../globalSetups/api"
 import {useRouter} from "next/router"
 import {notifyerror} from "../components/snackbar"
+import Head from 'next/head';
 
 const Signup = () => {
   const [formObj,setFormObj]=useState({name:"",email:"",password:"",coverImage:"https://ikshvaku-s3.s3.ap-south-1.amazonaws.com/static/1a3ea756b8ec93542184c8bb4631205e.jpg"})
@@ -20,6 +21,11 @@ const Signup = () => {
   }
 
   return <div className="p-20">
+      <Head>
+        <title>
+          Signup - Ikshvaku
+        </title>
+      </Head>
       <form 
         className="grid grid-cols-1"
         onSubmit={handleSignup}>

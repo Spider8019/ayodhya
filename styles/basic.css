@@ -1,6 +1,11 @@
 body{
     font-family:Noto Sans Display;
 }
+@media only screen and (max-width:640px) {
+    body{
+       user-select:none;
+    }
+}
 @font-face{
     font-family:'signature';
     src:url('/static/fonts/signatureAmsterdam.ttf')
