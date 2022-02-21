@@ -20,6 +20,7 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { getSession } from 'next-auth/react';
 import NumberFormat from 'react-number-format';
 import {notify, notifyerror} from "../../components/snackbar"
+import { isMobile } from 'react-device-detect';
 
 const Audio = ({user}) => {
 
@@ -108,12 +109,12 @@ const Audio = ({user}) => {
 
         <div
        id="player"
-       style={{overflowX:"hidden",height:"100vh",display:"grid",gridTemplateRows:"85% 15%"}}
+       style={{overflowX:"hidden",height:"100vh",display:"grid",gridTemplateRows:isMobile?"90% 10%":"85% 15%"}}
        >
             <div
-                className='grid grid-cols-2'
+                className='sm:grid flex flex-col sm:grid-cols-2'
             >
-                <div className='p-12 playerLeftContainer'>
+                <div className=' p-12 playerLeftContainer'>
                     <audio controls
                         volume={active.volume}
                         style={{display:"none"}}
@@ -132,10 +133,10 @@ const Audio = ({user}) => {
                         {/* <Cubes/> */}
                         <div>
                             <span 
-                                className="signature text-2xl">Total Listens</span>
+                                className=" signature text-2xl">Total Listens</span>
                             <NumberFormat
                                     value={audios[active.trackId].view}
-                                    className="text-8xl text-center GFG font-bold mt-4"
+                                    className="text-8xl text-center GFG text-white sm:text-transparent font-bold mt-4"
                                     displayType={'text'}
                                     thousandSeparator={true}
                                     renderText={(value, props) => <div {...props}>{value}</div>}
@@ -144,9 +145,11 @@ const Audio = ({user}) => {
                     </div>
 
                 </div>
-               <div className='grid place-items-center bg-slate-50'>
-                   <div className='w-2/3'
-                    style={{height:"90%"}}
+               <div className='relative -top-4 rounded-t-xl sm:rounded-none sm:static grid place-items-center bg-white sm:bg-slate-50 h-full'
+                    style={{boxShadow:isMobile?"0px -10px 10px rgba(0,0,0,0.164)":"none"}}
+                >
+                   <div className='sm:w-2/3 w-full mt-8 sm:mt-0'
+                    style={{height:isMobile?"100%":"90%"}}
                    > 
                     {audios.map((audio,key)=>{
                         return(
@@ -164,7 +167,7 @@ const Audio = ({user}) => {
                    </div>
                </div>
             </div>
-            <div className=' bg-amber-200 grid grid-cols-3 items-center relative'>
+            <div className=' px-2 sm:px-0 bg-amber-200 flex sm:grid sm:grid-cols-3 items-center relative'>
                 <div 
                     onClick={seekTo}
                     className='progressBarContainer bg-amber-300 absolute top-0 left-0 w-full h-1 cursor-pointer'>
@@ -179,8 +182,9 @@ const Audio = ({user}) => {
                         className="seekToButton absolute h-4 w-4 bg-amber-500 rounded-full">
                     </div>
                 </div>
-                <div className='flex items-center'>
+                <div className='flex items-center order-2 sm:-order-1'>
                     <IconButton
+                        className='hidden sm:block'
                         disabled={active.trackId===0?true:false}
                         onClick={()=>changeSong(audios[active.trackId-1],active.trackId-1)}
                     >
@@ -192,23 +196,24 @@ const Audio = ({user}) => {
                         {active.status
                         ?
                         <PauseOutlinedIcon
-                        style={{fontSize:"4rem"}}
+                        style={{fontSize:isMobile?"2rem":"4rem"}}
                         />
                         :
                         <PlayArrowOutlinedIcon
-                        style={{fontSize:"4rem"}}
+                        style={{fontSize:isMobile?"2rem":"4rem"}}
                         />
                         }
                     </IconButton>
                     <IconButton
+                        className='hidden sm:block'
                         disabled={active.trackId===audios.length-1?true:false}
                         onClick={()=>changeSong(audios[active.trackId+1],active.trackId+1)}
                     >
                         <SkipNextOutlinedIcon style={{fontSize:"2.5rem"}}/>
                     </IconButton>
-                    <p className="text-sm ml-4">{("0"+Math.floor(audioRef.current && audioRef.current.currentTime/60)).slice(-2)}:{("0"+Math.floor(audioRef.current && audioRef.current.currentTime%60)).slice(-2)}/{("0"+Math.floor(audioRef.current && audioRef.current.duration/60)).slice(-2)}:{("0"+Math.floor(audioRef.current && audioRef.current.duration%60)).slice(-2)}</p>
+                    <p className="hidden sm:block text-sm ml-4">{("0"+Math.floor(audioRef.current && audioRef.current.currentTime/60)).slice(-2)}:{("0"+Math.floor(audioRef.current && audioRef.current.currentTime%60)).slice(-2)}/{("0"+Math.floor(audioRef.current && audioRef.current.duration/60)).slice(-2)}:{("0"+Math.floor(audioRef.current && audioRef.current.duration%60)).slice(-2)}</p>
                 </div>
-                <div className="justify-self-center flex items-center">
+                <div className="sm:justify-self-center grow flex items-center">
                     <Image src={audios[active.trackId].createdBy.availableImages[audios[active.trackId].createdBy.image]}
                         alt="profile image"
                         height={50}
@@ -216,8 +221,8 @@ const Audio = ({user}) => {
                         objectFit="cover"
                         className="rounded"
                     />
-                    <div className="ml-4">
-                        <p>{audios[active.trackId].about.split("****")[0]}</p>
+                    <div className="ml-4 grow">
+                        <p className="whitespace-nowrap ">{isMobile?audios[active.trackId].about.split("****")[0].split(" ").slice(0,3).join(" "):audios[active.trackId].about.split("****")[0]}</p>
                         <p className="text-sm">{audios[active.trackId].createdBy.name}</p>
                     </div>
                     <div className='flex ml-2'>
@@ -235,7 +240,7 @@ const Audio = ({user}) => {
                         }
                     </div>
                 </div>
-                <div className="justify-self-end">
+                <div className="justify-self-end flex justify-end ">
                     <IconButton
                     onClick={()=>{
                         let audiosx=_.concat(_.shuffle(audios.slice(0,active.trackId)),audios[active.trackId],_.shuffle(audios.slice(active.trackId+1,)))
@@ -245,14 +250,18 @@ const Audio = ({user}) => {
                     >
                         <ShuffleIcon/>
                     </IconButton>
-                    <IconButton onClick={()=>changeVolume(0)}>
+                    <IconButton 
+                        className="hidden sm:flex"
+                        onClick={()=>changeVolume(0)}>
                         <VolumeOffIcon/>
                     </IconButton>
-                    <IconButton onClick={()=>changeVolume(1)}>
+                    <IconButton 
+                        className="hidden sm:flex"
+                        onClick={()=>changeVolume(1)}>
                         <VolumeUpIcon/>
                     </IconButton>
                     <input type="text"
-                        className='outline-0 mr-2 text-sm w-6 text-center bg-transparent'
+                        className='hidden sm:flex outline-0 mr-2 text-sm w-6 text-center bg-transparent'
                         value={active.volume}
                         onChange={e=>changeVolume(e.target.value)}
                     />

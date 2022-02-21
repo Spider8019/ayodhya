@@ -20,9 +20,9 @@ import { motion, useViewportScroll, useTransform } from "framer-motion"
 const Gallery = ({count}) => {
     
     const { scrollYProgress,scrollY } = useViewportScroll()
-    const top = useTransform(scrollYProgress, [0, 1], ["0", "-5rem"]);
+    const top = useTransform(scrollYProgress, [0, 1], ["0", "-25%"]);
 
-    const bg = useTransform(scrollYProgress, [0, 1], ["#fff","#000"]);
+    const bg = useTransform(scrollYProgress, [0, 1], ["linear-gradient(#fff,#fff)","linear-gradient(#fff,#f59e0b)"]);
 
     const {data:session,status}=useSession()
     const router=useRouter()

@@ -85,6 +85,13 @@ input[type="file"] {
     background-size:contain !important;
     background:url('../public/static/pages/player.png') no-repeat left;
 }
+@media only screen and (max-width:640px) {
+    .playerLeftContainer{
+        height:40vh;
+        background:linear-gradient(#f59e0b ,red);
+        background-position: center;
+    }
+}
 /* // Styling the default Slick dots */
 
 .slick-dots {

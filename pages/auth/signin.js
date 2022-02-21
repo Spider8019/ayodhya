@@ -8,6 +8,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import _ from "lodash"
 import {getCsrfToken, signIn } from "next-auth/react"
 import {BrowserView} from "react-device-detect"
+import Link from "next/link"
 
 export default function Login ({csrfToken}){
 
@@ -81,6 +82,12 @@ export default function Login ({csrfToken}){
                 {/* <div className='relative h-px w-1/2 bg-slate-300 mt-8'>
                     <p className='absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white px-2 text-xs'>or</p>
                 </div> */}
+                <span className="text-xs mt-12 block text-slate-500">Don&apos;t have an account?</span>
+                <Link href="/sam9">
+                  <a className="text-xs text-amber-500 ml-2" >
+                    Create Here
+                  </a>
+                </Link>
                 {/* <div className={`${styles.providerLoginsContainer} mt-4`}>
                     { !_.isNull(Object.values(providers)) && Object.values(providers).map((provider) => (
                       provider.id!=='credentials' 

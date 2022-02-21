@@ -29,12 +29,14 @@ const LiteratureContainer = ({data,htmlData,error}) => {
       data.homepage 
       ?
       <div>
-        <p className="text-8xl">Literature</p>
+        <p className="text-5xl">Literature</p>
+        <p className='mt-4'>Enhance your knowledge without trusting anyone else.</p>
+        <p>Enjoy our extensive online library, which includes newspapers, epics, and award-winning author books.</p>
         <div className='my-4 flex flex-wrap'>
           <Link
           href=""
           >
-            <a className='text-xl bg-amber-50 border border-amber-500 p-8 rounded'>
+            <a className='text-xl bg-amber-50 border border-amber-500 px-8 py-4 rounded'>
               Hanuman Ji
             </a>        
           </Link>
