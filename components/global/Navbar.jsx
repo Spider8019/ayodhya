@@ -41,7 +41,7 @@ const Navbar = () => {
   
     const list = () => (
       <ul 
-      className={`${router.pathname.includes("/literature")&&"stickyNavbarLowerOne"} text-black sm:text-white bg-white sm:bg-amber-500 flex flex-col sm:flex-row w-full}`}
+          className={`${router.pathname.includes("/literature")&&"stickyNavbarLowerOne"} text-black sm:text-white bg-white sm:bg-amber-500 flex flex-col sm:flex-row w-full}`}
       >
           <li className={router.pathname == "/" ? "sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/">
@@ -70,7 +70,7 @@ const Navbar = () => {
           </li>
           <li className={router.pathname.includes("/audio") ? "sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/audio#player">
-            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>Music</a>
+            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.music')}</a>
           </Link>
           </li>
           <li className={router.pathname.includes("/gallery") ? "sm:bg-amber-600 bg-amber-500" : ""}>
@@ -126,7 +126,7 @@ const Navbar = () => {
                               <Avatar  
                                 className="ml-2 cursor-pointer"
                               >
-                                  <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
+                                  <Image quality={10} src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
                               </Avatar>
                             </Link>
                             <div className='ml-4'>

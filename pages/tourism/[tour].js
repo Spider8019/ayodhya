@@ -1,5 +1,5 @@
-import React from 'react';
-import { getSpecificBlog } from '../../globalSetups/api';
+import React,{useState} from 'react';
+import { getSpecificBlog,markLikeAndDislikeBlog } from '../../globalSetups/api';
 import axios from "axios"
 import ReactHtmlParser from 'react-html-parser';
 import styles from "../../styles/pages/Tourism.module.css"
@@ -10,8 +10,21 @@ import dateFormat from "dateformat";
 import {IconButton} from "@mui/material"
 import ShareBox from "../../components/utils/dialogs/sharePage.js"
 import Head from "next/head"
+import { useRouter } from 'next/router';
+import { getSession,useSession } from 'next-auth/react';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 
 const TourSpecific = ({detail,about}) => {
+
+  const router=useRouter()
+  const {data:session,status}=useSession()
+  const [like,setLike]=useState(session && detail.likedBy.includes(session.user.id) )
+  const [likedBy,setLikedBy]=useState(detail.likedBy.length)
+
+
+
   return <div>
         <Head>
             <title>{detail.heading + " by " + detail.createdBy.name + " -\nIkshvaku Ayodhya"}</title>
@@ -29,7 +42,7 @@ const TourSpecific = ({detail,about}) => {
                                 <p className="text-xs">Posted on {dateFormat(detail.createdAt,"fullDate")}</p>
                             </div>
                             <div className="flex my-4 items-center">
-                                    <ShareBox/>
+                                    <ShareBox  url={router.asPath} title={detail.heading+"\n"+detail.location+". To read more click on the following link"}/>
                                     <Link href={detail.about}
                                     >
                                         <a 
@@ -41,7 +54,20 @@ const TourSpecific = ({detail,about}) => {
                                         </IconButton>
                                         </a>
                                     </Link>
-                                    <p className='mx-2'>{detail.likedBy.length} Liked</p>
+                                    {
+                                        session
+                                        &&
+                                        <IconButton
+                                            onClick={()=>{
+                                                markLikeAndDislikeBlog({likedBy:session.user.id,gigId:detail._id});
+                                                setLike(!like)
+                                                like ? setLikedBy(likedBy-1) : setLikedBy(likedBy+1)
+                                            }}
+                                            >   
+                                                {session && like? <FavoriteIcon style={{color:"#f59e0b"}}/> : <FavoriteBorderIcon/>}
+                                        </IconButton>
+                                    }
+                                    <p className="px-2">{likedBy}</p>
                             </div>
                         </div>
                     </div>

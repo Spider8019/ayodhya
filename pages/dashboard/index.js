@@ -1,9 +1,10 @@
 
+
 import React,{useState,useRef,useLayoutEffect, useEffect} from 'react';
 import DashboardLayout from "../../components/layout/dashboardLayout"
 import styles from "../../styles/pages/Dashboard.module.css"
 import galStyles from "../../styles/Gallery.module.css"
-import { getProfileDetails,getPostsOfProfile,updateProfileImage } from '../../globalSetups/api';
+import { getProfileDetails,getPostsOfProfile,updateProfileImage,deletePost } from '../../globalSetups/api';
 import { getSession,useSession } from 'next-auth/react';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { IconButton,Avatar } from '@mui/material';
@@ -33,6 +34,7 @@ import { deleteObject,uploadObject } from '../../globalSetups/aws/s3';
 import { nanoid } from 'nanoid';
 import { editProfileCoverImage } from '../../globalSetups/api';
 import {isMobile} from "react-device-detect"
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Dashboard = ({user,msg}) => {
 
@@ -102,6 +104,31 @@ const Dashboard = ({user,msg}) => {
             setCoverProcessing(true)
         }
     })
+  }
+
+  const handleDeletePost = async(key,url)=>{
+      const confirm=window.prompt('Are you sure to delete this gig\nTo delete type '+key.slice(0,5)+ ' in the following input')
+      if(confirm){
+            await deleteObject({url:url},async(dltErr,dltData)=>{
+                if(_.isNull(dltErr)){
+                    const response=await deletePost({id:key})
+                    if(response.status===200)
+                    {
+                        notifysuccess("Post removed successfully.")
+                        mutate('GetPostsOfAuthenticatedPerson') 
+                        setSelected(-1)
+                    }
+                    else{
+                        notifyerror("Not able to delete")
+                    }
+                }
+                else{
+                    notifyerror("Something went wrong")
+                }
+            })
+      }else{
+          console.log("No Problem")
+      }
   }
 
   return <>
@@ -219,8 +246,8 @@ const Dashboard = ({user,msg}) => {
          <div className={`${styles.dashboardBody}`}>
             
             <div className="order-6 sm:order-2 mx-4" >
-                <p className='text-xl mb-4'>Your Creations</p>
-                <div className={`h-full grid grid-cols-2 sm:grid-cols-3 gap-x-4 `}>
+                <p className='text-xl mb-4 sm:mt-0 mt-8'>Your Creations</p>
+                <div className={`h-full grid grid-cols-2 sm:grid-cols-3 gap-x-2 sm:gap-x-4 `}>
                     { 
                         posts.data && posts.data.map((item,key)=>{
                             return(
@@ -237,7 +264,7 @@ const Dashboard = ({user,msg}) => {
                     }
                 </div>
             </div>
-           <div className="mx-4 sm:mx-0 order-5">
+           <div className="mx-4 sm:mx-0 sm:mr-4 order-5">
                <AddPost 
                     name={profile.name} 
                     avatar={profile.availableImages[profile.image]}/>
@@ -329,6 +356,11 @@ const Dashboard = ({user,msg}) => {
                                 <p className='pl-2'>{millify(posts.data[selected].view)}</p>
                             </div>
                             <div className='flex'>
+                                <IconButton
+                                    onClick={()=>handleDeletePost(posts.data[selected]._id,posts.data[selected].imageList[0])}
+                                >
+                                    <DeleteIcon/>
+                                </IconButton>
                                 <IconButton
                                     onClick={()=>setObjectFit(!objectFit)}
                                 >

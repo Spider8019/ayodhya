@@ -45,7 +45,6 @@ export default function Home() {
       setTodaysEvent(response)
     })()
   },[d])
-  console.log(d.getDate())
   
   return (
     <>
@@ -143,9 +142,9 @@ export default function Home() {
                   />
                 </div>
                 <div className=" p-4 flex flex-col">
-                  <p className="mb-4">Shri Ram Mandir Ayodhya</p>
+                  <p className="mb-4">{t('common:home.timeline.d.title')}</p>
                   <p className="text-sm overflow-hidden"
-                  >The temple construction is being supervised by the Shri Ram Janmabhoomi Teerth Kshetra. <br />Architect: Chandrakant Sompura</p>
+                  >{t('common:home.timeline.d.body')}</p>
                 </div>
               </motion.div>
               <motion.div
@@ -167,9 +166,9 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4 flex flex-col">
-                  <p className="mb-4">Demolition of the Babri Masjid</p>
+                  <p className="mb-4">{t('common:home.timeline.c.title')}</p>
                   <p className="text-sm overflow-hidden"
-                  >On Dec 6, 1992, a group of activists from the Vishva Hindu Parishad and other organisations demolished the Babri Masjid illegally.</p>
+                  >{t('common:home.timeline.c.body')}</p>
                 </div>
               </motion.div>
               <motion.div
@@ -191,9 +190,9 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4 flex flex-col">
-                  <p className="mb-4">Masjid-i Janmasthan</p>
+                  <p className="mb-4">{t('common:home.timeline.b.title')}</p>
                   <p className="text-sm overflow-hidden"
-                  >It was built by Mir Baqi, possibly a bey serving under Mughal emperor Babur, in the year 935 of the Islamic calendar (Sep 1528–Sep 1529 CE).</p>
+                  >{t('common:home.timeline.b.body')}</p>
                 </div>
               </motion.div>
               <motion.div
@@ -215,9 +214,9 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4 flex flex-col">
-                  <p className="mb-4">Before appraise of time</p>
+                  <p className="mb-4">{t('common:home.timeline.a.title')}</p>
                   <p className="text-sm overflow-hidden"
-                  >A massive but short-lived structure of almost 50m north–south direction was built during the early mediaeval period (11–12th century CE).</p>
+                  >{t('common:home.timeline.a.body')}</p>
                 </div>
               </motion.div>
             </div>

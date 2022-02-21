@@ -11,10 +11,17 @@
         "tourism":"Tourism",
         "library":"Literature",
         "talent":"Talent",
-        "gallery":"Gallery"
+        "gallery":"Gallery",
+        "music":"Music"
     },
     "home":{
         "title":"About District",
-        "body":"Ayodhya, also known as Oudh or Awadh, is a town in northern India's Uttar Pradesh state. It is located east of Faizabad on the Ghaghara River."
+        "body":"Ayodhya, also known as Oudh or Awadh, is a town in northern India's Uttar Pradesh state. It is located east of Faizabad on the Ghaghara River.",
+        "timeline":{
+            "a":{"title":"Before appraise of time","body":"A massive but short-lived structure of almost 50m north–south direction was built during the early mediaeval period (11–12th century CE)."},
+            "b":{"title":"Masjid-i Janmasthan","body":"It was built by Mir Baqi, possibly a bey serving under Mughal emperor Babur, in the year 935 of the Islamic calendar (Sep 1528–Sep 1529 CE)."},
+            "c":{"title":"Demolition of the Babri Masjid","body":"On Dec 6, 1992, a group of activists from the Vishva Hindu Parishad and other organisations demolished the Babri Masjid illegally."},
+            "d":{"title":"Shri Ram Mandir Ayodhya","body":"The temple construction is being supervised by the Shri Ram Janmabhoomi Teerth Kshetra. Architect: Chandrakant Sompura"}
+        }
     }
 }

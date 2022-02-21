@@ -13,6 +13,7 @@
     margin:1rem 0;
     border-radius:0.5rem;
     overflow:hidden;
+    box-shadow:1px 1px 10px rgba(0, 0, 0, 0.199);
 }
 .galleryImage.galleryImg{
     width:100%;
@@ -35,6 +36,11 @@
     justify-content: space-between;
     align-items: flex-end;
     padding:0.5rem;
+    opacity:0;
+    transition:all 0.3s ease;
+}
+.galleryImage:hover .galleryImgControls{
+    opacity:1;
 }
 .galleryImgButtons{
     display:flex;
@@ -70,6 +76,7 @@
                          'a16 a16 a17 a15 a15'
                          'a16 a16 a18 a19 a20'
                          'a21 a23 a24 a22 a25';
+    grid-template-rows: repeat(3,40vh);
 }
 .specImgContainer{
     width:100%;

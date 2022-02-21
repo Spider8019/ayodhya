@@ -94,6 +94,7 @@ const Gallery = ({detail}) => {
                 <div className="flex p-2 border-b-2">
                    <div className='pl-2 flex items-center'>
                     <Avatar
+                        quality={10}
                         src={detail.createdBy.availableImages[detail.createdBy.image]}
                         alt="Image posted by"
                         sx={{width:50,height:50}}
@@ -206,38 +207,44 @@ const Gallery = ({detail}) => {
                            href={`/gallery/${item._id}`}
                           >
                               <a                    
-                                className="rounded overflow-hidden"
+                                className="rounded overflow-hidden flex flex-col"
                                 style={{gridArea:"a"+key,boxShadow:"1px 1px 10px rgba(0,0,0,0.164)"}}
                               >
                                 <div className=' items-center p-2 sm:flex hidden'>
-                                    <Avatar 
-                                     src={item.createdBy.availableImages[item.createdBy.image]}
-                                     alt={item.createdBy.name}
-                                    />
+                                    <Avatar  
+                                        className=" cursor-pointer"
+                                    >
+                                        <Image 
+                                            quality={25}
+                                            src={item.createdBy.availableImages[item.createdBy.image]}
+                                            alt={item.createdBy.name}       
+                                            layout="fill" objectFit='cover' />
+                                    </Avatar>
                                     <p className='text-sm ml-4 no-wrap'>{item.createdBy.name}</p>
                                 </div>
-                                { ["jpeg","jpg","png","tiff"].includes(item.imageList[0].substring(item.imageList[0].lastIndexOf(".") + 1))
-                                ?
-                                <Image
-                                    key={key}
-                                    src={item.imageList[0]}
-                                    height={1}
-                                    width={1}
-                                    layout="responsive"
-                                    alt={key}
-                                    objectFit="cover"
-                                    className="p-2 m-4"
-                                />
-                                :
-                                <video
-                                    autoPlay
-                                    muted
-                                    style={{height:"100%",objectFit:"cover"}}
-                                    src={item.imageList[0]}
-                                >
+                                <div className='relative w-full grow'>
+                                    { ["jpeg","jpg","png","tiff"].includes(item.imageList[0].substring(item.imageList[0].lastIndexOf(".") + 1))
+                                    ?
+                                    <div className='relative w-full h-full '>
+                                        <Image
+                                            key={key}
+                                            src={item.imageList[0]}
+                                            layout="fill"
+                                            alt={key}
+                                            objectFit="cover"
+                                        />
+                                    </div>
+                                    :
+                                    <video
+                                        autoPlay
+                                        muted
+                                        style={{height:"100%",objectFit:"cover"}}
+                                        src={item.imageList[0]}
+                                    >
 
-                                </video>
-                                }
+                                    </video>
+                                    }
+                                </div>
                               </a>
                           </Link>
                       )

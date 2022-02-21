@@ -40,6 +40,9 @@ async function handler(req, res) {
                 console.log("done successfully")
                 res.status(200).json({msg:"Liked/Disliked Successfully"})
                 break;
+        case 'DELETE':
+                await Gigs.deleteOne({_id:req.body.id})
+                res.status(200).json({msg:"Deleted Successfully"})
         default:
                 res.status(400).json({ success: false })
                 break

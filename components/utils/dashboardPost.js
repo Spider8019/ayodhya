@@ -3,6 +3,7 @@ import Image from "next/image"
 import styles from "../../styles/pages/Dashboard.module.css"
 import VideoFrame from "./videoFrameForPost"
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
+import {isMobile} from "react-device-detect"
 
 const previewPost=({item})=>{
     switch(item.imageList[0].substring(item.imageList[0].lastIndexOf(".") + 1)){
@@ -12,7 +13,9 @@ const previewPost=({item})=>{
         case "tiff":
             return(
                 <>
-                <div className={styles.authPostContainer}>
+                <div 
+                    style={{boxShadow:isMobile?"1px 1px 10px rgba(0,0,0,0.164)":"none"}}
+                    className={styles.authPostContainer}>
                     <div className={styles.authPostContainer}>
                     <Image
                         src={item.imageList[0]}
