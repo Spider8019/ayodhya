@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Gallery.module.css'
 import { useSession } from 'next-auth/react';
 import useSWR,{mutate} from 'swr';
-import { IconButton,Pagination,Stack } from '@mui/material';
+import { IconButton,Pagination,Stack,Button } from '@mui/material';
 import {galleryPosts,markLikeAndDislike,getGigsCount} from "../../globalSetups/api"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -14,22 +14,33 @@ import DashboardPost from "../../components/utils/galleryFrame"
 import Head from "next/head"
 import GalleryLoader from "../../components/global/GalleryLoader"
 import {isMobile,MobileView} from "react-device-detect"
-import { motion, useViewportScroll, useTransform } from "framer-motion"
-
+import FilterBAndWIcon from '@mui/icons-material/FilterBAndW';
+import { motion, useViewportScroll, useTransform, useMotionValue, useVelocity, AnimatePresence } from "framer-motion"
+import { zeroHeightAndWidth,xMove } from '../../globalSetups/framer';
 
 const Gallery = ({count}) => {
     
     const { scrollYProgress,scrollY } = useViewportScroll()
+
     const top = useTransform(scrollYProgress, [0, 1], ["0", "-25%"]);
-
+    const rel= useTransform(scrollYProgress, [0, 1], [0, 10]);
     const bg = useTransform(scrollYProgress, [0, 1], ["linear-gradient(#fff,#fff)","linear-gradient(#fff,#f59e0b)"]);
-
+    const [velocity,setVelocity]=useState(0)
+    
     const {data:session,status}=useSession()
     const router=useRouter()
+    const [query,setQuery]=useState(router.query.query)
     const [cnt, setCnt] = useState(1)
     const [filterShow,setFilterShow]=useState(false)
 
-    const {data,error}=useSWR('FetchingDataForPage',()=>galleryPosts({page:cnt-1}))
+    useEffect(()=>{
+        scrollYProgress.onChange(()=>{
+            console.log(scrollYProgress.getVelocity())
+            setVelocity(scrollYProgress.getVelocity())
+        })
+    },[scrollYProgress])
+
+    const {data,error}=useSWR('/FetchingDataForPage?query='+router.query.query,()=>galleryPosts({page:cnt-1,query:router.query.query}),{revalidateOnFocus:false})
 
     if(error){
         return(
@@ -43,8 +54,14 @@ const Gallery = ({count}) => {
         )
     }
 
+    const handleQuery=(q)=>{
+        setQuery(q)
+        setFilterShow(false)
+        router.push(`/gallery/?query=${q}`)
+    }
+
     return(
-        <div className="grid place-items-center"
+        <div className="grid relative"
         >
         <Head>
             <title>
@@ -52,21 +69,108 @@ const Gallery = ({count}) => {
             </title>
         </Head>
         {
+            !filterShow
+            &&
+            <motion.div 
+                initial="initial"
+                animate="final"
+                final="initial"
+                variants={xMove}
+                className="flex justify-end absolute top-4 right-4">
+                <IconButton 
+                    onClick={()=>setFilterShow(!filterShow)}>
+                        <FilterBAndWIcon />
+                </IconButton>
+            </motion.div>
+        }
+        <AnimatePresence exitBeforeEnter>
+        {
             filterShow
             &&
-                <motion.div className='grid grid-cols-8 m-20 mb-0 items-start bg-amber-200'
-                    style={{width:"calc(100% - 10rem)"}}
+                <motion.div 
+                    className='bg-amber-50 p-4 mx-0 mb-0 '
+                    initial="initial"
+                    animate="final"
+                    exit="initial"
+                    variants={zeroHeightAndWidth}
                 >
-                    <div className='grid grid-cols-1 '>
-                        <button className='text-slate-500 text-left p-1'>Video</button>
-                        <button className='text-slate-500 text-left p-1'>Photos</button>
-                    </div>
-                    <div className='grid grid-cols-1'>
-                        <button className='text-slate-500 text-left p-1'>Artworks</button>
-                    </div>
+                    <div className='p-2  grid grid-cols-8 gap-4 items-start'>
 
+                        <motion.div 
+                            variants={xMove}
+                            className='grid grid-cols-1 '>
+                            <p 
+                                className="text-center uppercase my-2 font-semibold text-sm text-black"
+                            >
+                                Type
+                            </p>
+                            <Button 
+                                onClick={()=>handleQuery("video")}
+                                className={`text-left text-xs text-black ${query==='video'?'bg-amber-100 mt-2':'bg-transparent mt-2 '}`}>Video</Button>
+                            <Button
+                                onClick={()=>handleQuery("photos")}
+                                className={`text-xs text-black ${query==='photos'?'bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Photos</Button>
+                        </motion.div>
+                        <motion.div 
+                            variants={xMove}
+                            className='grid grid-cols-1'>
+                            <p 
+                                className="text-center uppercase my-2 font-semibold text-sm text-black"
+                            >
+                                Category
+                            </p>
+                            <Button 
+                                onClick={()=>handleQuery("dance")}
+                                className={`text-black text-xs ${query==='dance'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Dance</Button>
+                            <Button 
+                                onClick={()=>handleQuery("crafts")}
+                                className={`text-black text-xs ${query==='crafts'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Crafts</Button>
+                            <Button 
+                                onClick={()=>handleQuery("photography")}
+                                className={`text-black text-xs ${query==='photography'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Photography</Button>
+                            <Button 
+                                onClick={()=>handleQuery("artworks")}
+                                className={`text-black text-xs ${query==='artworks'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Artworks</Button>
+                            <Button 
+                                onClick={()=>handleQuery("others")}
+                                className={`text-black text-xs ${query==='others'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Others</Button>
+                        </motion.div>
+                        <motion.div 
+                            variants={xMove}                        
+                            className='grid grid-cols-1'>
+                            <p 
+                                className="text-center uppercase my-2 font-semibold text-sm text-black"
+                            >
+                                Category
+                            </p>
+                            <Button 
+                                onClick={()=>handleQuery("makeup")}
+                                className={`text-black text-xs ${query==='makeup'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Mehndi</Button>
+                            <Button
+                                onClick={()=>handleQuery("mehndi")}
+                                className={`text-black text-xs ${query==='mehndi'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Makeup</Button>
+                        </motion.div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <motion.div
+                            className='grid grid-cols-1'
+                            variants={xMove}
+                        >
+                            <Button
+                                onClick={()=>{setFilterShow(false);}}
+                                className={`font-semibold text-black text-xs ${query==='photos'?'text-black bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Close
+                            </Button>
+                             <Button
+                                onClick={()=>{setQuery(null); setFilterShow(false); router.push("/gallery")}}
+                                className={`text-black text-xs ${query==='photos'?'text-black bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Remove Filter
+                            </Button>
+                        </motion.div>
+                    </div>
                 </motion.div>
-        }
+        }   
+        </AnimatePresence>
 
         <MobileView>
             <p  style={{width:"95vw"}}
@@ -80,7 +184,7 @@ const Gallery = ({count}) => {
             style={{background:isMobile?"white":bg}}
         >
             <motion.div  className={`${styles.galleryRow}`}
-            >
+                >
                 {
                     new Array(isMobile?1:5).fill("").map((arr,key)=>{
                         return(

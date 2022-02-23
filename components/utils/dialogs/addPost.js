@@ -139,9 +139,10 @@ export default function DraggableDialog({name,avatar}) {
                     <MenuItem value={"photography"}>Photography</MenuItem>
                     <MenuItem value={"music"} >Music</MenuItem>
                     <MenuItem value={"dance"} >Dance</MenuItem>
-                    <MenuItem value={"writing"} >Writing</MenuItem>
                     <MenuItem value={"crafts"} >Crafts</MenuItem>
                     <MenuItem value={"artworks"} >Artworks</MenuItem>
+                    <MenuItem value={"makeup"} >MakeUp</MenuItem>
+                    <MenuItem value={"mehndi"} >Mehndi</MenuItem>
                     <MenuItem value={"others"} >Others</MenuItem>
                   </Select>
               </FormControl>

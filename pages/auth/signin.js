@@ -9,9 +9,12 @@ import _ from "lodash"
 import {getCsrfToken, signIn } from "next-auth/react"
 import {BrowserView} from "react-device-detect"
 import Link from "next/link"
+import { useRouter } from "next/router";
+import {motion,AnimatePresence} from "framer-motion"
 
 export default function Login ({csrfToken}){
 
+  const { error } = useRouter().query;
   let  { t }= useTranslation()
   const [passwordShow,setPasswordShow]=useState(false)
   const [formData,setFormData]=useState({email:"",password:"",csrfToken:csrfToken})
@@ -26,13 +29,32 @@ export default function Login ({csrfToken}){
       signIn("credentials", { email:formData.email,password:formData.password })
   }
 
-  
+  const errors = {
+    Signin: "Try signing with a different account.",
+    OAuthSignin: "Try signing with a different account.",
+    OAuthCallback: "Try signing with a different account.",
+    OAuthCreateAccount: "Try signing with a different account.",
+    EmailCreateAccount: "Try signing with a different account.",
+    Callback: "Try signing with a different account.",
+    OAuthAccountNotLinked:
+      "To confirm your identity, sign in with the same account you used originally.",
+    EmailSignin: "Check your email address.",
+    CredentialsSignin:
+      "Sign in failed. Check the details you provided are correct.",
+    default: "Unable to sign in.",
+  };
+  const SignInError = ({ error }) => {
+    const errorMessage = error && (errors[error] ?? errors.default);
+    return <div className='text-xs mt-4 text-red-600'>{errorMessage}</div>;
+  };
+
   return <div className={styles.loginContainer}>
       <Head>
         <title>{t('common:page_title.login')}</title>
         <meta name="description" content="Login Page" />
         <link rel="icon" href="/static/withOutBgLogo.png" />
       </Head>
+      {/* Signin functionality */}
       <div className={` rounded-xl ${styles.loginMain} grid grid-cols-1 sm:grid-cols-2 `}>
         <div className='grid place-items-center'>
            <div className=" sm:w-2/3">
@@ -46,6 +68,8 @@ export default function Login ({csrfToken}){
                 />
                 <p className="text-4xl">Ikshvaku</p>
                 <span className="text-1xl block">Ayodhya</span>
+                      {/* Error message */}
+                {error && <AnimatePresence><SignInError error={error} /></AnimatePresence>}
                 <form 
                   onSubmit={handleLogin}
                   className="mt-4">

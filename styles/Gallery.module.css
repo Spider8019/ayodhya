@@ -3,7 +3,7 @@
     grid-template-columns: repeat(5,1fr);
     grid-gap:1rem;
     width:90%;
-    margin:5rem auto;
+    margin:5rem auto 5rem auto;
 }
 .galleryImage{
     position:relative;
@@ -13,6 +13,7 @@
     margin:1rem 0;
     border-radius:0.5rem;
     overflow:hidden;
+    transition:all .3s ease;
     box-shadow:1px 1px 10px rgba(0, 0, 0, 0.199);
 }
 .galleryImage.galleryImg{

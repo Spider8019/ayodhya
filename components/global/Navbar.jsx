@@ -14,6 +14,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
 import styles from "../../styles/pages/Home.module.css"
+import {motion} from "framer-motion"
 
 const Navbar = () => {
     let  { t }= useTranslation()
@@ -118,11 +119,15 @@ const Navbar = () => {
                           <Link 
                             passHref={true}
                             href="/dashboard">
-                            <Avatar  
-                              className="ml-2 cursor-pointer"
+                            <motion.a
+                              whileTap={{scale:0.9}}
                             >
-                                <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
-                            </Avatar>
+                              <Avatar  
+                                className="ml-2 cursor-pointer"
+                              >
+                                  <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
+                              </Avatar>
+                            </motion.a>
                           </Link>
                       }
                     </div>

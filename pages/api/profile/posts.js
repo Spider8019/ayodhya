@@ -12,8 +12,23 @@ async function handler(req, res) {
     switch(req.method){
         case 'GET':
                 console.log("get request")
+                let qpayload={category:{$ne:"music"}}
+                switch(req.query.query){
+                        case 'video':
+                        case 'image':
+                                    console.log("guru randahwa")
+                                    break;
+                        case 'photography':
+                        case 'dance':
+                        case 'crafts':
+                        case 'artworks':
+                        case 'others': qpayload={...qpayload,category:req.query.query}
+                                     break;
+                        default:
+                            qpayload={...qpayload}
+                }
                 console.log(req.query)
-                const gallery = await Gigs.find({category:{$ne:"music"}}).sort({createdAt:-1}).populate('createdBy').limit(50).skip(50*(req.query.page))
+                const gallery = await Gigs.find({...qpayload}).sort({createdAt:-1}).populate('createdBy').limit(50).skip(50*(req.query.page))
                 res.status(200).json(gallery)
                 break;
         case 'POST':
