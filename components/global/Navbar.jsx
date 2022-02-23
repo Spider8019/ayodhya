@@ -80,6 +80,11 @@ const Navbar = () => {
             <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.gallery')}</a>
           </Link>
           </li>
+          <li className={router.pathname.includes("/events") ? "sm:bg-amber-600 bg-amber-500" : ""}>
+          <Link href="/events">
+            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.festival')}</a>
+          </Link>
+          </li>
       </ul>
     );
 

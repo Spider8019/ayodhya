@@ -140,7 +140,6 @@ const DevLiterature = ({uniqueBooks}) => {
                     inputProps={{ 'aria-label': 'Without label' }}
                   >
                     <MenuItem value={"addNew"}>+ Add New Chapter</MenuItem>
-                    <MenuItem value={"****"} >Home Page</MenuItem>
                     {
                       availableChapter.map((item,key)=>{
                         return(

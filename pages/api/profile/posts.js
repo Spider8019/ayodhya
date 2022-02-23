@@ -28,7 +28,7 @@ async function handler(req, res) {
                             qpayload={...qpayload}
                 }
                 console.log(req.query)
-                const gallery = await Gigs.find({...qpayload}).sort({createdAt:-1}).populate('createdBy').limit(50).skip(50*(req.query.page))
+                const gallery = await Gigs.find({...qpayload}).sort({createdAt:-1}).populate('createdBy','name email').limit(50).skip(50*(req.query.page))
                 res.status(200).json(gallery)
                 break;
         case 'POST':

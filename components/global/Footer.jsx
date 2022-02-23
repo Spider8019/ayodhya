@@ -72,8 +72,15 @@ const Footer = () => {
           </Link>
         </li>
         <li>
-          <Link href="/literature?book=Hanuman%Ji&chapter=****">
+          <Link href="literature?book=Hanuman%20Ji&chapter=****">
             <a className="my-2 block">Hanuman Ji</a>
+          </Link>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <Link href="/events">
+            <a className="my-2 block">Festivals</a>
           </Link>
         </li>
       </ul>
@@ -84,12 +91,7 @@ const Footer = () => {
           </Link>
         </li>
       </ul>
-      <ul>
-
-      </ul>
-      <ul>
-
-      </ul>
+      <ul></ul>
       <ul>
         <li>
           <Link href="#">

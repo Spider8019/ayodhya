@@ -34,7 +34,7 @@ const LiteratureContainer = ({data,htmlData,error}) => {
         <p>Enjoy our extensive online library, which includes newspapers, epics, and award-winning author books.</p>
         <div className='my-4 flex flex-wrap'>
           <Link
-          href=""
+          href="/literature?book=Hanuman%20Ji&chapter=****"
           >
             <a className='text-xl bg-amber-50 border border-amber-500 px-8 py-4 rounded'>
               Hanuman Ji
