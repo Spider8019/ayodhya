@@ -74,12 +74,6 @@ export default function Home() {
         </motion.div>
       </motion.div>
 
-      <ins className="adsbygoogle"
-          style="display:block"
-          data-ad-format="fluid"
-          data-ad-layout-key="-6p+dg+58-2b-89"
-          data-ad-client="ca-pub-5871634443514718"
-          data-ad-slot="1580184139"></ins>
       <motion.div
         className={`grid ${styles.aug5ParentContainer}`}
         ref={heroSec}
