@@ -35,9 +35,7 @@ export default function Home() {
   let { t } = useTranslation()
   const router = useRouter()
 
-  useEffect(() => {
-    document.querySelector("body").style.fontFamily = router.locale === "hn" ? "Noto Sans Devanagari" : "Noto Sans Display";
-  }, [])
+
   useEffect(()=>{
     (async()=>{
       const response=await getEvent({ date: d.getDate() })
@@ -75,6 +73,13 @@ export default function Home() {
           >VIEW GALLERY </button>
         </motion.div>
       </motion.div>
+
+      <ins className="adsbygoogle"
+          style="display:block"
+          data-ad-format="fluid"
+          data-ad-layout-key="-6p+dg+58-2b-89"
+          data-ad-client="ca-pub-5871634443514718"
+          data-ad-slot="1580184139"></ins>
       <motion.div
         className={`grid ${styles.aug5ParentContainer}`}
         ref={heroSec}
@@ -109,7 +114,7 @@ export default function Home() {
           </motion.div>
         </motion.div>
       </motion.div>
-
+<Ad/>
 
 google ad sense
       <Ad/>
