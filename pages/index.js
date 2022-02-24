@@ -11,6 +11,7 @@ import { siedEntrance } from "../globalSetups/framer"
 import { useInView } from 'react-intersection-observer';
 import _ from "lodash"
 import { getEvent } from "../globalSetups/api"
+import Ads1 from "../components/adSense/add1"
 
 export default function Home() {
 
@@ -115,7 +116,7 @@ export default function Home() {
           </motion.div>
         </motion.div>
       </motion.div>
-
+<Ads1/>
 
       <motion.div className={styles.timelineContainerAnimate}>
         <motion.div className={styles.timelineContainer}>
