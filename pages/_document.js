@@ -16,7 +16,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta name='keywords' content='spider8019 aman pratap singh meta ikshvaku ayodhya ram talent bhajans' />
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
+          {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
           <script dangerouslySetInnerHTML={{
             __html: `
             (adsbygoogle = window.adsbygoogle || []).push({
@@ -24,7 +24,7 @@ class MyDocument extends Document {
                 enable_page_level_ads: true
                 });
                 `,
-            }} />
+            }} /> */}
 
         </Head>
         <body>
