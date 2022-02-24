@@ -43,8 +43,8 @@ const Layout = ({children}) => {
                                     <a 
                                         className={`flex align-center `}
                                         onClick={(e)=>{
-                                            document.getElementById("literatureSidebarSub"+index).classList.toggle("subListToggle")
-                                            document.getElementById("literatureSidebarKey"+index).classList.toggle("keyToggle")
+                                            // document.getElementById("literatureSidebarSub"+index).classList.toggle("subListToggle")
+                                            // document.getElementById("literatureSidebarKey"+index).classList.toggle("keyToggle")
                                         }}       
                                     ><ChevronRightOutlinedIcon 
                                         style={{transition:"all 0.3s ease"}}

@@ -35,9 +35,7 @@ export default function Home() {
   let { t } = useTranslation()
   const router = useRouter()
 
-  useEffect(() => {
-    document.querySelector("body").style.fontFamily = router.locale === "hn" ? "Noto Sans Devanagari" : "Noto Sans Display";
-  }, [])
+
   useEffect(()=>{
     (async()=>{
       const response=await getEvent({ date: d.getDate() })
