@@ -57,7 +57,7 @@ const Gallery = ({detail}) => {
                 {"@"+detail.createdBy.name}
           </title>
       </Head>
-      <div className={`sm:my-20 my-4 mx-auto rounded overflow-hidden ${styles.specContainer}`}
+      <div className={`sm:my-20 my-4 mx-auto dark:bg-black rounded overflow-hidden ${styles.specContainer}`}
       >
 
                     {
@@ -171,11 +171,11 @@ const Gallery = ({detail}) => {
                             }}
                             >
                                 
-                                {session && like? <FavoriteIcon style={{color:"#f59e0b"}}/> : <FavoriteBorderIcon/>}
+                                {session && like? <FavoriteIcon style={{color:"#f59e0b"}} className="dark:text-white"/> : <FavoriteBorderIcon className="dark:text-white"/>}
                             </IconButton>
                             <p className="px-2">{likedBy}</p>
                             <IconButton className="pl-2">
-                                    <FilterTiltShiftIcon/>
+                                    <FilterTiltShiftIcon className="dark:text-white"/>
                             </IconButton>
                             <p className='pl-2'>{millify(detail.view)}</p>
                         </div>
@@ -184,6 +184,7 @@ const Gallery = ({detail}) => {
                     }
                     <div className='flex'>
                         <IconButton
+                             className="dark:text-white"
                             onClick={()=>setObjectFit(!objectFit)}
                         >
                             <DashboardOutlinedIcon/>
@@ -207,7 +208,7 @@ const Gallery = ({detail}) => {
                            href={`/gallery/${item._id}`}
                           >
                               <a                    
-                                className="rounded overflow-hidden flex flex-col"
+                                className="rounded overflow-hidden flex flex-col dark:bg-black"
                                 style={{gridArea:"a"+key,boxShadow:"1px 1px 10px rgba(0,0,0,0.164)"}}
                               >
                                 <div className=' items-center p-2 sm:flex hidden'>

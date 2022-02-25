@@ -179,7 +179,7 @@ const Dashboard = ({user,msg}) => {
              <div className="flex flex-wrap items-center relative -top-1/3 sm:-top-2/4"
              >
                 <div 
-                 className="mx-auto border-8 border-white bg-white rounded-full"
+                 className="mx-auto border-8 border-white dark:border-black dark:bg-black bg-white rounded-full"
                  style={{height:"166px",width:"166px"}}
                 >
                     {
@@ -217,7 +217,7 @@ const Dashboard = ({user,msg}) => {
                                 updateProfileImage({id:profile._id,step:1});
                             }}
                         >
-                            <ArrowDropUpIcon/>
+                            <ArrowDropUpIcon className="dark:text-white"/>
                         </IconButton>
                         <IconButton
                             disabled={profile.image===0 ?true:false}
@@ -226,7 +226,7 @@ const Dashboard = ({user,msg}) => {
                                 updateProfileImage({id:profile._id,step:-1});
                             }}
                         >
-                            <ArrowDropDownIcon/>
+                            <ArrowDropDownIcon className="dark:text-white"/>
                         </IconButton>
                     </div>
                     <div>
@@ -246,7 +246,7 @@ const Dashboard = ({user,msg}) => {
          <div className={`${styles.dashboardBody}`}>
             
             <div className="order-6 sm:order-2 mx-4" >
-                <p className='text-xl mb-4 sm:mt-0 mt-8'>Your Creations</p>
+                <p className='text-xl mb-4 sm:mt-0 mt-8 '>Your Creations</p>
                 <div className={`h-full grid grid-cols-2 sm:grid-cols-3 gap-x-2 sm:gap-x-4 `}>
                     { 
                         posts.data && posts.data.map((item,key)=>{

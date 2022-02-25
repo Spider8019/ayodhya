@@ -25,7 +25,7 @@ const contributors = [{
 }]
 const Footer = () => {
   return <div
-    className="bg-amber-500 "
+    className="bg-amber-500 dark:bg-black"
   >
     <div className="py-8 sm:px-20 px-4 grid sm:grid-cols-6 grid-cols-2">
       <ul className="flex flex-col">
@@ -100,7 +100,9 @@ const Footer = () => {
         </li>
       </ul>
     </div>
-    <div className="bg-amber-400 py-8 sm:px-20 px-4 
+    <div className="bg-amber-400 py-8 sm:px-20 px-4 border-t  
+      dark:bg-black
+    dark:border-amber-800
       flex
       flex-col-reverse
       sm:flex-row

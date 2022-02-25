@@ -12,7 +12,7 @@ class MyDocument extends Document {
           <script dangerouslySetInnerHTML={{
               __html: `
               (adsbygoogle = window.adsbygoogle || []).push({
-                  google_ad_client: "ca-pub-5871634443514718",
+                  google_ad_client: "pub-5871634443514718",
                   enable_page_level_ads: true
                   });
                   `,

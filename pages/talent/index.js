@@ -23,7 +23,8 @@ export default function SimpleSlider() {
       slidesToShow: isMobile?1:4,
       slidesToScroll: 1,
       lazyLoad: true,
-      draggable:true
+      draggable:true,
+      arrows:false
     };
     const {data:top10,error:top10Error}=useSWR('top10Talents',()=>getTop10Talents({category:"artworks"}))
     const {data:top10Photos,error:top10PhotosError}=useSWR('top10TalentsPhotos',()=>getTop10Talents({category:"photography"}))
@@ -56,7 +57,7 @@ export default function SimpleSlider() {
                                 <div 
                                     key={key}
                                     className={`${styles.slickBox} `} >
-                                    <div className="m-2 bg-white rounded p-2 relative"
+                                    <div className="m-2 bg-white dark:bg-black rounded p-2 relative"
                                         style={{boxShadow:"1px 1px 10px rgba(0,0,0,0.164)"}}
                                     >
                                         <div className="absolute left-4 top-4 z-30">
@@ -110,7 +111,7 @@ export default function SimpleSlider() {
                                 <div 
                                     key={key}
                                     className={`${styles.slickBox} `} >
-                                    <div className="m-2 relative bg-white rounded  p-2 "
+                                    <div className="m-2 relative dark:bg-black bg-white rounded  p-2 "
                                         style={{boxShadow:"1px 1px 10px rgba(0,0,0,0.164)"}}
                                     >
                                         <div className="absolute left-4 top-4 z-30">
@@ -164,7 +165,7 @@ export default function SimpleSlider() {
                                 <div 
                                     key={key}
                                     className={`${styles.slickBox} `} >
-                                    <div className="m-2 bg-white rounded p-2 relative"
+                                    <div className="m-2 bg-white dark:bg-black rounded p-2 relative"
                                         style={{boxShadow:"1px 1px 10px rgba(0,0,0,0.164)"}}
                                     >
                                         <div className="absolute left-4 top-4 z-30">

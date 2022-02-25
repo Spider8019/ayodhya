@@ -1,4 +1,4 @@
-import useTranslation from 'next-translate/useTranslation'
+  import useTranslation from 'next-translate/useTranslation'
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -7,7 +7,7 @@ import ChangePageLanguage from "../dropdowns/ChangePageLanguage"
 import Forecast from '../dialogs/Forecast'
 import _ from "lodash"
 import { useSession,signIn } from "next-auth/react"
-import { Avatar } from '@mui/material'
+import { Avatar,IconButton } from '@mui/material'
 import { defaultOptions } from '../../globalSetups/availableArrays'
 import {  isMobile,isBrowser } from 'react-device-detect';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -15,11 +15,15 @@ import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
 import styles from "../../styles/pages/Home.module.css"
 import {motion} from "framer-motion"
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import { useTheme } from 'next-themes'
 
 const Navbar = () => {
     let  { t }= useTranslation()
     const router=useRouter()
     const { data: session, status } = useSession()
+    const { theme, setTheme } = useTheme()
 
 
     const [state, setState] = React.useState({
@@ -43,7 +47,7 @@ const Navbar = () => {
   
     const list = () => (
       <ul 
-          className={`${router.pathname.includes("/literature")&&"stickyNavbarLowerOne"} text-black sm:text-white bg-white sm:bg-amber-500 flex flex-col sm:flex-row w-full}`}
+          className={`${router.pathname.includes("/literature")&&"stickyNavbarLowerOne"} text-black sm:text-white bg-white dark:bg-amber-900 sm:bg-amber-500 flex flex-col sm:flex-row w-full}`}
       >
           <li className={router.pathname == "/" ? "sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/">
@@ -93,8 +97,8 @@ const Navbar = () => {
 
     if(isBrowser){
         return (  
-            <div className='flex flex-col'>
-                <div className="sm:px-10 sm:py-4 flex justify-between sm:bg-white items-center">
+            <div className='flex flex-col dark:bg-black'>
+                <div className="sm:px-10 sm:py-4 flex justify-between  items-center">
                     <div className='flex items-center'>
                       <Image
                         layout='intrinsic'
@@ -105,7 +109,16 @@ const Navbar = () => {
                       />
                       <h1 className="sm:text-4xl sm:ml-2">{t('common:title')}</h1>
                     </div>
-                    <div className="flex">  
+                    <div className="flex ">  
+                      <IconButton onClick={() => {theme==='light'?setTheme('dark'):setTheme('light')}}>
+                        {
+                          theme && theme==="dark"
+                          ?
+                          <LightModeIcon className="dark:text-white text-white"/>
+                          :
+                          <NightsStayIcon className="dark:text-white"/>
+                        }
+                      </IconButton>
                       <ChangePageLanguage/>
                       <Forecast/>
                       {
@@ -160,6 +173,7 @@ const Navbar = () => {
                   >{t('common:title')}</h1>
                 </div>
                 <div className="flex">
+
                   <ChangePageLanguage/>
                   {
                     (!session && status==='unauthenticated')

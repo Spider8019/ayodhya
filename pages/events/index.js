@@ -32,10 +32,10 @@ const Events = () => {
             </title>
         </Head>
         <div className="sm:m-20">
-            <div className='grid grid-cols-4 gap-8'>
+            <div className='grid grid-cols-4 gap-8 '>
                 <motion.div 
                     style={{boxShadow:"1px 1px 10px rgba(0,0,0,0.164)"}}
-                    className="rounded overflow-hidden grid grid-cols-1 grid-rows-2 h-auto">
+                    className="rounded overflow-hidden dark:bg-black grid grid-cols-1 grid-rows-2 h-auto">
                     <div className="relative">
                         <Image
                             src="/static/pages/holi_2022.jpg"

@@ -18,19 +18,19 @@ const index = () => {
           <p>Geographic</p>
           <p></p>
           <div className="mt-4 grid grid-cols-4 gap-12">
-             <div className="grid place-items-center p-8 bg-amber-50">
+             <div className="rounded grid place-items-center p-8 dark:bg-amber-800 bg-amber-50">
                 <AgricultureIcon style={{fontSize:"4rem"}}/>
                 <p className='text-sm'>1272 villages</p>
              </div>
-             <div className="grid place-items-center p-8 bg-amber-50">
+             <div className="rounded grid place-items-center p-8 dark:bg-amber-800 bg-amber-50">
                 <HolidayVillageOutlinedIcon style={{fontSize:"4rem"}}/>
                 <p className='text-sm'>1 Nagar Nigam</p>
              </div>
-             <div className="grid place-items-center p-8 bg-amber-50">
+             <div className="rounded grid place-items-center p-8 dark:bg-amber-800 bg-amber-50">
                 <LocalPoliceIcon style={{fontSize:"4rem"}}/>
                 <p className='text-sm'>18 Police Station</p>
              </div>
-             <div className="grid place-items-center p-8 bg-amber-50">
+             <div className="rounded grid place-items-center p-8 dark:bg-amber-800 bg-amber-50">
                 <ExtensionOutlinedIcon style={{fontSize:"4rem"}}/>
                 <p className='text-sm'>4 Nagar Nikay</p>
              </div>

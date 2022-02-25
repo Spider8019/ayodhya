@@ -68,7 +68,7 @@ export default function Home() {
           <motion.h1 className="text-white text-4xl sm:text-2xl sm:uppercase font-semibold">The New <br /> Ayodhya</motion.h1>
           <motion.p className="text-white text-xl sm:text-xs mt-2">PEERLESS REFINEMENT AND LUXURY</motion.p>
           <button
-            className="mt-2 basicButton"
+            className="mt-2 basicButton dark:text-black"
             onClick={() => router.push("/gallery")}
           >VIEW GALLERY </button>
         </motion.div>
@@ -98,7 +98,7 @@ export default function Home() {
               exit="initial"
               animate={inView && "final"}
               variants={{ ...siedEntrance, final: { ...siedEntrance.final, transition: { duration: 0.5, delay: 0.5 } } }}
-              className={`${styles.overlayingText} text-amber-500 text-4xl sm:text-8xl font-semibold`}>5<sup>th</sup> August</motion.p>
+              className={`${styles.overlayingText} text-amber-500 dark:text-amber-800 text-4xl sm:text-8xl font-semibold`}>5<sup>th</sup> August</motion.p>
             <motion.p
               initial="initial"
               exit="initial"
@@ -129,7 +129,7 @@ google ad sense
                     rotate: [0, -5, 5, 0]
                   }
                 }
-                className="h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
+                className="dark:bg-black h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
                 style={{ opacity: isMobile?1:yearsFrom5Aug, boxShadow: "2px 2px 20px #00000041" }}
               >
                 <div className="bg-black" style={{ position:"Relative",width: "100%", height: "160px" }}>
@@ -153,7 +153,7 @@ google ad sense
                     rotate: [0, -5, 5, 0]
                   }
                 }
-                className="h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
+                className="dark:bg-black h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
                 style={{ opacity: isMobile?1:yearsFromKarsevak, boxShadow: "2px 2px 20px #00000041" }}
               >
                 <div className="bg-black" style={{ position:"relative",width:"100%",height:"160px" }}>
@@ -177,7 +177,7 @@ google ad sense
                     rotate: [0, -5, 5, 0]
                   }
                 }
-                className="h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
+                className="dark:bg-black h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
                 style={{ opacity: isMobile?1:yearsFromBabarInvade, boxShadow: "2px 2px 20px #00000041" }}
               >
                 <div className="bg-black" style={{position:"relative", width: "100%", height: "160px" }}>
@@ -201,7 +201,7 @@ google ad sense
                     rotate: [0, -5, 5, 0]
                   }
                 }
-                className="h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
+                className="dark:bg-black h-80 grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
                 style={{ opacity: isMobile?1:yearsFrom1400, boxShadow: "2px 2px 20px #00000041" }}
               >
                 <div className="bg-black" style={{ position:"relative",width: "100%", height: "160px" }}>
@@ -301,8 +301,8 @@ google ad sense
                     onClick={()=>{key<=6?console.log("You can't select month"):setD(new Date(new Date().getFullYear(),new Date().getMonth(),key-(new Date(d.getFullYear(),d.getMonth(),1).getDay())-5))}}
                     style={{ 
                              cursor:key<=6?"no-drop":"pointer",
-                             background: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === d.getDate() ? "#ffd793" :key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate()?"#f59e0b": "#eee", 
-                             color: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate() ? "white" : key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay()  === d.getDate()?"red": "black" }}
+                             background: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === d.getDate() ? "#ffd793" :key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate()?"var(--base-color)": "var(--calendar-unit-bg)", 
+                             color: key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() === new Date().getDate() ? "white" : key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay()  === d.getDate()?"red": "var(--cooperate-theme-based-color)" }}
                     className="cursor-pointer rounded self-center grid place-items-center text-sm m-1 p-2 sm:p-4 ">
                     <p className="">{(key >= (6 + new Date(d.getFullYear(),d.getMonth(),1).getDay())) ? key - 5 - new Date(d.getFullYear(),d.getMonth(),1).getDay() : <span className="font-semibold">{item}</span>}</p>
                   </div>

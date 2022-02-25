@@ -9,7 +9,7 @@
     position:relative;
     width:100%; 
     height:auto; 
-    background:#fff;
+    background:var(--cooperate-theme-based-color);
     margin:1rem 0;
     border-radius:0.5rem;
     overflow:hidden;

@@ -104,7 +104,7 @@ export default function DraggableDialog({name,avatar}) {
   return (
     <div>
       <div onClick={handleClickOpen}
-        className={styles.addPostButton}  
+        className={`${styles.addPostButton} dark:bg-black`}  
       >
          <p>Whats on your mind?</p>
       </div>

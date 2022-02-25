@@ -19,7 +19,7 @@ const Index = ({children}) => {
     
   const router=useRouter()
   return <div className={`grid h-screen ${styles.parentContainer}`} style={{gridTemplateColumns:isMobile?"1fr":"300px auto"}}>
-      <div className={`${styles.sideNavContainer} bg-amber-50`} >
+      <div className={`${styles.sideNavContainer}`} >
           <div 
             className="mx-auto my-0 sm:my-8 grid sm:place-items-center"
           >
@@ -40,17 +40,17 @@ const Index = ({children}) => {
               </Link>
           </div>
           <ul className=" sm:my-4 grid grid-cols-4 sm:block">
-              <li className={`p-2 my-2 sm:pl-8 border-l-4 ${router.pathname == "/dashboard" ? " border-transparent sm:border-amber-500":"border-transparent"}`}>
+              <li className={`p-2 my-2 sm:pl-8 border-l-4 ${router.pathname == "/dashboard" ? " border-transparent dark:sm:border-amber-800 sm:border-amber-500":"border-transparent"}`}>
                   <Link href="/dashboard">
                       <a className="flex align-center"><HomeOutlinedIcon/><span className="hidden sm:block ml-2">Dashboard</span></a>
                   </Link>
               </li>
-              <li className={`p-2 my-2 sm:pl-8 border-l-4 ${router.pathname == "/dashboard/tabulate" ? " border-transparent sm:border-amber-500":"border-transparent"}`}>
+              <li className={`p-2 my-2 sm:pl-8 border-l-4 ${router.pathname == "/dashboard/tabulate" ? " border-transparent dark:sm:border-amber-800 sm:border-amber-500":"border-transparent"}`}>
                   <Link href="/dashboard/tabulate">
                       <a className="flex align-center"><EqualizerOutlinedIcon/><span className="hidden sm:block ml-2">Tabulate</span></a>
                   </Link>
               </li>
-              <li className={`p-2 my-2 sm:pl-8 border-l-4 ${router.pathname == "/dashboard/blog" ? " border-transparent sm:border-amber-500":"border-transparent"}`}>
+              <li className={`p-2 my-2 sm:pl-8 border-l-4 ${router.pathname == "/dashboard/blog" ? " border-transparent dark:sm:border-amber-800 sm:border-amber-500":"border-transparent"}`}>
                   <Link href="/dashboard/blog">
                       <a className="flex align-center"><HistoryEduIcon/><span className="hidden sm:block ml-2">Write Blog</span></a>
                   </Link>

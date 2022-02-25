@@ -32,14 +32,14 @@ const GetProfile = ({id}) => {
         {
         showing
         &&
-        <div className="absolute  top-0 bg-white rounded"
+        <div className="absolute border dark:border-amber-800 top-0 bg-white dark:bg-black rounded"
             style={{width:isMobile?"calc(95vw - 4rem - 6px)":"calc(25vw - 4rem - 24px)",left:"0"}}
         >
             {_.isEmpty(data)
             ?
             <Box className='p-4'><LinearProgress /></Box>
             :
-            <div className=' p-4  text-black'>
+            <div className=' p-4'>
                 <div className="flex item-center items-center">
                     <Image src={data.availableImages[data.image]}
                             className="rounded-full"

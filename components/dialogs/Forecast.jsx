@@ -35,7 +35,7 @@ const Forecast = () => {
   return (
     <div className={styles.container}>
         <IconButton onClick={getForecast}>
-          <AcUnitIcon/>
+          <AcUnitIcon className="dark:text-white"/>
         </IconButton>
         <AnimatePresence>
         {
@@ -46,20 +46,7 @@ const Forecast = () => {
               exit="initial"
               animate="final"
               variants={zeroHeightAndWidth}
-              className={`dialogBoxDefault ${styles.mainBox}`}>
-              {
-                _.isEmpty(weather.weather) 
-              ?
-              <>
-              <Skeleton animation="wave" height={140}/>
-              <div className={styles.text} style={{marginLeft:"1rem"}}>
-                <Skeleton animation="wave"/>
-                <Skeleton animation="wave"/>
-                <Skeleton animation="wave"/>
-                <Skeleton animation="wave"/>
-              </div>
-              </>
-              :
+              className={`dialogBoxDefault ${styles.mainBox} dark:bg-black border dark:border-amber-800`}>
               <>
                 <motion.div 
                 variants={xMove}
@@ -75,25 +62,24 @@ const Forecast = () => {
                 <motion.div
                   variants={xMove}
                   className={styles.text}>
-                  <p><span>Detail</span>
+                  <p><span className="dark:text-amber-800">Detail</span>
                     <br/>
                     {weather.weather.main}
                   </p>
-                  <p><span>Temperature</span>
+                  <p><span className="dark:text-amber-800">Temperature</span>
                     <br/>
                     {(weather.main.temp - 273.15).toFixed(1)+"°"}
                   </p>
-                  <p><span>Humidity</span>
+                  <p><span className="dark:text-amber-800">Humidity</span>
                     <br/>
                     {weather.main.humidity}%
                   </p>
-                  <p><span>Pressure</span>
+                  <p><span className="dark:text-amber-800">Pressure</span>
                     <br/>
                     {weather.main.pressure}hPa
                   </p>
                 </motion.div>
               </>
-              }
             </motion.div>
         }
         </AnimatePresence>

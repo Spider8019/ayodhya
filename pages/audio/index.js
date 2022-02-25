@@ -145,7 +145,7 @@ const Audio = ({user}) => {
                     </div>
 
                 </div>
-               <div className='relative -top-4 rounded-t-xl sm:rounded-none sm:static grid place-items-center bg-white sm:bg-slate-50 h-full'
+               <div className='relative -top-4 rounded-t-xl sm:rounded-none sm:static grid place-items-center bg-white sm:bg-slate-50 dark:sm:bg-black h-full'
                     style={{boxShadow:isMobile?"0px -10px 10px rgba(0,0,0,0.164)":"none"}}
                 >
                    <div className='sm:w-2/3 w-full mt-8 sm:mt-0'
@@ -155,7 +155,7 @@ const Audio = ({user}) => {
                         return(
                             <div key={key}
                                 onClick={()=>changeSong(audio,key)}
-                                className={`${active.trackId===key?'bg-amber-100':'bg-transparent'} cursor-pointer border-b border-amber-500 p-2`}
+                                className={`${active.trackId===key?'bg-amber-100 dark:bg-amber-800':'bg-transparent'} cursor-pointer border-b border-amber-500 p-2`}
                             >
                                 <div>
                                     <p className="text-sm">{audio.about.split("****")[0]}</p>

@@ -34,11 +34,11 @@ export default function DraggableDialog({name,about,email}) {
   }
   return (
     <div
-       className={styles.addPostButton}  
+       className={`${styles.addPostButton} dark:bg-black`}  
 
     >
       <div
-         className='text-center'
+         className='text-center '
          onClick={()=>setShow(!show)}
       >
          <p>Your profile should be updated.</p>
@@ -52,7 +52,7 @@ export default function DraggableDialog({name,about,email}) {
                 exit="initial"
                 animate="final"
                 variants={zeroHeightAndWidth}
-                className="bg-slate-100 rounded p-2 mt-4 cursor-default"
+                className="bg-slate-100 dark:bg-slate-800 rounded p-2 mt-4 cursor-default"
             >
                 <form onSubmit={handleSubmit}>
                     <motion.p 
@@ -76,8 +76,8 @@ export default function DraggableDialog({name,about,email}) {
                     <motion.button 
                         type="submit"
                         variants={yMove}
-                        style={{cursor:processing?"no-drop":"pointer"}}
-                        className="p-2 px-4 bg-amber-500 rounded text-white text-sm"
+                        style={{cursor:processing?"no-drop":"pointer",background:'var(--base-color)'}}
+                        className="p-2 px-4 rounded text-white text-sm"
                         >
                         {processing?"Updating...":"Update"}
                     </motion.button>

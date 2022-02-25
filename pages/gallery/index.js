@@ -88,7 +88,7 @@ const Gallery = ({count}) => {
             filterShow
             &&
                 <motion.div 
-                    className='bg-amber-50 p-4 mx-0 mb-0 '
+                    className='dark:bg-black dark:text-white bg-amber-50 p-4 mx-0 mb-0 '
                     initial="initial"
                     animate="final"
                     exit="initial"
@@ -100,55 +100,55 @@ const Gallery = ({count}) => {
                             variants={xMove}
                             className='grid grid-cols-1 '>
                             <p 
-                                className="text-center uppercase my-2 font-semibold text-sm text-black"
+                                className="text-center uppercase my-2 font-semibold text-sm "
                             >
                                 Type
                             </p>
                             <Button 
                                 onClick={()=>handleQuery("video")}
-                                className={`text-left text-xs text-black ${query==='video'?'bg-amber-100 mt-2':'bg-transparent mt-2 '}`}>Video</Button>
+                                className={`text-left text-xs ${query==='video'?'bg-amber-100 mt-2':'bg-transparent mt-2 '}`}>Video</Button>
                             <Button
                                 onClick={()=>handleQuery("photos")}
-                                className={`text-xs text-black ${query==='photos'?'bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Photos</Button>
+                                className={`text-xs ${query==='photos'?'bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Photos</Button>
                         </motion.div>
                         <motion.div 
                             variants={xMove}
                             className='grid grid-cols-1'>
                             <p 
-                                className="text-center uppercase my-2 font-semibold text-sm text-black"
+                                className="text-center uppercase my-2 font-semibold text-sm "
                             >
                                 Category
                             </p>
                             <Button 
                                 onClick={()=>handleQuery("dance")}
-                                className={`text-black text-xs ${query==='dance'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Dance</Button>
+                                className={` text-xs ${query==='dance'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Dance</Button>
                             <Button 
                                 onClick={()=>handleQuery("crafts")}
-                                className={`text-black text-xs ${query==='crafts'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Crafts</Button>
+                                className={` text-xs ${query==='crafts'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Crafts</Button>
                             <Button 
                                 onClick={()=>handleQuery("photography")}
-                                className={`text-black text-xs ${query==='photography'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Photography</Button>
+                                className={` text-xs ${query==='photography'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Photography</Button>
                             <Button 
                                 onClick={()=>handleQuery("artworks")}
-                                className={`text-black text-xs ${query==='artworks'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Artworks</Button>
+                                className={` text-xs ${query==='artworks'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Artworks</Button>
                             <Button 
                                 onClick={()=>handleQuery("others")}
-                                className={`text-black text-xs ${query==='others'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Others</Button>
+                                className={` text-xs ${query==='others'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Others</Button>
                         </motion.div>
                         <motion.div 
                             variants={xMove}                        
                             className='grid grid-cols-1'>
                             <p 
-                                className="text-center uppercase my-2 font-semibold text-sm text-black"
+                                className="text-center uppercase my-2 font-semibold text-sm "
                             >
                                 Category
                             </p>
                             <Button 
                                 onClick={()=>handleQuery("makeup")}
-                                className={`text-black text-xs ${query==='makeup'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Mehndi</Button>
+                                className={` text-xs ${query==='makeup'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Mehndi</Button>
                             <Button
                                 onClick={()=>handleQuery("mehndi")}
-                                className={`text-black text-xs ${query==='mehndi'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Makeup</Button>
+                                className={` text-xs ${query==='mehndi'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Makeup</Button>
                         </motion.div>
                         <div></div>
                         <div></div>
@@ -160,11 +160,11 @@ const Gallery = ({count}) => {
                         >
                             <Button
                                 onClick={()=>{setFilterShow(false);}}
-                                className={`font-semibold text-black text-xs ${query==='photos'?'text-black bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Close
+                                className={`font-semibold  text-xs ${query==='photos'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Close
                             </Button>
                              <Button
                                 onClick={()=>{setQuery(null); setFilterShow(false); router.push("/gallery")}}
-                                className={`text-black text-xs ${query==='photos'?'text-black bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Remove Filter
+                                className={` text-xs ${query==='photos'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Remove Filter
                             </Button>
                         </motion.div>
                     </div>
@@ -181,7 +181,6 @@ const Gallery = ({count}) => {
 
         <motion.div 
             className="pb-12 grid place-items-center"
-            style={{background:isMobile?"white":bg}}
         >
             <motion.div  className={`${styles.galleryRow}`}
                 >

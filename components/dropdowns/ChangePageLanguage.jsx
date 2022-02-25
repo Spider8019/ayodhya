@@ -29,7 +29,7 @@ export default function BasicMenu() {
       <IconButton
         onClick={()=>setShow(!show)}
       >
-        <TranslateIcon/>
+        <TranslateIcon className="dark:text-white"/>
       </IconButton>
       {
         show 
@@ -39,7 +39,7 @@ export default function BasicMenu() {
           exit="exit"
           animate="final"
           variants={zeroHeightAndWidth}
-          className={`dialogBoxDefault ${styles.mainBox}`}
+          className={`dialogBoxDefault ${styles.mainBox} border dark:border-amber-800 dark:bg-black`}
           style={{width:"fit-content",gridTemplateColumns:"1fr"}}
         >
           {languages.map(({code,country_code,language})=>{

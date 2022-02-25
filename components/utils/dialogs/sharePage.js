@@ -100,7 +100,7 @@ export default function CustomizedDialogs({url='https://www.google.com',title='I
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
-        <ShareIcon/>
+        <ShareIcon className="dark:text-white"/>
       </IconButton>
       <BootstrapDialog
         onClose={handleClose}

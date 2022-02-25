@@ -102,9 +102,9 @@ await uploadObject({file:fileBody,filename:"spider8019"+nanoid(10)+"profile."+fi
     <div>
       <div 
         onClick={handleClickOpen}
-        className="cursor-pointer bg-slate-100 rounded-full grid place-items-center"
+        className="cursor-pointer bg-slate-100 dark:bg-amber-800 rounded-full grid place-items-center"
         style={{height:"150px",width:"150px"}}>
-                <CameraIcon className='h-2/4 w-2/4 text-slate-800'/>
+                <CameraIcon className='h-2/4 w-2/4 text-slate-800 dark:text-white'/>
       </div>
       <Dialog
         open={open}
@@ -114,7 +114,8 @@ await uploadObject({file:fileBody,filename:"spider8019"+nanoid(10)+"profile."+fi
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
       >
-        <DialogTitle style={{ cursor: 'move',textAlign:"Center" }} id="draggable-dialog-title">
+        <DialogTitle 
+          style={{cursor: 'move',textAlign:"Center" }} id="draggable-dialog-title">
           Upload New Profile Picture
         </DialogTitle>
         <DialogContent>

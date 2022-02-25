@@ -1,6 +1,18 @@
 body{
     font-family:Noto Sans Display;
 }
+:root{
+    --base-color:#f59e0b;
+    --cooperate-theme-based-color:black;
+    --calendar-unit-bg:#eee;
+    --sidebar-nav:linear-gradient(white,rgba(255, 255, 255, 0.87),transparent),url('/static/pages/canva1.png');
+}
+.dark{
+    --base-color:#92400e;
+    --cooperate-theme-based-color:white;
+    --calendar-unit-bg:black;
+    --sidebar-nav:linear-gradient(black,rgba(0, 0, 0, 0.87),transparent),url('/static/pages/canva1bg.png');
+}
 @media only screen and (max-width:640px) {
     body{
        user-select:none;
@@ -12,7 +24,7 @@ body{
 
 }
 #nprogress .bar{ 
-    background: #f59e0b;
+    background: var(--base-color);
     height:3px;
 }
 .signature{
@@ -21,7 +33,7 @@ body{
 .GFG {
     color:transparent;
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: #000;
+    -webkit-text-stroke-color: var(--cooperate-theme-based-color);
 }
 .basicButton{
     padding:0.5rem 1rem;
@@ -32,15 +44,19 @@ body{
 }
 .basicButton:hover{
     border:2px solid white;
-    background:rgba(245,158,11);
+    background:var(--base-color);
     color:white;
 }
 .basicDarkButton{
     padding: 0.5rem 1rem;
     border-radius:0.25rem;
-    background:#f59e0b;
+    background:var(--dark-mode);
     color:white;
-    border:1px solid #f59e0b;
+    border:1px solid var(--base-color);
+}
+.dark .basicDarkButton{
+    border-color:var(--base-color);
+    background:var(--base-color);
 }
 .basicDarkButtonInvert{
     padding:0.5rem 1rem;
@@ -120,5 +136,5 @@ input[type="file"] {
 
 .slick-dots li.slick-active {
     width:2rem;
-    background-color: orange;
+    background-color: var(--base-color);
 }

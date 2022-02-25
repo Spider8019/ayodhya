@@ -55,7 +55,8 @@
 }
 .heroChildDiv{
   transform:translate(-100%);
-  background:rgba(245,158,11,0.7);
+  background:var(--base-color);
+  backdrop-filter:opacity(70%);
 }
 @media only screen and (max-width:640px) {
   .heroChildDiv{
