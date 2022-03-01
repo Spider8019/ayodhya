@@ -15,9 +15,9 @@ import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
 import styles from "../../styles/pages/Home.module.css"
 import {motion} from "framer-motion"
-import NightsStayIcon from '@mui/icons-material/NightsStay';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { useTheme } from 'next-themes'
+import DarkModeTwoToneIcon from '@mui/icons-material/DarkModeTwoTone';
 
 const Navbar = () => {
     let  { t }= useTranslation()
@@ -109,17 +109,17 @@ const Navbar = () => {
                       />
                       <h1 className="sm:text-4xl sm:ml-2">{t('common:title')}</h1>
                     </div>
-                    <div className="flex ">  
+                    <div className="flex items-center">  
+                      <ChangePageLanguage/>
                       <IconButton onClick={() => {theme==='light'?setTheme('dark'):setTheme('light')}}>
                         {
                           theme && theme==="dark"
                           ?
                           <LightModeIcon className="dark:text-white text-white"/>
                           :
-                          <NightsStayIcon className="dark:text-white"/>
+                          <DarkModeTwoToneIcon className="dark:text-white"/>
                         }
                       </IconButton>
-                      <ChangePageLanguage/>
                       <Forecast/>
                       {
                         (!session && status==='unauthenticated')

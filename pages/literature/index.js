@@ -1,13 +1,52 @@
 import axios from 'axios';
-import React from 'react';
+import React,{useState} from 'react';
 import LiteratureLayout from "../../components/layout/literatureLayout"
 import parse from 'html-react-parser';
 import {getSpecificLiteratureDetails}  from "../../globalSetups/api"
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 import Head from 'next/head';
-import Link from "next/link"
+import Link from "next/link";
+import Image from "next/image"
+import {notifyerror, notifysuccess} from "../../components/snackbar"
 
 const LiteratureContainer = ({data,htmlData,error}) => {
+
+  const [word,setWord]=useState("")
+  async function getSelectedText() {
+    var selectedText = '';
+
+    // window.getSelection
+    if (window.getSelection) {
+        selectedText = window.getSelection();
+    }
+    // document.getSelection
+    else if (document.getSelection) {
+        selectedText = document.getSelection();
+    }
+    // document.selection
+    else if (document.selection) {
+        selectedText = document.selection.createRange().text;
+    } else return;
+    if(selectedText){
+      try{
+        const data=await axios({
+            method:"get",
+            url:"https://api.dictionaryapi.dev/api/v2/entries/en/"+selectedText
+        })
+        if(data.status===200){
+            notifysuccess("Meaning : "+data.data[0].meanings[0].definitions[0].definition)
+        }
+        else{
+          console.log(data)
+        }
+      }
+      catch(e){
+        return null;
+      }
+  }
+}
+
+
 
   if(error){
     return <div style={{height:"calc(100vh - 10rem)"}} 
@@ -44,8 +83,21 @@ const LiteratureContainer = ({data,htmlData,error}) => {
       </div>
       :
       <>
-        {parse(htmlData)}
-        <p className='my-4'>{data.data.aboutUrl}</p>
+        <div className="withMeanings" >
+          <div onMouseUp={getSelectedText}>
+            {parse(htmlData)}
+          </div>
+        </div>
+        <div className="mt-20 mx-20 grid place-items-center">
+          <p className="text-xs text-gray-400">W3Schools is optimized for learning and training. Examples might be simplified to improve reading and learning. Tutorials, references, and examples are constantly reviewed to avoid errors, but we cannot warrant full correctness of all content. While using W3Schools, you agree to have read and accepted our terms of use, cookie and privacy policy.</p>
+          <Image 
+             className="my-4 block"
+             src="/static/withOutBgLogo.png"
+             alt="Company Logo"
+             width="60"
+             height="60"
+          />
+        </div>
       </>
     }
 
@@ -59,7 +111,6 @@ export default LiteratureContainer;
 export async function getServerSideProps(context){
   const {query}=context;
   let data=(await getSpecificLiteratureDetails({query})).data
-  console.log(data)
   if(data.homepage===true)
   return{
     props:{
