@@ -1,3 +1,14 @@
+.blogAbs{
+  backdrop-filter: blur(5px);
+  background:rgba(0,0,0,0.2);
+}
+.blogAbs{
+  opacity:0;
+  transition:all 0.2s ease;
+}
+.blogRel:hover .blogAbs{
+  opacity:1;
+}
 .aug5container{
   position:relative;
   overflow: hidden;

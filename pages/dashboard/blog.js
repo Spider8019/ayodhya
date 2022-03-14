@@ -2,16 +2,22 @@ import { getSession,useSession } from 'next-auth/react';
 import React from 'react';
 import DashboardLayout from "../../components/layout/dashboardLayout"
 import CreateNewBlog from "../../components/utils/createNewBlog"
+import styles from "../../styles/pages/Home.module.css"
 import _ from "lodash"
 import { defaultOptions } from '../../globalSetups/availableArrays';
 import {getBlogs} from "../../globalSetups/api"
 import useSWR from 'swr';
 import Link from 'next/link';
+import {useRouter} from "next/router"
 import Image from 'next/image';
+import {IconButton} from "@mui/material"
 import {availableTravelBlogType} from "../../globalSetups/availableArrays"
+import LanguageIcon from '@mui/icons-material/Language';
+import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt';
 
 const Blog = ({user}) => {
 
+  const router=useRouter()
   const {data:session,status}=useSession()
   const {data:blogs,error:blogsError}=useSWR("FetchBlogsForUser",()=>getBlogs({id:user.id}))
   if(blogsError){
@@ -28,34 +34,39 @@ const Blog = ({user}) => {
   return <div className='min-h-screen'>
       <h1 className="text-2xl">Write Blogs</h1>
       <CreateNewBlog session={session}/>
-      <div className='flex flex-wrap mt-8'>{
-        blogs.map((blog,key)=>{
+      <div className='flex flex-wrap mt-8'>
+        {blogs.map((blog,key)=>{
             return(
-                <Link
-                 href="/blogs"
-                 key={key}
-                >
-                        <a
-                            style={{backgroundSize:"contain",boxShadow:"1px 1px 10px rgba(0, 0, 0, 0.164)"}}
-                            className="border-2 w-full sm:w-fit overflow-hidden h-32 rounded-xl cursor-pointer flex py-4 px-8 items-center border-amber-500"
-                        >
-                            <div className='rounded'>
-                                <Image
-                                  alt="Image"
-                                  src={"/static/"+availableTravelBlogType[parseInt(blog.tourismType)].icon}
-                                  height="80"
-                                  width="80"
-                                />
+                    <div
+                        key={key}
+                        style={{backgroundSize:"contain",boxShadow:"1px 1px 10px rgba(0, 0, 0, 0.164)"}}
+                        className={`${styles.blogRel} relative border-2 w-full sm:w-fit overflow-hidden h-32 rounded-xl cursor-pointer flex py-4 px-8 items-center border-amber-500`}
+                    > 
+                        <div className={` ${styles.blogAbs} absolute top-0 left-0 right-0 bottom-0 z-20 grid place-items-center`}  >
+                            <div className="flex justify-between">
+                                <IconButton 
+                                    onClick={()=>window.open(`/tourism/${blog._id}`)}
+                                    className=""><LanguageIcon /></IconButton>
+                                <IconButton
+                                    onClick={()=>router.push(`/dashboard/${blog._id}/editBlog`)}
+                                    className=""><EditLocationAltIcon/></IconButton>
                             </div>
-                            <div className="ml-4">
-                                <p className="text-xs">{blog.location}</p>
-                                <p>{blog.heading}</p>
-                            </div>
-                        </a>
-                </Link>
-            )
-        })  
-      }</div>
+                        </div>
+                        <div className='rounded'>
+                            <Image
+                                alt="Image"
+                                src={"/static/"+availableTravelBlogType[parseInt(blog.tourismType)].icon}
+                                height="80"
+                                width="80"
+                            />
+                        </div>
+                        <div className="ml-4">
+                            <p className="text-xs">{blog.location}</p>
+                            <p>{blog.heading}</p>
+                        </div>
+                    </div>)
+        })}
+    </div>
   </div>;
 };
 

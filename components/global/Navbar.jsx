@@ -1,4 +1,4 @@
-  import useTranslation from 'next-translate/useTranslation'
+ import useTranslation from 'next-translate/useTranslation'
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -89,10 +89,15 @@ const Navbar = () => {
             <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.festival')}</a>
           </Link>
           </li>
+          <li className={router.pathname.includes("/ec") ? "sm:bg-amber-600 bg-amber-500" : ""}>
+          <Link href="/ec">
+            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.ec')}</a>
+          </Link>
+          </li>
       </ul>
     );
 
-    if (["/auth/signin","/signup","/dashboard","/dashboard/tabulate","/dashboard/blog","/dashboard/devLiterature","/dashboard/addEvent"].includes(router.pathname))
+    if (["/auth/signin","/signup"].includes(router.pathname) || router.pathname.includes("dashboard"))
       return null;
 
     if(isBrowser){

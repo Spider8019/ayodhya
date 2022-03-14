@@ -15,6 +15,17 @@ async function handler(req, res) {
                 console.log(books,findBy)
                 res.status(200).json(books)
                 break;
+        case 'PUT':
+                console.log(paylaod)
+                const payload={
+                    heading:req.body.heading,
+                    about:req.body.about,
+                    tourismType:req.body.tourismType,
+                    location:req.body.location,
+                }
+                const x=await Blogs.findOneAndUpdate({_id:req.body.id},payload)
+                res.status(200).json(x)
+                break;
         default:
                 res.status(400).json({ success: false })
                 break

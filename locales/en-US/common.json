@@ -13,7 +13,9 @@
         "talent":"Talent",
         "gallery":"Gallery",
         "music":"Music",
-        "festival":"Festival"
+        "festival":"Festival",
+        "ec":"Emergency Contacts",
+        "ecplumber":"Plumbers"
     },
     "home":{
         "title":"About District",

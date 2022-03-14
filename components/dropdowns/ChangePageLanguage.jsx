@@ -36,8 +36,8 @@ export default function BasicMenu() {
         &&
         <motion.div 
           initial="initial"
-          exit="exit"
           animate="final"
+          exit="initial"
           variants={zeroHeightAndWidth}
           className={`dialogBoxDefault ${styles.mainBox} border dark:border-amber-800 dark:bg-black`}
           style={{width:"fit-content",gridTemplateColumns:"1fr"}}
