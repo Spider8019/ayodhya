@@ -106,6 +106,9 @@ input[type="file"] {
     background:linear-gradient(white,#ccc) !important;
     min-width:8rem !important;
 }
+.paper{
+    box-shadow: 5px 5px var(--base-color), 10px 10px red, 15px 15px rgb(0, 195, 255);
+}
 .MuiPagination-text{
 }
 .PNFContainer{  
@@ -123,6 +126,9 @@ input[type="file"] {
         height:40vh;
         background:linear-gradient(#f59e0b ,red);
         background-position: center;
+    }
+    .paper{
+        box-shadow: 1px 1px 10px rgba(0,0,0,0.164);
     }
 }
 /* // Styling the default Slick dots */

@@ -26,7 +26,7 @@ const Tourism = () => {
                     <Link href={`/tourism/${item._id}`}
                     key={key}>
                         <a
-                            className="flex py-4 px-8 items-center rounded border-2 h-fit border-amber-500"
+                            className=" paper flex py-4 px-8 items-center rounded border-2 h-fit border-amber-500"
                         >
                             <div className='rounded'>
                                 <Image

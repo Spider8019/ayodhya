@@ -44,6 +44,10 @@ const Navbar = () => {
   
       setState({ ...state, [anchor]: open });
     };
+
+    const redirectLink=(e)=>{
+      setState({...state,top:false})
+    }
   
     const list = () => (
       <ul 
@@ -51,47 +55,65 @@ const Navbar = () => {
       >
           <li className={router.pathname == "/" ? "sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/">
-            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.home')}</a>
+            <a
+              onClick={redirectLink}
+              className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.home')}</a>
           </Link>
           </li>
           <li className={router.pathname == "/about" ? "sm:bg-amber-600 bg-amber-500" : ""}>
-          <Link href="/about">
-            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.about')}</a>
+          <Link href="/about" >
+            <a 
+              onClick={redirectLink}
+              className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.about')}</a>
           </Link>
           </li>
           <li className={router.pathname.includes("/tourism") ? "sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/tourism">
-            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.tourism')}</a>
+            <a
+              onClick={redirectLink} 
+              className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.tourism')}</a>
           </Link>
           </li>
           <li className={router.pathname.includes("/literature") ?"sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/literature">
-            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.library')}</a>
+            <a 
+                onClick={redirectLink}
+                className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.library')}</a>
           </Link>
           </li>
           <li className={router.pathname.includes("/talent") ? "sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/talent">
-            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.talent')}</a>
+            <a 
+              onClick={redirectLink}
+              className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.talent')}</a>
           </Link>
           </li>
           <li className={router.pathname.includes("/audio") ? "sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/audio#player">
-            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.music')}</a>
+            <a  
+              onClick={redirectLink} 
+              className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.music')}</a>
           </Link>
           </li>
           <li className={router.pathname.includes("/gallery") ? "sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/gallery">
-            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.gallery')}</a>
+            <a 
+                onClick={redirectLink}
+                className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.gallery')}</a>
           </Link>
           </li>
           <li className={router.pathname.includes("/events") ? "sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/events">
-            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.festival')}</a>
+            <a 
+                onClick={redirectLink}
+                className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.festival')}</a>
           </Link>
           </li>
           <li className={router.pathname.includes("/ec") ? "sm:bg-amber-600 bg-amber-500" : ""}>
           <Link href="/ec">
-            <a className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.ec')}</a>
+            <a 
+                onClick={redirectLink}
+                className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.ec')}</a>
           </Link>
           </li>
       </ul>
@@ -100,77 +122,13 @@ const Navbar = () => {
     if (["/auth/signin","/signup"].includes(router.pathname) || router.pathname.includes("dashboard"))
       return null;
 
-    if(isBrowser){
-        return (  
-            <div className='flex flex-col dark:bg-black'>
-                <div className="sm:px-10 sm:py-4 flex justify-between  items-center">
-                    <div className='flex items-center'>
-                      <Image
-                        layout='intrinsic'
-                        height={90}
-                        width={90}
-                        src="/static/withOutBgLogo.png"
-                        alt="Without Background Logo"
-                      />
-                      <h1 className="sm:text-4xl sm:ml-2">{t('common:title')}</h1>
-                    </div>
-                    <div className="flex items-center">  
-                      <ChangePageLanguage/>
-                      <IconButton onClick={() => {theme==='light'?setTheme('dark'):setTheme('light')}}>
-                        {
-                          theme && theme==="dark"
-                          ?
-                          <LightModeIcon className="dark:text-white text-white"/>
-                          :
-                          <DarkModeTwoToneIcon className="dark:text-white"/>
-                        }
-                      </IconButton>
-                      <Forecast/>
-                      {
-                        (!session && status==='unauthenticated')
-                        &&
-                          <button 
-                            aria-label="internationalizationButton"
-                            className='basicDarkButton' 
-                            style={{marginLeft:"1rem"}}
-                            onClick={()=>signIn(null,{ callbackUrl: `${defaultOptions.baseUrl}/dashboard`})}
-                          >Login</button>
-                      }
-                      {
-                        session
-                        &&
-                          <Link 
-                            passHref={true}
-                            href="/dashboard">
-                            <motion.a
-                              whileTap={{scale:0.9}}
-                            >
-                              <Avatar  
-                                className="ml-2 cursor-pointer"
-                              >
-                                  <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
-                              </Avatar>
-                            </motion.a>
-                          </Link>
-                      }
-                    </div>
-                </div>
-                {list()}
-                <style jsx>{`
-                  .stickyNavbarLowerOne {
-                    position:sticky;
-                    top:0;
-                  }
-                `}</style>
-            </div>
-        )
-      }
+
     
     if(isMobile){
       return (  
-        <div>
+        <div className=''>
             <div 
-              className={`${styles.navbarContainer}`}
+             className=' flex justify-between items-center'
             >
                 <div className='flex items-center'>
                   <MenuIcon onClick={toggleDrawer("top", true)}/>
@@ -236,7 +194,71 @@ const Navbar = () => {
         </div>
       )
     }
-
+    if(isBrowser){
+      return (  
+          <div className='flex flex-col dark:bg-black bg-amber-500 p-4 sm:p-0 sm:bg-white'>
+              <div className="sm:px-10 sm:py-4 flex justify-between  items-center">
+                  <div className='flex items-center'>
+                    <Image
+                      layout='intrinsic'
+                      height={90}
+                      width={90}
+                      src="/static/withOutBgLogo.png"
+                      alt="Without Background Logo"
+                    />
+                    <h1 className="text-xl ml-4 sm:text-4xl sm:ml-2">{t('common:title')}</h1>
+                  </div>
+                  <div className="flex items-center">  
+                    <ChangePageLanguage/>
+                    <IconButton onClick={() => {theme==='light'?setTheme('dark'):setTheme('light')}}>
+                      {
+                        theme && theme==="dark"
+                        ?
+                        <LightModeIcon className="dark:text-white text-white"/>
+                        :
+                        <DarkModeTwoToneIcon className="dark:text-white"/>
+                      }
+                    </IconButton>
+                    <Forecast/>
+                    {
+                      (!session && status==='unauthenticated')
+                      &&
+                        <button 
+                          aria-label="internationalizationButton"
+                          className='basicDarkButton' 
+                          style={{marginLeft:"1rem"}}
+                          onClick={()=>signIn(null,{ callbackUrl: `${defaultOptions.baseUrl}/dashboard`})}
+                        >Login</button>
+                    }
+                    {
+                      session
+                      &&
+                        <Link 
+                          passHref={true}
+                          href="/dashboard">
+                          <motion.a
+                            whileTap={{scale:0.9}}
+                          >
+                            <Avatar  
+                              className="ml-2 cursor-pointer"
+                            >
+                                <Image src={session.user.image} alt={session.user.name} layout="fill" objectFit='cover' />
+                            </Avatar>
+                          </motion.a>
+                        </Link>
+                    }
+                  </div>
+              </div>
+              {list()}
+              <style jsx>{`
+                .stickyNavbarLowerOne {
+                  position:sticky;
+                  top:0;
+                }
+              `}</style>
+          </div>
+      )
+    }
 
     return null;
 }

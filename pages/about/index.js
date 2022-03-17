@@ -6,7 +6,7 @@ import ExtensionOutlinedIcon from '@mui/icons-material/ExtensionOutlined';
 import Head from "next/head"
 
 const index = () => {
-  return <div className="m-20">
+  return <div className="m-4 sm:m-20">
       <Head>
           <title>About Page - Ikshvaku</title>
       </Head>
@@ -17,7 +17,7 @@ const index = () => {
        <div className='text-xl mt-8'>
           <p>Geographic</p>
           <p></p>
-          <div className="mt-4 grid grid-cols-4 gap-12">
+          <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-12">
              <div className="rounded grid place-items-center p-8 dark:bg-amber-800 bg-amber-50">
                 <AgricultureIcon style={{fontSize:"4rem"}}/>
                 <p className='text-sm'>1272 villages</p>

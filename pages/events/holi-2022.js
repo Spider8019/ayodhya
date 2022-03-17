@@ -17,6 +17,11 @@ export default function BasicBreadcrumbs() {
     <div className="m-4 sm:m-20">
         <Head>
             <title>Holi - 2022</title>
+            <meta charset="UTF-8"/>
+            <meta name="description" content="Everything about holi, the festival of Love. Lets forget all resentments and negative feeling towards other."/>
+            <meta name="keywords" content="Holi, Ikshvaku, Ayodhya, Vrindavan, Radha Krishna, Barsana"/>
+            <meta name="author" content="Aman Pratap Singh"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         </Head>
         <div role="presentation" onClick={handleClick}>
         <Breadcrumbs aria-label="breadcrumb">
@@ -37,7 +42,8 @@ export default function BasicBreadcrumbs() {
         <div className='mt-12 grid gap-8 items-start grid-cols-1  sm:grid-cols-[1fr_0.2fr]'        >
 
 
-        <div className="festBlog">
+        <div className="festBlog"
+        >
             <p>Holi is known as the festival of love because on this day, people come together to forget about their resentments and negative feelings toward one another. This auspicious time begins on Purnima evening, or the full moon day in the first month of Falgun. On the first evening of the festival, it is known as Holika Dahan or Choti Holi, and the following day is known as Holi.</p>
             <p>The tradition begins with the lighting of a bonfire one day prior to Holi, and this act symbolises the triumph of good over evil. People play with colours with their friends and families on Holi Day, and they show love and respect to their loved ones with abeer in the evening.</p>
             <b className=" text-amber-500 text-xl my-4 block">History of Holi</b>
@@ -82,7 +88,7 @@ export default function BasicBreadcrumbs() {
                 />
             </div>
         </div>
-        <div className='border border-gray-400 p-4 rounded'>
+        <div className='dark:bg-black paper border-gray-400 p-4 rounded'>
             <p className='text-3xl font-semibold text-gray-400'>Saturday, 19 March</p>
             <p>In Uttar Pradesh</p>
         </div>
