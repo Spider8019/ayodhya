@@ -170,7 +170,7 @@ const Navbar = () => {
       return (  
         <div>
             <div 
-              className={`${styles.navbarContainer} p-4`}
+              className={`${styles.navbarContainer}`}
             >
                 <div className='flex items-center'>
                   <MenuIcon onClick={toggleDrawer("top", true)}/>

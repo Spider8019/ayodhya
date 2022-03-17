@@ -55,21 +55,23 @@
   display:grid;
   grid-template-columns: 0.4fr 0.8fr;
 }
-.navbarContainer{
-  display:flex;
-  justify-content: space-between;
-}
-.navbarContainerHeading{
-  margin-left: 1rem !important;
-  background:orange;
-  font-size:1.2rem;
-}
+
 .heroChildDiv{
   transform:translate(-100%);
   background:var(--base-color);
   backdrop-filter:opacity(70%);
 }
 @media only screen and (max-width:640px) {
+  .navbarContainer{
+    display:flex;
+    justify-content: space-between;
+    padding:0.5rem !important;
+    background:var(--base-color) !important;
+  }
+  .navbarContainerHeading{
+    margin-left: 1rem !important;
+    font-size:1.2rem;
+  }
   .heroChildDiv{
     width:80vw;
     transform:translate(-50%);

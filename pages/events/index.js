@@ -13,15 +13,13 @@ import { useRouter } from 'next/router';
 import DashboardPost from "../../components/utils/galleryFrame"
 import Head from "next/head"
 import GalleryLoader from "../../components/global/GalleryLoader"
-import {isMobile,MobileView} from "react-device-detect"
-import FilterBAndWIcon from '@mui/icons-material/FilterBAndW';
 import Image from "next/image"
 import { motion, useViewportScroll, useTransform, useMotionValue, useVelocity, AnimatePresence } from "framer-motion"
-import { zeroHeightAndWidth,xMove } from '../../globalSetups/framer';
 import useTranslation from 'next-translate/useTranslation'
 
 const Events = () => {
     let { t } = useTranslation()
+    const router=useRouter()
 
     return(
         <div className="grid relative"
@@ -31,8 +29,8 @@ const Events = () => {
                 Events - Ikshvaku
             </title>
         </Head>
-        <div className="sm:m-20">
-            <div className='grid grid-cols-4 gap-8 '>
+        <div className="sm:m-20 m-4">
+            <div className='grid grid-cols-1 sm:grid-cols-4 gap-8 '>
                 <motion.div 
                     style={{boxShadow:"1px 1px 10px rgba(0,0,0,0.164)"}}
                     className="rounded overflow-hidden dark:bg-black grid grid-cols-1 grid-rows-2 h-auto">
@@ -47,7 +45,9 @@ const Events = () => {
                     <div className="p-2">
                         <h2>{t('common:event.a.title')}</h2>
                         <p className="text-sm my-4">{t('common:event.a.body')}</p>
-                        <button className='opacity-50 basicDarkButton'>Read More</button>
+                        <button className='basicDarkButton'
+                         onClick={()=>router.push("/events/holi-2022")}
+                        >Read More</button>
                     </div>
                 </motion.div>
             </div>

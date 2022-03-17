@@ -53,10 +53,22 @@ body{
     background:var(--base-color);
     color:white;
     border:1px solid var(--base-color);
+    transition:all 0.3s ease;
 }
+.festBlog::first-letter{
+    float: left;
+    font-size: 3rem ;
+    line-height: 1;
+    font-weight: bold;
+    margin-right: 9px;
+}
+/* रूठे यार को मनाना है, इस बार गिले शिकवे मिटाना है, तो आ गया होली का त्योहार, आओ गले मिलकर करें नई शुरुआत. होली 2022 की हार्दिक शुभकामनाएं! */
 .dark .basicDarkButton{
     border-color:var(--base-color);
     background:var(--base-color);
+}
+.basicDarkButton:hover{
+    box-shadow:1px 1px 5px rgba(0,0,0,0.264);
 }
 .basicDarkButtonInvert{
     padding:0.5rem 1rem;
