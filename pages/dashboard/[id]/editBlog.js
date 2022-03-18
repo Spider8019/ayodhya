@@ -6,6 +6,7 @@ import {getSpecificBlog,editBlog} from "../../../globalSetups/api";
 import _ from "lodash";
 import {useRouter} from "next/router"
 import Image from 'next/image';
+import Head from 'next/head';
 import { nanoid } from 'nanoid';
 import {availableTravelBlogType} from "../../../globalSetups/availableArrays"
 import axios from "axios"
@@ -20,20 +21,21 @@ const EBlog = ({detail,about}) => {
 
   const EdBlog=async()=>{
     await deleteObject({url:detail.about},(async(errDlt,dataDlt)=>{
-        // console.log(errDlt,dataDlt)
+        console.log(errDlt,dataDlt)
         if(_.isEmpty(dataDlt)){
             await uploadObject({file:ab,filename:"spider8019_blog"+nanoid(4)},async(err,data)=>{
                 if(_.isNull(err)){
                     const payload={
                       id:det._id,
                       heading:det.heading,
-                      about:data.url,
+                      about:data.Location,
                       tourismType:det.tourismType,
                       location:det.location,
                     }
+                    console.log(err,data)
                     const response = await editBlog(payload)
                     alert("Updated Successfully",response.data)
-                    window.location.reload()
+                    router.push("/dashboard/blog")
                   }
               })
         }
@@ -44,6 +46,9 @@ const EBlog = ({detail,about}) => {
   }
 
   return <div className='min-h-screen'>
+      <Head>
+          <title>Edit Blog - {det.heading}</title>
+      </Head>
       <h1 className="text-2xl">Edit Blogs</h1>
       <div className='rounded mt-12 p-4 bg-gray-200'>
         <div className='grid grid-cols-3 gap-4 mb-4'>
@@ -96,6 +101,7 @@ export async function  getServerSideProps(context){
     const {params} = context;
     const data = (await getSpecificBlog({tourId:params.id})).data
     const about = (await axios.get(`${data.about}`)).data
+    console.log(about)
 
     return {
         props:{

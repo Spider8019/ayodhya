@@ -8,6 +8,7 @@ import { defaultOptions } from '../../globalSetups/availableArrays';
 import {getBlogs} from "../../globalSetups/api"
 import useSWR from 'swr';
 import Link from 'next/link';
+import Head from 'next/head';
 import {useRouter} from "next/router"
 import Image from 'next/image';
 import {IconButton} from "@mui/material"
@@ -27,11 +28,14 @@ const Blog = ({user}) => {
   }
   if(!blogs){
       return(
-          <h1>error</h1>
+          <h1>loading</h1>
       )
   }
 
   return <div className='min-h-screen'>
+      <Head>
+          <title>Blog - Ikshvaku</title>
+      </Head>
       <h1 className="text-2xl">Write Blogs</h1>
       <CreateNewBlog session={session}/>
       <div className='flex flex-wrap mt-8'>
@@ -40,7 +44,7 @@ const Blog = ({user}) => {
                     <div
                         key={key}
                         style={{backgroundSize:"contain",boxShadow:"1px 1px 10px rgba(0, 0, 0, 0.164)"}}
-                        className={`${styles.blogRel} relative border-2 w-full sm:w-fit overflow-hidden h-32 rounded-xl cursor-pointer flex py-4 px-8 items-center border-amber-500`}
+                        className={`${styles.blogRel} relative mr-4 border-2 w-full sm:w-fit overflow-hidden h-32 rounded-xl cursor-pointer flex py-4 px-8 items-center border-amber-500`}
                     > 
                         <div className={` ${styles.blogAbs} absolute top-0 left-0 right-0 bottom-0 z-20 grid place-items-center`}  >
                             <div className="flex justify-between">
@@ -53,12 +57,12 @@ const Blog = ({user}) => {
                             </div>
                         </div>
                         <div className='rounded'>
-                            <Image
-                                alt="Image"
-                                src={"/static/"+availableTravelBlogType[parseInt(blog.tourismType)].icon}
-                                height="80"
-                                width="80"
-                            />
+                                <Image
+                                    alt="Image"
+                                    src={blog.tourismType!=="-1"?"/static/"+availableTravelBlogType[parseInt(blog.tourismType)].icon:"/static/withOutBgLogo.png"}
+                                    height="80"
+                                    width="80"
+                                />
                         </div>
                         <div className="ml-4">
                             <p className="text-xs">{blog.location}</p>

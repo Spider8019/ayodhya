@@ -20,7 +20,7 @@ const TourSpecific = ({detail,about}) => {
 
   const router=useRouter()
   const {data:session,status}=useSession()
-  const [like,setLike]=useState(session && detail.likedBy.includes(session.user.id) )
+  const [like,setLike]=useState(session && detail.likedBy.includes(session.user.id))
   const [likedBy,setLikedBy]=useState(detail.likedBy.length)
 
 
@@ -29,14 +29,14 @@ const TourSpecific = ({detail,about}) => {
         <Head>
             <title>{detail.heading + " by " + detail.createdBy.name + " -\nIkshvaku Ayodhya"}</title>
         </Head>
-        <div className="m-20">
+        <div className="m-4 sm:m-20">
             <div className={`${styles.mainBody}`}>
                 <div>
                     <div>
-                        <p className="text-amber-500 text-4xl font-semibold">
+                        <p className="text-center sm:text-left text-amber-500 text-4xl font-semibold">
                             {detail.heading}
                         </p>
-                        <div className="my-8 flex items-center justify-between">
+                        <div className="my-8 flex flex-col sm:flex-row items-center justify-between">
                             <div>
                                 <p className="text-sm">{detail.location}</p>
                                 <p className="text-xs">Posted on {dateFormat(detail.createdAt,"fullDate")}</p>
@@ -63,7 +63,8 @@ const TourSpecific = ({detail,about}) => {
                                                 setLike(!like)
                                                 like ? setLikedBy(likedBy-1) : setLikedBy(likedBy+1)
                                             }}
-                                            >   
+                                            > 
+                                            {console.log(like)}  
                                                 {session && like? <FavoriteIcon style={{color:"#f59e0b"}}/> : <FavoriteBorderIcon/>}
                                         </IconButton>
                                     }

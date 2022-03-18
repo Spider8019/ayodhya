@@ -36,6 +36,9 @@ const Blog = ({session}) => {
                   tourismType:selectedIndex
                 }
                 const response = await postBlogs(payload)
+                if(response.status===200){
+                    window.location.reload()
+                }
    
                 console.log(response)
               }

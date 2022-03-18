@@ -9,14 +9,12 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                console.log(req.query.id)
                 const findBy=req.query.id==="" ? {}: {createdBy:req.query.id}
                 const books = await Blogs.find(findBy)
                 console.log(books,findBy)
                 res.status(200).json(books)
                 break;
         case 'PUT':
-                console.log(paylaod)
                 const payload={
                     heading:req.body.heading,
                     about:req.body.about,

@@ -9,7 +9,22 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                const blogs = await Blogs.find({location:{ $ne: null }},'heading location tourismType').limit(50)
+                console.log(req.query)
+                let payloadGet={}
+                switch(req.query.query){
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '0':payloadGet={...payloadGet,tourismType:req.query.query}
+                             break;
+                    case 'personal':payloadGet={location:{ $eq: "" }}
+                             break;
+                    case 'any':payloadGet={location:{ $ne: "" }}
+                             break;
+                }
+                console.log(payloadGet)
+                const blogs = await Blogs.find(payloadGet,'heading location tourismType').limit(50)
                 res.status(200).json(blogs)
                 break;
         case 'POST':

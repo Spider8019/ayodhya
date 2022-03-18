@@ -70,6 +70,9 @@ body{
 .basicDarkButton:hover{
     box-shadow:1px 1px 5px rgba(0,0,0,0.264);
 }
+.basicDarkButton:active{
+    transform:scale(0.98);
+}
 .basicDarkButtonInvert{
     padding:0.5rem 1rem;
     border-radius:0.25rem;

@@ -15,3 +15,8 @@
     grid-gap:1rem;
     align-items:center;
 }
+@media only screen and (max-width:640px) {
+    .mainBody{
+        grid-template-columns: 1fr;
+    }
+}

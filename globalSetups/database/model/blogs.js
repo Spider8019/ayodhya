@@ -17,7 +17,7 @@ const BlogsSchema = new mongoose.Schema({
     },
     tourismType:{
         type:String,
-        default:null
+        default:"-1"
     },
     likedBy:[{
         type:mongoose.Schema.Types.ObjectId,

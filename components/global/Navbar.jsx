@@ -68,7 +68,7 @@ const Navbar = () => {
           </Link>
           </li>
           <li className={router.pathname.includes("/tourism") ? "sm:bg-amber-600 bg-amber-500" : ""}>
-          <Link href="/tourism">
+          <Link href="/tourism?query=any">
             <a
               onClick={redirectLink} 
               className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.tourism')}</a>
