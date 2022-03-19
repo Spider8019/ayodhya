@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useRouter } from 'next/router';
 import { IconButton } from '@mui/material';
 import ReactCountryFlag from "react-country-flag"
-import {motion} from "framer-motion"
+import {motion,AnimatePresence} from "framer-motion"
 import styles from "../../styles/Forecast.module.css"
 
 
@@ -31,6 +31,7 @@ export default function BasicMenu() {
       >
         <TranslateIcon className="dark:text-white"/>
       </IconButton>
+      <AnimatePresence>
       {
         show 
         &&
@@ -63,6 +64,7 @@ export default function BasicMenu() {
           })}
         </motion.div>
       }
+      </AnimatePresence>
     </div>
   );
 }

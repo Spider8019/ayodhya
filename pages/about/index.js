@@ -4,9 +4,11 @@ import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 import HolidayVillageOutlinedIcon from '@mui/icons-material/HolidayVillageOutlined';
 import ExtensionOutlinedIcon from '@mui/icons-material/ExtensionOutlined';
 import Head from "next/head"
+import {motion} from "framer-motion"
 
 const index = () => {
-  return <div className="m-4 sm:m-20">
+  return <motion.div 
+   className="m-4 sm:m-20">
       <Head>
           <title>About Page - Ikshvaku</title>
       </Head>
@@ -44,7 +46,7 @@ const index = () => {
           <p>History</p>
           <p></p>
        </div>
-  </div>;
+  </motion.div>;
 };
 
 export default index;

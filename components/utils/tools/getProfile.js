@@ -40,7 +40,9 @@ const GetProfile = ({id}) => {
             <Box className='p-4'><LinearProgress /></Box>
             :
             <div className=' p-4'>
-                <div className="flex item-center items-center">
+                <div className="grid item-center items-center"
+                    style={{gridTemplateColumns:"40px 1fr"}}
+                >
                     <Image src={data.availableImages[data.image]}
                             className="rounded-full"
                             objectFit='cover'

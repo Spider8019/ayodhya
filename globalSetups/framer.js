@@ -12,6 +12,22 @@ export const zeroHeightAndWidth = {
     }
  }
 
+ export const pageTransition={
+     initial:{
+         y:"100%",
+         opacity:0
+     },
+     animate:{
+        y:"0",
+        opacity:1,
+        transition:{duration:1}
+     },
+     exit:{
+         scale:0,
+         y:"-100%"
+     }
+ }
+
  export const xMove={
     initial: { x:"-50", opacity:0 },
     final: { x:0, opacity:1 }

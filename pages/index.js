@@ -108,10 +108,10 @@ export default function Home() {
           </motion.div>
         </motion.div>
       </motion.div>
-<Ad/>
+{/* <Ad/>
 
 google ad sense
-      <Ad/>
+      <Ad/> */}
 
       <motion.div className={styles.timelineContainerAnimate}>
         <motion.div className={styles.timelineContainer}>
@@ -267,7 +267,7 @@ google ad sense
           className="grid place-items-center text-center"
         >{
           !_.isEmpty(todaysEvent)
-          &&
+          ?
           <div 
             className="calendarLeftContainer"
           >
@@ -286,6 +286,8 @@ google ad sense
               <p className="mt-8">{todaysEvent.about}</p>
             </div>
           </div>
+          :
+          <p className="text-3xl w-2/3 "> “Whether in sorrow or in happiness a friend is always a friend’s support.” – Sugreeva to Rama</p>
         }
         </div>
         <div className="grid place-items-center sm:mb-0 mb-20">

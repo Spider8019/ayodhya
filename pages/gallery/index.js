@@ -97,7 +97,6 @@ const Gallery = ({count}) => {
                     <div className='p-2  grid grid-cols-8 gap-4 items-start'>
 
                         <motion.div 
-                            variants={xMove}
                             className='grid grid-cols-1 '>
                             <p 
                                 className="text-center uppercase my-2 font-semibold text-sm "
@@ -112,7 +111,6 @@ const Gallery = ({count}) => {
                                 className={`text-xs ${query==='photos'?'bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Photos</Button>
                         </motion.div>
                         <motion.div 
-                            variants={xMove}
                             className='grid grid-cols-1'>
                             <p 
                                 className="text-center uppercase my-2 font-semibold text-sm "
@@ -136,7 +134,6 @@ const Gallery = ({count}) => {
                                 className={` text-xs ${query==='others'?' bg-amber-100 mt-2':'bg-transparent mt-2'}`}>Others</Button>
                         </motion.div>
                         <motion.div 
-                            variants={xMove}                        
                             className='grid grid-cols-1'>
                             <p 
                                 className="text-center uppercase my-2 font-semibold text-sm "
@@ -156,7 +153,6 @@ const Gallery = ({count}) => {
                         <div></div>
                         <motion.div
                             className='grid grid-cols-1'
-                            variants={xMove}
                         >
                             <Button
                                 onClick={()=>{setFilterShow(false);}}

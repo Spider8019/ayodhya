@@ -7,6 +7,11 @@ body{
     --calendar-unit-bg:#eee;
     --sidebar-nav:linear-gradient(white,rgba(255, 255, 255, 0.87),transparent),url('/static/pages/canva1.png');
 }
+.gradientText{
+    background: -webkit-linear-gradient(var(--base-color), #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .dark{
     --base-color:#92400e;
     --cooperate-theme-based-color:white;
