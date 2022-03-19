@@ -17,7 +17,6 @@ import PersonPinCircleOutlinedIcon from '@mui/icons-material/PersonPinCircleOutl
 const Tourism = () => {
   
   const router=useRouter()
-  console.log(router.query.query)
   const {data,error}=useSWR("fetchDataForTourismPage"+router.query.query,()=>getTourismBlogs({query:router.query.query}))
   if(!data){
       return <TourismLoader/>
