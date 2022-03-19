@@ -11,6 +11,14 @@ async function handler(req, res) {
         case 'GET':
                 console.log(req.query)
                 let payloadGet={}
+                let findGet={
+                    $project: {
+                       heading: 1,
+                       location: 1,
+                       tourismType: 1,
+                       totalLikes: { $cond: { if: { $isArray: "$likedBy" }, then: { $size: "$likedBy" }, else: "NA"} }
+                    }
+                 }
                 switch(req.query.query){
                     case '1':
                     case '2':
@@ -24,7 +32,9 @@ async function handler(req, res) {
                              break;
                 }
                 console.log(payloadGet)
-                const blogs = await Blogs.find(payloadGet,'heading location tourismType').limit(50)
+                const blogs= await Blogs.aggregate([{$match:{...payloadGet}},findGet,{$limit:50}])
+                // console.log(x)
+                // const blogs = await Blogs.find(payloadGet,'heading location tourismType').limit(50)
                 res.status(200).json(blogs)
                 break;
         case 'POST':

@@ -98,6 +98,7 @@ const Tourism = () => {
                             <div className="ml-4  w-full overflow-hidden">
                                 <p className="truncate text-xs ">{item.location}</p>
                                 <p className='truncate'>{item.heading}</p>
+                                <p className='text-xs'>{item.totalLikes} Likes</p>
                             </div>
                         </a>
                     </Link>

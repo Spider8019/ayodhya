@@ -14,6 +14,8 @@ import { useRouter } from 'next/router';
 import { getSession,useSession } from 'next-auth/react';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import VerifiedIcon from '@mui/icons-material/Verified';
+
 
 
 const TourSpecific = ({detail,about}) => {
@@ -80,7 +82,7 @@ const TourSpecific = ({detail,about}) => {
                 </div>
                 <div className={`${styles.aboutContainer} rounded`}>
                    <div>
-                       <div className={`${styles.aboutWriterContainer} grid `}>
+                       <div className={`${styles.aboutWriterContainer} grid`}>
                             <Image
                                 className='rounded'
                                 src={detail.createdBy.availableImages[detail.createdBy.image]}
@@ -91,7 +93,7 @@ const TourSpecific = ({detail,about}) => {
                                 objectPosition={"center"}
                                 />
                             <div>
-                                <p>{detail.createdBy.name}</p>
+                                <p>{detail.createdBy.name} {detail.createdBy.isVerified&&<VerifiedIcon className="text-xl text-[#0080ff]" />}</p>
                                 <p className='text-xs'>{detail.createdBy.about.slice(0,50)}{detail.createdBy.about.length>50 && "..."}</p>
                             </div>
                        </div>
