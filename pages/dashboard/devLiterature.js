@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { getSession, useSession } from 'next-auth/react';
 import { getUniqueBooks, deleteLiteratureSpecific,postLiteratureMaterial,getChaptersForABook,getContextForASpecificLiterature,getLiteratureSideBar} from '../../globalSetups/api';
-import { uploadObject,deleteObject } from '../../globalSetups/aws/  ';
+import { uploadObject,deleteObject } from '../../globalSetups/aws/s3';
 import { nanoid } from 'nanoid';
 import _ from "lodash"
 import axios from 'axios';

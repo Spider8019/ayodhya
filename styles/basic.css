@@ -30,7 +30,7 @@ body{
 }
 #nprogress .bar{ 
     background: var(--base-color);
-    height:3px;
+    height:5px;
 }
 .signature{
     font-family:"signature";
