@@ -72,7 +72,7 @@ const Footer = () => {
           </Link>
         </li>
         <li>
-          <Link href="literature?book=Hanuman%20Ji&chapter=****">
+          <Link href="/literature?book=Hanuman%20Ji&chapter=****">
             <a className="my-2 block">Hanuman Ji</a>
           </Link>
         </li>
@@ -97,6 +97,13 @@ const Footer = () => {
           <Link href="#">
             <a className="my-2 block font-semibold">References</a>
           </Link>
+        </li>
+        <li>
+          <b className='font-semibold'>Contact our team</b>
+        </li>
+        <li>
+          <p>spider8019official@gmail.com</p>
+          <p>+91 6005285787</p>
         </li>
       </ul>
     </div>

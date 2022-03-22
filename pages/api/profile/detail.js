@@ -20,6 +20,11 @@ async function handler(req, res) {
                 const response=await Profile.updateOne({_id:req.body.id},{$inc : {'image' :req.body.step}})
                 res.status(200).json({msg:"Image change Successfully",...response})
                 break;
+        case 'DELETE':
+                console.log(req.body)
+                const resDlt=await Profile.findOneAndUpdate({_id:req.body.id},{image:0,$pull:{availableImages:req.body.url}})
+                res.status(200).json(resDlt)
+                break;
         default:
                 res.status(400).json({ success: false })
                 break

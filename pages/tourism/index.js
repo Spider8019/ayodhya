@@ -78,6 +78,7 @@ const Tourism = () => {
                     <Link href={`/tourism/${item._id}`}
                     key={key}>
                         <a
+                            title={item.heading}
                             className=" paper grid py-4 px-8 items-center rounded border-2 h-fit border-amber-500"
                             style={{gridTemplateColumns:"60px 1fr"}}
                         >

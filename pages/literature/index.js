@@ -8,6 +8,7 @@ import Head from 'next/head';
 import Link from "next/link";
 import Image from "next/image"
 import {notifyerror, notifysuccess} from "../../components/snackbar"
+import { translateTxt } from '../../globalSetups/aws/translate';
 
 const LiteratureContainer = ({data,htmlData,error}) => {
 
@@ -89,7 +90,7 @@ const LiteratureContainer = ({data,htmlData,error}) => {
           </div>
         </div>
         <div className="mt-20 mx-20 grid place-items-center">
-          <p className="text-xs text-gray-400">W3Schools is optimized for learning and training. Examples might be simplified to improve reading and learning. Tutorials, references, and examples are constantly reviewed to avoid errors, but we cannot warrant full correctness of all content. While using W3Schools, you agree to have read and accepted our terms of use, cookie and privacy policy.</p>
+          <p className="text-xs text-gray-400">Ikshvaku.com is designed to help you learn. To increase reading and learning, examples could be simplified. References and sources are regularly checked for inaccuracies, but we cannot guarantee that all content is completely accurate. You agree to have read and accepted our terms of service, cookie policy, and privacy policy while using Ikshvaku.</p>
           <Image 
              className="my-4 block"
              src="/static/withOutBgLogo.png"
@@ -109,7 +110,7 @@ LiteratureContainer.Layout = LiteratureLayout
 export default LiteratureContainer;
 
 export async function getServerSideProps(context){
-  const {query}=context;
+  const {query,locale}=context;
   let data=(await getSpecificLiteratureDetails({query})).data
   if(data.homepage===true)
   return{
@@ -120,16 +121,46 @@ export async function getServerSideProps(context){
     }
   }
   
+
   if(data.homepage===false && data.data){
     const htmlData=(await axios.get(data.data.aboutUrl)).data
+    
     if(htmlData){
-      return{
-        props:{
-          data:data,
-          htmlData:htmlData,
-          error:null          
-        }
+      switch(locale){
+        case 'hn':
+          await translateTxt({text:"aman pratap singh",TCode:"hi"},async(err,data)=>{
+            console.log(data)
+          })
+        case 'en-US':
+                  return{
+                      props:{
+                        data:data,
+                        htmlData:htmlData,
+                        error:null          
+                      }
+                    }
+        // case 'hn':
+
+          // return{
+            // props:{
+            //   data:data,
+            //   htmlData:"temp.TranslatedText",
+            //   error:null
+            // }}
+                  // const temp=await translateTxt({text:"guru randhawa"},(async (err,tre)=>{
+                  //    return{
+                  //     props:{
+                  //       data:data,
+                  //       htmlData:"temp.TranslatedText",
+                  //       error:null
+                  //     }
+                  //   }
+                  //  }
+                  // ))
+                  break;
+            default:return 
       }
+
     }
   }
   else{

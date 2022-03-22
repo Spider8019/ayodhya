@@ -55,6 +55,7 @@ const callApiAndReturnDataDelete = async(DATA,URL)=>{
 export const signupProfile = (obj) => callApiAndReturnDataPost(obj,"must/signup/")
 export const loginProfile = (obj) => callApiAndReturnDataPost(obj,"must/login/")
 export const updateProfileImage = (obj) => callApiAndReturnDataPut(obj,'profile/detail/')
+export const removeProfileImage = (obj) => callApiAndReturnDataDelete(obj,'profile/detail/')
 export const getProfileDetails = (obj) => callApiAndReturnDataGetMod(obj,"profile/detail/")
 export const uploadPost = (obj) => callApiAndReturnDataPost(obj,"profile/posts/")
 export const profileById = (obj) => callApiAndReturnDataGetMod(obj,'profile/byId/')
@@ -86,3 +87,4 @@ export const editProfileAboutName = (obj) => callApiAndReturnDataPut(obj,'profil
 export const editProfileCoverImage = (obj) => callApiAndReturnDataPut(obj,"profile/coverImage")
 export const deletePost = (obj) => callApiAndReturnDataDelete(obj,"profile/posts/")
 export const editBlog = (obj) => callApiAndReturnDataPut(obj,"blogs/")
+export const forgotPassword = (obj) => callApiAndReturnDataPost(obj,'must/forgotpassword/')

@@ -12,16 +12,17 @@ import { useInView } from 'react-intersection-observer';
 import _ from "lodash"
 import { getEvent } from "../globalSetups/api"
 import Ad from "../components/adSense/ad1"
+import { translateTxt } from "../globalSetups/aws/translate"
 
 export default function Home() {
 
   const { scrollY, scrollYProgress } = useViewportScroll()
+  const [text,setText]=useState({})
 
   const yearsFrom5Aug = useTransform(scrollY, [2200, 3000], [0.2, 1]);
   const yearsFromKarsevak = useTransform(scrollY, [1800, 2200], [0.2, 1]);
   const yearsFromBabarInvade = useTransform(scrollY, [1400, 1800], [0.2, 1]);
   const yearsFrom1400 = useTransform(scrollY, [1000, 1400], [0.2, 1]);
-
 
   // const d = useRef(new Date())
   // d.current.setDate(1)
@@ -34,9 +35,11 @@ export default function Home() {
 
   let { t } = useTranslation()
   const router = useRouter()
+  
 
 
-  useEffect(()=>{
+  useEffect(()=>{      
+
     (async()=>{
       const response=await getEvent({ date: d.getDate() })
       setTodaysEvent(response)
@@ -287,7 +290,7 @@ google ad sense
             </div>
           </div>
           :
-          <p className="text-3xl w-2/3 "> “Whether in sorrow or in happiness a friend is always a friend’s support.” – Sugreeva to Rama</p>
+          <p className="text-3xl w-2/3 ">{t('common:home_page_q1')}</p>
         }
         </div>
         <div className="grid place-items-center sm:mb-0 mb-20">
@@ -310,6 +313,7 @@ google ad sense
                   </div>
               )
             })}
+            {/* AIzaSyATfumWl1qkmmE6bVpJGkQuhu25aF_mu0E */}
           </div>
         </div>
       </motion.div>

@@ -4,10 +4,10 @@ import React,{useState,useRef,useLayoutEffect, useEffect} from 'react';
 import DashboardLayout from "../../components/layout/dashboardLayout"
 import styles from "../../styles/pages/Dashboard.module.css"
 import galStyles from "../../styles/Gallery.module.css"
-import { getProfileDetails,getPostsOfProfile,updateProfileImage,deletePost } from '../../globalSetups/api';
+import { getProfileDetails,getPostsOfProfile,updateProfileImage,deletePost,removeProfileImage } from '../../globalSetups/api';
 import { getSession,useSession } from 'next-auth/react';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { IconButton,Avatar } from '@mui/material';
+import { IconButton,Avatar,CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import _ from "lodash"
 import useSWR, { mutate } from 'swr';
@@ -35,6 +35,7 @@ import { nanoid } from 'nanoid';
 import { editProfileCoverImage } from '../../globalSetups/api';
 import {isMobile} from "react-device-detect"
 import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const Dashboard = ({user,msg}) => {
 
@@ -44,6 +45,7 @@ const Dashboard = ({user,msg}) => {
   const [coverImage,setCoverImage]=useState(null)
   const [fileCoverImage,setFileCoverPreview]=useState("")
   const [coverProcessing,setCoverProcessing]=useState(false)
+  const [loadingImageDlt,setLoadingImageDlt]=useState(false)
   const ref=useRef(null)
   const {data:profile}=useSWR("GetBasicDetail",()=>getProfileDetails({email:user && user.email}))
   const {data:posts,error}=useSWR("GetPostsOfAuthenticatedPerson",()=>getPostsOfProfile({createdBy:user.id}))
@@ -131,6 +133,29 @@ const Dashboard = ({user,msg}) => {
       }
   }
 
+  const handleDeleteProfileImage=async(url,key)=>{
+    setLoadingImageDlt(true)
+    await deleteObject({url:url},async(dltErr,dltData)=>{
+        if(_.isNull(dltErr)){
+            const response=await removeProfileImage({id:user.id,url:url})
+            if(response.status===200)
+            {
+                notifysuccess("This profile image removed successfully.")
+                mutate('GetBasicDetail') 
+                setLoadingImageDlt(false)
+            }
+            else{
+                notifyerror("Not able to delete")
+                setLoadingImageDlt(true)
+            }
+        }
+        else{
+            setLoadingImageDlt(true)
+            notifyerror("Something went wrong")
+        }
+    })
+  }
+
   return <>
       <Head>
           <title>
@@ -193,6 +218,8 @@ const Dashboard = ({user,msg}) => {
                         initial={{opacity:0}}
                         animate={{opacity:1}}
                         exit={{opacity:0}}
+                        style={{height:"150px",width:"150px"}}
+                        className="relative overflow-hidden rounded-full"
                     >
                         <Image
                             className="rounded-full "
@@ -203,6 +230,20 @@ const Dashboard = ({user,msg}) => {
                             src={profile.availableImages[profile.image]}
                             alt="Your Cover Image"
                         />
+                        {
+                            profile.image>1
+                            &&
+                            <div 
+                                style={{width:"150px",height:"50px"}}
+                                className="absolute bg-[#00000078] rounded-t-full bottom-0 left-0 grid place-items-center">
+                                {
+                                    loadingImageDlt?
+                                    <CircularProgress color="secondary"/>
+                                    :
+                                    <IconButton onClick={()=>handleDeleteProfileImage(profile.availableImages[profile.image])}><DeleteOutlineIcon className="text-white"/></IconButton>
+                                }
+                            </div>
+                        }
                     </motion.div>
                     }
                 </div>

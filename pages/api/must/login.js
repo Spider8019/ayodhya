@@ -25,7 +25,6 @@ async function handler(req, res) {
                 res.status(400).json({ success: false })
                 break
     }
-    res.status(200).json({ name: 'John Doe' })
 }
   
 export default handler

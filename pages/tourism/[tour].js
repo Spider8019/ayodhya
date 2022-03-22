@@ -30,7 +30,7 @@ const TourSpecific = ({detail,about}) => {
   return <div>
         <Head>
             <title>{detail.heading + " by " + detail.createdBy.name + " -\nIkshvaku Ayodhya"}</title>
-            <meta name="description" content={likedBy + "Likes. Click to read it. Developed by Spider8019"}/>
+            <meta name="description" content={"Click to read it. Developed by Spider8019"}/>
             <meta name="keywords" content={detail.heading}/>
         </Head>
         <div className="m-4 sm:m-20">

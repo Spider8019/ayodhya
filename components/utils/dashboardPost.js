@@ -20,8 +20,6 @@ const previewPost=({item})=>{
                     <Image
                         src={item.imageList[0]}
                         alt={nanoid(10)}
-                        height={100}
-                        width={100}
                         layout="fill"
                         objectFit='cover'
                         objectPosition='center'

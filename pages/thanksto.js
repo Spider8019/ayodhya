@@ -11,11 +11,11 @@ const Thanks = () => {
         </Head>
             <p className='text-4xl font-bold text-amber-500'>Special Thanks to </p>
             <div className='mt-12'>
-                <p> Aman Pratap Singh, Anjali Singh, Alka Singh</p>
+                <p> Aman Pratap Singh, Anjali Singh, Alka Singh, Mahant Ramdas</p>
             </div>
             <p className='text-4xl font-bold text-amber-500 mt-20'>References </p>
             <div className='mt-12'>
-                <p> Aman Pratap Singh, Anjali Singh, Alka Singh</p>
+                <p>www.holifestival.org</p>
             </div>
     </div>
   )

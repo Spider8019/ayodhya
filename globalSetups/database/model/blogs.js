@@ -11,6 +11,10 @@ const BlogsSchema = new mongoose.Schema({
     category:{
         type:String
     },
+    show:{
+        type:Boolean,
+        default:true,
+    },
     location:{
         type:String,
         default:null

@@ -10,15 +10,19 @@ async function handler(req, res) {
     switch(req.method){
         case 'GET':
                 console.log(req.query)
-                let payloadGet={}
+                let payloadGet={show:true}
                 let findGet={
                     $project: {
                        heading: 1,
                        location: 1,
                        tourismType: 1,
+                       createdAt:1,
                        totalLikes: { $cond: { if: { $isArray: "$likedBy" }, then: { $size: "$likedBy" }, else: "NA"} }
                     }
                  }
+                let sortPayload={
+                    createdAt:-1
+                }
                 switch(req.query.query){
                     case '1':
                     case '2':
@@ -26,13 +30,14 @@ async function handler(req, res) {
                     case '4':
                     case '0':payloadGet={...payloadGet,tourismType:req.query.query}
                              break;
-                    case 'personal':payloadGet={location:{ $eq: "" }}
+                    case 'personal':payloadGet={...payloadGet,location:{ $eq: "" }}
                              break;
-                    case 'any':payloadGet={location:{ $ne: "" }}
+                    case 'any':payloadGet={...payloadGet,location:{ $ne: "" }}
                              break;
                 }
                 console.log(payloadGet)
-                const blogs= await Blogs.aggregate([{$match:{...payloadGet}},findGet,{$limit:50}])
+                const blogs= await Blogs.aggregate([{$match:{...payloadGet}},findGet,{$limit:50},{$sort:{...sortPayload}}])
+                // console.log(blogs)
                 // console.log(x)
                 // const blogs = await Blogs.find(payloadGet,'heading location tourismType').limit(50)
                 res.status(200).json(blogs)
