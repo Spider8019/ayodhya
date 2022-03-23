@@ -102,8 +102,8 @@ const Footer = () => {
           <b className='font-semibold'>Contact our team</b>
         </li>
         <li>
-          <p>spider8019official@gmail.com</p>
-          <p>+91 6005285787</p>
+          <p className="text-xs">spider8019official@gmail.com</p>
+          <p className="text-xs">+91 6005285787</p>
         </li>
       </ul>
     </div>
