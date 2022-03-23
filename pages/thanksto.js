@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 const Thanks = () => {
   return (
-    <div className='m-20'>
+    <div className='m-4 sm:m-20'>
         <Head>
             <title>
                 Thanks to - Ikshvaku 
