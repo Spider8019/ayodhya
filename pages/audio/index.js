@@ -21,10 +21,15 @@ import { getSession } from 'next-auth/react';
 import NumberFormat from 'react-number-format';
 import {notify, notifyerror} from "../../components/snackbar"
 import { isMobile } from 'react-device-detect';
+import { useRouter } from 'next/router';
+import Mpb from '../../components/utils/tools/musicPlayerBreath';
+import ShareDialog from "../../components/utils/dialogs/sharePage"
 
 const Audio = ({user}) => {
-
-  const {data:audios,error:audiosError}=useSWR("GetAllAudios",()=>getAudios({id:""}))
+    
+  const router=useRouter()
+  const {query}=router
+  const {data:audios,error:audiosError}=useSWR("GetAllAudios",()=>getAudios({...query}))
   const timePlay=useRef(0)
   const [active,setActive]=useState({
       status:false,
@@ -50,9 +55,9 @@ const Audio = ({user}) => {
         }
     },1000)
 
-
     return ()=>clearInterval(interval)
   })
+
 
   const togglePlay=()=>{
       if(audioRef.current.paused)
@@ -73,7 +78,6 @@ const Audio = ({user}) => {
           <LoaderPlayer/>
           )
         }
-
 
     const changeSong = (audio,trackId)=>{
         
@@ -109,7 +113,7 @@ const Audio = ({user}) => {
 
         <div
        id="player"
-       style={{overflowX:"hidden",height:"100vh",display:"grid",gridTemplateRows:isMobile?"90% 10%":"85% 15%"}}
+       style={{userSelect:"none",overflowX:"hidden",height:"100vh",display:"grid",gridTemplateRows:isMobile?"90% 10%":"85% 15%"}}
        >
             <div
                 className='sm:grid flex flex-col sm:grid-cols-2'
@@ -148,19 +152,29 @@ const Audio = ({user}) => {
                <div className='relative -top-4 rounded-t-xl sm:rounded-none sm:static grid place-items-center bg-white sm:bg-slate-50 dark:sm:bg-black h-full'
                     style={{boxShadow:isMobile?"0px -10px 10px rgba(0,0,0,0.164)":"none"}}
                 >
-                   <div className='sm:w-2/3 w-full mt-8 sm:mt-0'
+                   <div className='sm:w-2/3 w-full mt-8 sm:mt-0 relative'
                     style={{height:isMobile?"100%":"90%"}}
                    > 
                     {audios.map((audio,key)=>{
                         return(
                             <div key={key}
                                 onClick={()=>changeSong(audio,key)}
-                                className={`${active.trackId===key?'bg-amber-100 dark:bg-amber-800':'bg-transparent'} cursor-pointer border-b border-amber-500 p-2`}
+                                className={`${active.trackId===key?'bg-amber-100 activeMusic dark:bg-amber-800 shadow':'bg-transparent'} cursor-pointer border-b border-amber-500 p-2 flex justify-between items-center`}
                             >
+
                                 <div>
                                     <p className="text-sm">{audio.about.split("****")[0]}</p>
                                     <p className='text-xs'>{audio.createdBy.name}</p>
                                 </div>
+                                {
+                                    active.trackId===key
+                                    &&
+                                    <div className='flex items-center'>
+                                        <div className='ml-2'>
+                                            <Mpb active={active.status}/>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         )
                     })}
@@ -229,6 +243,7 @@ const Audio = ({user}) => {
                         {
                             !_.isEmpty(user)
                             &&
+                            <>
                             <IconButton
                                 onClick={()=>{
                                     markLikeAndDislike({likedBy:user.id,gigId:audios[active.trackId]._id})
@@ -237,6 +252,9 @@ const Audio = ({user}) => {
                             >
                                 {audios[active.trackId].likedBy.includes(user.id) ? <ThumbUpAltIcon/> : <ThumbUpOutlinedIcon/>}
                             </IconButton>
+                            <ShareDialog url={"/audio/"+audios[active.trackId].about.split("****")[0]}/>
+                            </>
+
                         }
                     </div>
                 </div>

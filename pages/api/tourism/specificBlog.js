@@ -1,6 +1,8 @@
 import Blogs from "../../../globalSetups/database/model/blogs.js"
 import  _ from "lodash"
 import mongoose from "mongoose"
+import axios from "axios"
+import {translateTxt} from "../../../globalSetups/aws/translate"
 
 mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 .then(()=>console.log("Connection Successfully Eastblished"))
@@ -13,7 +15,6 @@ async function handler(req, res) {
                 res.status(200).json(blogs)
                 break;
         case 'POST':
-                console.log(req.body)
                 const payload = new Blogs({
                     ...req.body
                 })

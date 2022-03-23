@@ -12,17 +12,20 @@ var translate=new AWS.Translate({
 })
 
 
-export const translateTxt=async({text,TCode},callback)=>{
+export const translateTxt=({text,TCode})=>{
+    console.log(text)
     let params={
         SourceLanguageCode:"en-US",
         TargetLanguageCode:'hi',
-        Text:"yo yo honey singh"
+        Text:"guru randhawa"
     }
     // console.log(params,TCode)
 
-    await translate.translateText(params,(err,data)=>{
-    console.log(err,data,params)
-    // console.log(err,data)
-      callback(err,data)
+    translate.translateText(params,(err,data)=>{
+    console.log(err,data.TranslatedText)
+
+    if(err) return err
+    console.log('step1')
+      return data.TranslatedText
     })
 }

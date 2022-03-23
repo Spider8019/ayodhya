@@ -28,6 +28,25 @@ body{
     src:url('/static/fonts/signatureAmsterdam.ttf')
 
 }
+.basicBreath{
+    animation:breathing 0.3s linear infinite;
+    animation-direction: alternate;
+    height:25px;
+    width:1px;
+    transform-origin:right;
+    background:linear-gradient(60deg,rgb(0, 119, 255),rgb(132, 0, 255));
+    margin:1px;
+    transition:all 1s ease;
+    transform:scaleY(0.1);
+}
+
+@keyframes breathing {
+
+    to{
+        transform:scaleY(1);
+    }
+}
+
 #nprogress .bar{ 
     background: var(--base-color);
     height:5px;

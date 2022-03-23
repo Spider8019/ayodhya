@@ -272,7 +272,7 @@ const Dashboard = ({user,msg}) => {
                     </div>
                     <div>
                         <div className='flex flex-col sm:flex-row items-center'>
-                            <p className="text-3xl">{profile.name}</p>
+                            <p className="text-3xl font-semibold">{profile.name}</p>
                             <div className="flex">
                                 {profile.isVerified && <IconButton className="ml-2"><VerifiedIcon style={{color:"#0080ff"}}/></IconButton>} 
                                 {profile.isDeveloper && <DeveloperOptions className="ml-2"/>}

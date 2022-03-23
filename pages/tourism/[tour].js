@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { getSpecificBlog,markLikeAndDislikeBlog } from '../../globalSetups/api';
 import axios from "axios"
 import ReactHtmlParser from 'react-html-parser';
@@ -15,7 +15,6 @@ import { getSession,useSession } from 'next-auth/react';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import VerifiedIcon from '@mui/icons-material/Verified';
-
 
 
 const TourSpecific = ({detail,about}) => {
@@ -76,10 +75,8 @@ const TourSpecific = ({detail,about}) => {
                         </div>
                     </div>
                     <div
-                        className='mt-8'
-                        suppressContentEditableWarning={true}
+                        className=' mt-8'
                     >{ReactHtmlParser(JSON.parse(about))}</div>
-                    
                 </div>
                 <div className={`${styles.aboutContainer} rounded`}>
                    <div>
@@ -114,7 +111,7 @@ export async function getServerSideProps(context){
     return {
         props:{
             detail:data,
-            about:JSON.stringify(about)
+            about:JSON.stringify(about),
         }
     }
 }

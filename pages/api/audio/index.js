@@ -9,9 +9,15 @@ mongoose.connect(process.env.MONGOOSE_MONGODB_URI)
 async function handler(req, res) {
     switch(req.method){
         case 'GET':
-                const findBy= req.query.id === "" ? {} : {createdBy:req.query.id}
+                let findBy={}
+                if(req.query.hasOwnProperty('about')){
+                    findBy={...req.query,about:{$regex:req.query.about}}
+                }
+                
                 const audios=await Gigs.find({...findBy,category:'music'}).populate('createdBy','name image availableImages')
-                res.status(200).json(audios)
+                const uniqArtists=_.uniq(audios.map(item=>item.createdBy.name))
+                const audioRelated=await Gigs.find({about:{$not:{$regex: req.query.about ? req.query.about : "" }},category:'music'}).populate('createdBy','name image availableImages',{$in:{name:[uniqArtists]}})
+                res.status(200).json(_.concat(audios,audioRelated))
                 break;
 
         default:
