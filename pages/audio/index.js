@@ -50,7 +50,7 @@ const Audio = ({user}) => {
 
   useEffect(()=>{
     
-    window.scrollTo(0, document.body.scrollHeight);    const interval=setInterval(()=>{
+    const interval=setInterval(()=>{
         if(!_.isNull(audioRef.current))
          setCurrent(audioRef.current.currentTime)
         if(audioRef.current && !audioRef.current.paused)
@@ -62,6 +62,9 @@ const Audio = ({user}) => {
 
     return ()=>clearInterval(interval)
   })
+  useEffect(()=>{
+    window.scrollTo(0, document.body.scrollHeight);
+  },[])
 
 
   const togglePlay=()=>{
