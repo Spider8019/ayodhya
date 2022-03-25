@@ -8,6 +8,7 @@ const Thanks = () => {
             <title>
                 Thanks to - Ikshvaku 
             </title>
+            <meta type="description" content='Your contributions are always welcome at Ikshvaku.com.'/>
         </Head>
             <p className='text-4xl font-bold text-amber-500'>Special Thanks to </p>
             <div className='mt-12'>

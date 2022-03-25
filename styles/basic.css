@@ -12,6 +12,9 @@ body{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.custom_scrollbar::-webkit-scrollbar{
+    width:0px;
+}
 .dark{
     --base-color:#92400e;
     --cooperate-theme-based-color:white;

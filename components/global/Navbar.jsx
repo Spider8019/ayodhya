@@ -1,4 +1,4 @@
- import useTranslation from 'next-translate/useTranslation'
+import useTranslation from 'next-translate/useTranslation'
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -89,7 +89,7 @@ const Navbar = () => {
           </Link>
           </li>
           <li className={router.pathname.includes("/audio") ? "sm:bg-amber-600 bg-amber-500" : ""}>
-          <Link href="/audio#player">
+          <Link href="/audio?eye=1&trackId=0/#player">
             <a  
               onClick={redirectLink} 
               className='px-4 sm:px-2 p-2 grid items-center  border-r-2 border-white'>{t('common:navbar.music')}</a>

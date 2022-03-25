@@ -3,6 +3,7 @@ import { Avatar, Tooltip, tooltipClasses } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 
 const BootstrapTooltip = styled(({ className, ...props }) => (
@@ -24,6 +25,13 @@ const contributors = [{
   url: "contributor2.jfif"
 }]
 const Footer = () => {
+  
+
+  const router=useRouter()
+
+  if(router.pathname.includes("audio"))
+  return null;
+  
   return <div
     className="bg-amber-500 dark:bg-black"
   >
