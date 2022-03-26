@@ -85,7 +85,7 @@ export const zeroHeightAndWidth = {
 
  export const pTransition={
     initial:{
-        y:"300px",
+        y:"100px",
         opacity:0
     },
     animate:{

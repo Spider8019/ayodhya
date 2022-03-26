@@ -36,6 +36,16 @@ const Audio = ({user}) => {
   const [showPlaylist,setShowPlaylist]=useState(parseInt(query.eye)>0?true:false)
   const {data:audios,error:audiosError}=useSWR("GetAllAudios"+query.mark,()=>getAudios({...query}))
   const timePlay=useRef(0)
+  const scrollToBottom=()=>{
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+  const togglePlayer=()=>{
+        setShowPlaylist(!showPlaylist)
+        router.push({
+            pathname:"/audio",
+            query:{...query,eye:showPlaylist?8019:-8019}
+        },undefined,{ scroll: false })
+  }
   const [active,setActive]=useState({
       status:false,
       src:"",
@@ -62,8 +72,10 @@ const Audio = ({user}) => {
 
     return ()=>clearInterval(interval)
   })
+
+
   useEffect(()=>{
-    window.scrollTo(0, document.body.scrollHeight);
+      scrollToBottom()
   },[])
 
 
@@ -165,33 +177,34 @@ const Audio = ({user}) => {
                         className='relative -top-4 rounded-t-xl sm:rounded-none sm:static grid place-items-center bg-white sm:bg-slate-50 dark:sm:bg-black h-full'
                         style={{boxShadow:isMobile?"0px -10px 10px rgba(0,0,0,0.164)":"none"}}
                     >
-                    <div className='sm:w-2/3 w-full mt-8 sm:mt-0 relative'
-                        style={{height:isMobile?"100%":"90%"}}
-                    > 
-                        {audios.map((audio,key)=>{
-                            return(
-                                <div key={key}
-                                    onClick={()=>changeSong(audio,key)}
-                                    className={`${active.trackId===key?'bg-amber-100 activeMusic dark:bg-amber-800 shadow':'bg-transparent'} cursor-pointer border-b border-amber-500 p-2 flex justify-between items-center`}
-                                >
 
-                                    <div>
-                                        <p className="text-sm">{audio.about.split("****")[0]}</p>
-                                        <p className='text-xs'>{audio.createdBy.name}</p>
-                                    </div>
-                                    {
-                                        active.trackId===key
-                                        &&
-                                        <div className='flex items-center'>
-                                            <div className='ml-2'>
-                                                <Mpb active={active.status}/>
-                                            </div>
+                        <div className='sm:w-2/3 w-full mt-8 sm:mt-0 relative'
+                            style={{height:isMobile?"100%":"90%"}}
+                        > 
+                            {audios.map((audio,key)=>{
+                                return(
+                                    <div key={key}
+                                        onClick={()=>changeSong(audio,key)}
+                                        className={`${active.trackId===key?'bg-amber-100 activeMusic dark:bg-amber-800 shadow':'bg-transparent'} cursor-pointer border-b border-amber-500 p-2 flex justify-between items-center`}
+                                    >
+
+                                        <div>
+                                            <p className="text-sm">{audio.about.split("****")[0]}</p>
+                                            <p className='text-xs'>{audio.createdBy.name}</p>
                                         </div>
-                                    }
-                                </div>
-                            )
-                        })}
-                    </div>
+                                        {
+                                            active.trackId===key
+                                            &&
+                                            <div className='flex items-center'>
+                                                <div className='ml-2'>
+                                                    <Mpb active={active.status}/>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </motion.div>
                </motion.div>
            }
@@ -289,7 +302,7 @@ const Audio = ({user}) => {
                 </div>
                 <div className="justify-self-end flex justify-end ">
                     <IconButton 
-                        onClick={()=>setShowPlaylist(!showPlaylist)}
+                        onClick={()=>{togglePlayer()}}
                     >
                         <ArrowDropUpIcon 
                             style={{transform:showPlaylist?"rotate(0deg)":"rotate(180deg)"}}
