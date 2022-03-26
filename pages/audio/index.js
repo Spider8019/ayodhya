@@ -123,6 +123,46 @@ const Audio = ({user}) => {
             notifyerror("Volume is not valid. It should be in the range of 0 to 1.")
         }
     }
+    const settings=()=>{
+        return(
+            <>
+                <div className="justify-self-end justify-end sm:flex">
+                    <IconButton 
+                        onClick={()=>{togglePlayer()}}
+                    >
+                        <ArrowDropUpIcon 
+                            style={{transform:showPlaylist?"rotate(0deg)":"rotate(180deg)"}}
+                        />
+                    </IconButton>
+                    <IconButton
+                    onClick={()=>{
+                        let audiosx=_.concat(_.shuffle(audios.slice(0,active.trackId)),audios[active.trackId],_.shuffle(audios.slice(active.trackId+1,)))
+                        console.log(audiosx)
+                        mutate("GetAllAudios",audios=audiosx,false)
+                        }
+                    }
+                    >
+                        <ShuffleIcon/>
+                    </IconButton>
+                    <IconButton 
+                        className="hidden sm:flex"
+                        onClick={()=>changeVolume(0)}>
+                        <VolumeOffIcon/>
+                    </IconButton>
+                    <IconButton 
+                        className="hidden sm:flex"
+                        onClick={()=>changeVolume(1)}>
+                        <VolumeUpIcon/>
+                    </IconButton>
+                    <input type="text"
+                        className='hidden sm:flex outline-0 mr-2 text-sm w-6 text-center bg-transparent'
+                        value={active.volume}
+                        onChange={e=>changeVolume(e.target.value)}
+                    />
+                </div>
+            </>
+        )
+    }
 
 
    return (
@@ -185,7 +225,7 @@ const Audio = ({user}) => {
                                 return(
                                     <div key={key}
                                         onClick={()=>changeSong(audio,key)}
-                                        className={`${active.trackId===key?'bg-amber-100 activeMusic dark:bg-amber-800 shadow':'bg-transparent'} cursor-pointer border-b border-amber-500 p-2 flex justify-between items-center`}
+                                        className={`${active.trackId===key?'bg-amber-100 activeMusic dark:bg-amber-800 shadow':'bg-transparent'} cursor-pointer overflow-auto border-b border-amber-500 p-2 flex justify-between items-center`}
                                     >
 
                                         <div>
@@ -210,7 +250,7 @@ const Audio = ({user}) => {
            }
            </AnimatePresence>
             {/* player */}
-            <div className=' px-2 sm:px-0 bg-amber-200 flex sm:grid sm:grid-cols-3 items-center sticky bottom-0'>
+            <div className='p-4 sm:px-0 sm:py-4 bg-amber-200 flex sm:grid justify-between sm:grid-cols-3 items-center sticky bottom-0'>
                 <audio controls
                             volume={active.volume}
                             style={{display:"none"}}
@@ -238,7 +278,7 @@ const Audio = ({user}) => {
                         className="seekToButton absolute h-4 w-4 bg-amber-500 rounded-full">
                     </div>
                 </div>
-                <div className='flex items-center order-2 sm:-order-1'>
+                <div className='flex items-center '>
                     <IconButton
                         className='hidden sm:block'
                         disabled={active.trackId===0?true:false}
@@ -252,11 +292,11 @@ const Audio = ({user}) => {
                         {active.status
                         ?
                         <PauseOutlinedIcon
-                        style={{fontSize:isMobile?"2rem":"4rem"}}
+                        style={{fontSize:isMobile?"3rem":"4rem"}}
                         />
                         :
                         <PlayArrowOutlinedIcon
-                        style={{fontSize:isMobile?"2rem":"4rem"}}
+                        style={{fontSize:isMobile?"3rem":"4rem"}}
                         />
                         }
                     </IconButton>
@@ -269,19 +309,21 @@ const Audio = ({user}) => {
                     </IconButton>
                     <p className="hidden sm:block text-sm ml-4">{("0"+Math.floor(audioRef.current && audioRef.current.currentTime/60)).slice(-2)}:{("0"+Math.floor(audioRef.current && audioRef.current.currentTime%60)).slice(-2)}/{("0"+Math.floor(audioRef.current && audioRef.current.duration/60)).slice(-2)}:{("0"+Math.floor(audioRef.current && audioRef.current.duration%60)).slice(-2)}</p>
                 </div>
-                <div className="sm:justify-self-center grow flex items-center">
-                    <Image src={audios[active.trackId].createdBy.availableImages[audios[active.trackId].createdBy.image]}
-                        alt="profile image"
-                        height={50}
-                        width={50}
-                        objectFit="cover"
-                        className="rounded"
-                    />
-                    <div className="ml-4 grow">
-                        <p className="whitespace-nowrap ">{isMobile?audios[active.trackId].about.split("****")[0].split(" ").slice(0,3).join(" "):audios[active.trackId].about.split("****")[0]}</p>
-                        <p className="text-sm">{audios[active.trackId].createdBy.name}</p>
+                <div className="sm:justify-self-center flex items-center">
+                    <div className="hidden sm:block">
+                        <Image src={audios[active.trackId].createdBy.availableImages[audios[active.trackId].createdBy.image]}
+                            alt="profile image"
+                            height={50}
+                            width={50}
+                            objectFit="cover"
+                            className="rounded"
+                        />
                     </div>
-                    <div className='flex ml-2'>
+                    <div className="ml-4 text-center sm:text-left sm:w-fit">
+                        <p className="truncate">{isMobile?audios[active.trackId].about.split("****")[0].split(" ").slice(0,3).join(" "):audios[active.trackId].about.split("****")[0]}</p>
+                        <p className="text-sm truncate">{audios[active.trackId].createdBy.name}</p>
+                    </div>
+                    <div className='ml-2 hidden sm:flex'>
                         {
                             !_.isEmpty(user)
                             &&
@@ -300,39 +342,7 @@ const Audio = ({user}) => {
                         }
                     </div>
                 </div>
-                <div className="justify-self-end flex justify-end ">
-                    <IconButton 
-                        onClick={()=>{togglePlayer()}}
-                    >
-                        <ArrowDropUpIcon 
-                            style={{transform:showPlaylist?"rotate(0deg)":"rotate(180deg)"}}
-                        />
-                    </IconButton>
-                    <IconButton
-                    onClick={()=>{
-                        let audiosx=_.concat(_.shuffle(audios.slice(0,active.trackId)),audios[active.trackId],_.shuffle(audios.slice(active.trackId+1,)))
-                        mutate("GetAllAudios",audios=audiosx,false)
-                        }
-                    }
-                    >
-                        <ShuffleIcon/>
-                    </IconButton>
-                    <IconButton 
-                        className="hidden sm:flex"
-                        onClick={()=>changeVolume(0)}>
-                        <VolumeOffIcon/>
-                    </IconButton>
-                    <IconButton 
-                        className="hidden sm:flex"
-                        onClick={()=>changeVolume(1)}>
-                        <VolumeUpIcon/>
-                    </IconButton>
-                    <input type="text"
-                        className='hidden sm:flex outline-0 mr-2 text-sm w-6 text-center bg-transparent'
-                        value={active.volume}
-                        onChange={e=>changeVolume(e.target.value)}
-                    />
-                </div>
+                {settings()}
             </div>
       </div>
       <style jsx>{`

@@ -249,7 +249,9 @@ const Navbar = () => {
                     }
                   </div>
               </div>
-              {list()}
+              <div className="hidden sm:block">
+                {list()}
+              </div>
               <style jsx>{`
                 .stickyNavbarLowerOne {
                   position:sticky;

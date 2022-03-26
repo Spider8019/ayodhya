@@ -45,8 +45,8 @@ const lPA=[{
 
         className='p-4 sm:p-10 pb-0 overflow-auto custom_scrollbar'
     >
-        <p className='text-4xl font-semibold text-amber-500'>Bhajans for</p>
-        <div className='my-12 grid grid-cols-5 gap-8'>
+        <p className='hidden sm:block text-4xl font-semibold text-amber-500'>Bhajans for</p>
+        <div className='my-2 sm:my-12 grid grid-cols-2 sm:grid-cols-5 gap-4 sm:gap-8'>
             {lPA.map((item,key)=>{
                 return(
                     <Link key={key}
@@ -74,8 +74,8 @@ const lPA=[{
                 )
             })}
         </div>
-        <p className='text-4xl font-semibold text-amber-500'>Perfect For Festivals</p>
-        <div className='my-12 grid grid-cols-5 gap-8'>
+        <p className='hidden sm:block text-4xl font-semibold text-amber-500'>Perfect For Festivals</p>
+        <div className='my-4 sm:my-12 grid grid-cols-2 sm:grid-cols-5 gap-4 sm:gap-8'>
             {fPA.map((item,key)=>{
                 return(
                     <Link key={key}
@@ -103,8 +103,8 @@ const lPA=[{
                 )
             })}
         </div>
-        <p className='text-4xl font-semibold text-amber-500'>Top Picks</p>
-        <div className='my-12 grid grid-cols-5 gap-8'>
+        <p className='hidden sm:block text-4xl font-semibold text-amber-500'>Top Picks</p>
+        <div className='mb-4 sm:my-12 grid grid-cols-2 sm:grid-cols-5 gap-4 sm:gap-8'>
             {tPA.map((item,key)=>{
                 return(
                     <Link key={key}
