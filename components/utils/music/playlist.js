@@ -9,33 +9,33 @@ const PlayList = ({setShowPlaylist}) => {
 
   const fPA=[{
     id:1,
-    url:'/audio?about=Holi&eye=-8019&showRelated=true&mark=1&trackId=0',
+    url:'/audio?about=Holi&eye=-8019&showRelated=true&mark=1&trackId=0&url=/static/pages/pHoli.png',
     imgUrl:'/static/pages/pHoli.png'
     },{
     id:2,
-    url:'/audio?about=diwali&eye=-8019&showRelated=true&mark=2&trackId=0',
+    url:'/audio?about=diwali&eye=-8019&showRelated=true&mark=2&trackId=0&url=/static/pages/pDiwali.png',
     imgUrl:'/static/pages/pDiwali.png'
     }]
 const tPA=[{
     id:1,
-    url:'/audio?trending=true&limit=100&eye=-8019&showRelated=false&mark=3&trackId=0',
+    url:'/audio?trending=true&limit=100&eye=-8019&showRelated=false&mark=3&trackId=0&url=/static/pages/pTrending50.png',
     imgUrl:'/static/pages/pTrending50.png'
     },{
     id:2,
-    url:'/audio?latest=true&limit=100&eye=-8019&showRelated=false&mark=4&trackId=0 ',
+    url:'/audio?latest=true&limit=100&eye=-8019&showRelated=false&mark=4&trackId=0&url=/static/pages/pLatest.png',
     imgUrl:'/static/pages/pLatest.png'
     }]
 const lPA=[{
     id:1,
-    url:'/audio?trending=true&limit=100&eye=-8019&showRelated=false&mark=3&trackId=0',
+    url:'/audio?trending=true&limit=100&eye=-8019&showRelated=false&mark=3&trackId=0&url=/static/pages/pHanuman.png',
     imgUrl:'/static/pages/pHanuman.png'
     },{
     id:2,
-    url:'/audio?latest=true&limit=100&eye=-8019&showRelated=false&mark=4&trackId=0',
+    url:'/audio?latest=true&limit=100&eye=-8019&showRelated=false&mark=4&trackId=0&url=/static/pages/pRam.png',
     imgUrl:'/static/pages/pRam.png'
     },{
     id:3,
-    url:'/audio?latest=true&limit=100&eye=-8019&showRelated=false&mark=4&trackId=0',
+    url:'/audio?latest=true&limit=100&eye=-8019&showRelated=false&mark=4&trackId=0&url=/static/pages/pKrishna.png',
     imgUrl:'/static/pages/pKrishna.png'
     }]
 
