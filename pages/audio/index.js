@@ -79,6 +79,7 @@ const Audio = ({user}) => {
   },[])
 
 
+
   const togglePlay=()=>{
       if(audioRef.current.paused)
         audioRef.current.play()
@@ -182,7 +183,7 @@ const Audio = ({user}) => {
            {
                showPlaylist
                ?
-               <Playlist setShowPlaylist={setShowPlaylist}/>
+               <Playlist setShowPlaylist={setShowPlaylist} audios={audios}/>
                :
                <motion.div
                     initial="initial"

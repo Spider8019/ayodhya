@@ -14,17 +14,22 @@ import {isMobile,MobileView} from "react-device-detect"
 const Layout = ({children}) => {
 
   const router=useRouter()
+  const [showMenu,setShowMenu]=React.useState(false)
   const {data:literatureSideBar,error}=useSWR('/literatureSideBar',getLiteratureSideBar,{revalidateOnFocus:false})
   if(error)
     return "error"
 
   return <div className={`grid h-screen ${styles.parentContainer}`} style={{gridTemplateRows:"1fr",gridTemplateColumns:isMobile?"1fr":"300px auto"}}>
-      <div className={`${styles.sideNavContainer}`} >
-          <MobileView>
-            <IconButton className="absolute top-4 left-4">
+        <MobileView>
+            <IconButton 
+                onClick={()=>setShowMenu(!showMenu)}
+                className="fixed z-50 bottom-4 bg-white shadow-xl left-4">
                 <MenuIcon/>
             </IconButton>
-          </MobileView>
+        </MobileView>
+      <div className={`${styles.sideNavContainer}`}
+        style={{top:showMenu?false:true}}
+      >
           {
               !literatureSideBar
               ?

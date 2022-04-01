@@ -1,5 +1,6 @@
 import React from 'react';
 import {Skeleton} from "@mui/material"
+import { isMobile } from 'react-device-detect';
 
 const DashboardLoader = () => {
   return <div className="m-4">
@@ -11,11 +12,10 @@ const DashboardLoader = () => {
             variant="rectangular" 
             width={"100%"} 
             height={150}/>
-          <div className="rounded my-4 w-2/4">
+          <div className="rounded my-4 w-full sm:w-2/4">
               <Skeleton
                className="rounded"
                height={40}
-               width={300}
                animation="wave"
                variant="h1"
               />
@@ -26,11 +26,11 @@ const DashboardLoader = () => {
               />
           </div>
           <div className="grid my-8"
-              style={{gridTemplateColumns:"0.75fr 0.25fr"}}
+              style={{gridTemplateColumns:isMobile?"1fr":"0.75fr 0.25fr"}}
           >
               <div>
                 <p className='text-xl mb-4'>Your Creation</p>
-                <div className="grid grid-cols-3 gap-4 px-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:px-4">
                     {new Array(4).fill("").map((item,key)=>{
                         return(
                             <Skeleton

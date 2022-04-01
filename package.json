@@ -27,6 +27,8 @@
     "millify": "^4.0.0",
     "mongodb": "^4.3.1",
     "mongoose": "^6.1.8",
+    "music-metadata": "^7.12.2",
+    "mutag": "^2.0.7",
     "nanoid": "^3.2.0",
     "next": "^12.0.8",
     "next-auth": "^4.1.2",

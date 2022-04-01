@@ -63,7 +63,7 @@ const Blog = ({session}) => {
                     style={{boxShadow:"1px 1px 10px rgba(0,0,0,0.164)"}}>
                     <motion.div 
                         variants={xMove}
-                        className="flex justify-between items-center">
+                        className="flex flex-wrap justify-between items-center">
                         <motion.div className="mb-4 text-black flex items-center">
                                 <Avatar 
                                 src={session && session.user.image}
@@ -90,7 +90,7 @@ const Blog = ({session}) => {
                             category==="tourism"
                             &&
                             <input 
-                            className="my-4 rounded p-2 pl-4 bg-slate-100"
+                            className="w-full sm:w-fit my-4 rounded p-2 pl-4 bg-slate-100"
                             type="text"
                             value={location}
                             onChange={e=>setLocation(e.target.value)}
@@ -101,7 +101,7 @@ const Blog = ({session}) => {
                         {
                             category==="tourism"
                             &&
-                            <motion.div className="flex mb-4 w-full items-center justify-between">
+                            <motion.div className="flex flex-wrap mb-4 w-full items-center justify-between">
                                 <motion.div className='flex'>
                                     {
                                         availableTravelBlogType.map((item,key)=>{
@@ -125,7 +125,7 @@ const Blog = ({session}) => {
                                     
                                 }
                                 </motion.div>                  
-                                <motion.p>{availableTravelBlogType[selectedIndex].name}</motion.p>
+                                <motion.p className="mx-auto my-2 sm:m-0">{availableTravelBlogType[selectedIndex].name}</motion.p>
                             </motion.div>
                         }
                     <motion.div 

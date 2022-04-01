@@ -89,7 +89,7 @@ const LiteratureContainer = ({data,htmlData,error}) => {
             {parse(htmlData)}
           </div>
         </div>
-        <div className="mt-20 mx-20 grid place-items-center">
+        <div className=" sm:mt-20 sm:mx-20 grid place-items-center">
           <p className="text-xs text-gray-400">Ikshvaku.com is designed to help you learn. To increase reading and learning, examples could be simplified. References and sources are regularly checked for inaccuracies, but we cannot guarantee that all content is completely accurate. You agree to have read and accepted our terms of service, cookie policy, and privacy policy while using Ikshvaku.</p>
           <Image 
              className="my-4 block"

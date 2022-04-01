@@ -29,8 +29,11 @@ const TourSpecific = ({detail,about}) => {
   return <div>
         <Head>
             <title>{detail.heading + " by " + detail.createdBy.name + " -\nIkshvaku Ayodhya"}</title>
-            <meta name="description" content={"Click to read it. Developed by Spider8019"}/>
             <meta name="keywords" content={detail.heading}/>
+            <meta property="og:title"       content={detail.heading}/>
+            <meta property="og:image"       content={detail.createdBy.availableImages[detail.createdBy.image]}/>
+            <meta property="og:description" content={"Click to read it. Developed by Spider8019"}/>
+
         </Head>
         <div className="m-4 sm:m-20">
             <div className={`${styles.mainBody}`}>

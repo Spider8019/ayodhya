@@ -32,7 +32,7 @@ const Blog = ({user}) => {
       )
   }
 
-  return <div className='min-h-screen'>
+  return <div className='min-h-screen '>
       <Head>
           <title>Blog - Ikshvaku</title>
       </Head>
@@ -44,7 +44,7 @@ const Blog = ({user}) => {
                     <div
                         key={key}
                         style={{backgroundSize:"contain",boxShadow:"1px 1px 10px rgba(0, 0, 0, 0.164)"}}
-                        className={`${styles.blogRel} relative mr-4 mt-4 border-2 w-full sm:w-fit overflow-hidden h-32 rounded-xl cursor-pointer flex py-4 px-8 items-center border-amber-500`}
+                        className={`${styles.blogRel} relative sm:mr-4 mt-4 border-2 w-full sm:w-fit overflow-hidden h-32 rounded-xl cursor-pointer flex py-4 px-8 items-center border-amber-500`}
                     > 
                         <div className={` ${styles.blogAbs} absolute top-0 left-0 right-0 bottom-0 z-20 grid place-items-center`}  >
                             <div className="flex justify-between">

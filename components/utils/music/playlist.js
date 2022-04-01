@@ -5,7 +5,7 @@ import ActiveMusic from "../../layout/activeMusic"
 import { motion } from 'framer-motion'
 import { pTransition } from '../../../globalSetups/framer'
 
-const PlayList = ({setShowPlaylist}) => {
+const PlayList = ({setShowPlaylist,audios}) => {
 
   const fPA=[{
     id:1,
@@ -59,7 +59,7 @@ const lPA=[{
                             animate="animate"
                             exit="initial"
                             variants={pTransition}
-                            onClick={()=>{setShowPlaylist(false)}}
+                            onClick={()=>{audios={};setShowPlaylist(false)}}
                             className="hover:shadow-lg relative rounded overflow-hidden w-full">
                             <Image 
                                 className='relative'

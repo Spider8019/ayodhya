@@ -17,7 +17,7 @@ import PreviewPost from "../previewPost"
 import {mutate} from "swr"
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
-import {isMobile} from "react-device-detect"
+import {isBrowser, isMobile} from "react-device-detect"
 
 function PaperComponent(props) {
   return (
@@ -178,6 +178,8 @@ export default function DraggableDialog({name,avatar}) {
                         }
                     </div>
                   </div>
+                  {
+                    isBrowser &&
                     <Picker 
                       color="#f59e0b"
                       set={'facebook'}
@@ -185,6 +187,7 @@ export default function DraggableDialog({name,avatar}) {
                       theme='light'
                       sheetSize={64}
                     />
+                  }
                 </div>
 
             </div>
