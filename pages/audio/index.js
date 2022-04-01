@@ -26,8 +26,9 @@ import Mpb from '../../components/utils/tools/musicPlayerBreath';
 import ShareDialog from "../../components/utils/dialogs/sharePage"
 import Playlist from "../../components/utils/music/playlist"
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import { motion,AnimatePresence } from 'framer-motion';
+import { motion,AnimatePresence,AnimateSharedLayout } from 'framer-motion';
 import {playerAnimation,playerFullChildLeft,playerFullChildRight} from "../../globalSetups/framer"
+
 
 const Audio = ({user}) => {
     
@@ -136,7 +137,7 @@ const Audio = ({user}) => {
                         />
                     </IconButton>
                     <IconButton
-                    onClick={()=>{
+                     onClick={()=>{
                         let audiosx=_.concat(_.shuffle(audios.slice(0,active.trackId)),audios[active.trackId],_.shuffle(audios.slice(active.trackId+1,)))
                         console.log(audiosx)
                         mutate("GetAllAudios",audios=audiosx,false)
@@ -192,27 +193,43 @@ const Audio = ({user}) => {
                     variants={playerAnimation}
                     className='sm:grid flex flex-col sm:grid-cols-2 overflow-hidden'
                 >
-                    <motion.div 
-                        variants={playerFullChildLeft}
-                        className=' p-12 playerLeftContainer'>
-
-                        <div 
-                            className='h-full grid place-items-center  w-full'>
-                            {/* <Cubes/> */}
-                            <div>
-                                <span 
-                                    className=" signature text-2xl">Total Listens</span>
-                                <NumberFormat
-                                        value={audios[active.trackId].view}
-                                        className="text-8xl text-center GFG text-white sm:text-transparent font-bold mt-4"
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        renderText={(value, props) => <div {...props}>{value}</div>}
+                    {
+                        query.hasOwnProperty("url")
+                        ?
+                        <div className="grid place-items-center">
+                            <div className="w-80 h-80 drop-shadow-2xl rounded overflow-hidden playerLeftUrl">
+                                <Image
+                                src={query.url}
+                                alt="playerleftcontainer"
+                                layout="responsive"
+                                height={"400"}
+                                width={"400"}
                                 />
                             </div>
                         </div>
+                        :
+                        <motion.div 
+                            variants={playerFullChildLeft}
+                            className=' p-12 playerLeftContainer'>
 
-                    </motion.div>
+                            <div 
+                                className='h-full grid place-items-center  w-full'>
+                                {/* <Cubes/> */}
+                                <div>
+                                    <span 
+                                        className=" signature text-2xl">Total Listens</span>
+                                    <NumberFormat
+                                            value={audios[active.trackId].view}
+                                            className="text-8xl text-center GFG text-white sm:text-transparent font-bold mt-4"
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            renderText={(value, props) => <div {...props}>{value}</div>}
+                                    />
+                                </div>
+                            </div>
+
+                        </motion.div>
+                    }
                     <motion.div 
                         variants={playerFullChildRight}
                         className='relative -top-4 rounded-t-xl sm:rounded-none sm:static grid place-items-center bg-white sm:bg-slate-50 dark:sm:bg-black h-full'
