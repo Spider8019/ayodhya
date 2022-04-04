@@ -28,7 +28,7 @@ import Playlist from "../../components/utils/music/playlist"
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { motion,AnimatePresence,AnimateSharedLayout } from 'framer-motion';
 import {playerAnimation,playerFullChildLeft,playerFullChildRight} from "../../globalSetups/framer"
-
+import VisulaizeMusic from '../../components/utils/music/visulaizeMusic';
 
 const Audio = ({user}) => {
     
@@ -77,17 +77,17 @@ const Audio = ({user}) => {
 
   useEffect(()=>{
       scrollToBottom()
-  },[])
+      // Client-side-only code    
+},[])
 
 
-
-  const togglePlay=()=>{
-      if(audioRef.current.paused)
-        audioRef.current.play()
-      else
-         audioRef.current.pause()
-      setActive({...active,status:!active.status})
-  }
+const togglePlay=()=>{
+    if(audioRef.current.paused)
+    audioRef.current.play()
+    else
+    audioRef.current.pause()
+    setActive({...active,status:!active.status})
+}
 
 
   if(audiosError){
@@ -172,7 +172,6 @@ const Audio = ({user}) => {
         <Head>
             <title>Music Player - Ikshvaku</title>
         </Head>
-
         <div
        id="player"
        className='relative'
@@ -235,7 +234,7 @@ const Audio = ({user}) => {
                         className='relative -top-4 rounded-t-xl sm:rounded-none sm:static grid place-items-center bg-white sm:bg-slate-50 dark:sm:bg-black h-full'
                         style={{boxShadow:isMobile?"0px -10px 10px rgba(0,0,0,0.164)":"none"}}
                     >
-
+                        <VisulaizeMusic url={audios[active.trackId].imageList[0]}/>
                         <div className='sm:w-2/3 w-full mt-8 sm:mt-0 relative'
                             style={{height:isMobile?"100%":"90%"}}
                         > 
