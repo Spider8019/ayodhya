@@ -23,7 +23,7 @@ export default function Home() {
   const yearsFromKarsevak = useTransform(scrollY, [1800, 2200], [0.2, 1]);
   const yearsFromBabarInvade = useTransform(scrollY, [1400, 1800], [0.2, 1]);
   const yearsFrom1400 = useTransform(scrollY, [1000, 1400], [0.2, 1]);
-
+  
   // const d = useRef(new Date())
   // d.current.setDate(1)
   const [d,setD]=useState(new Date())
@@ -100,7 +100,7 @@ export default function Home() {
               initial="initial"
               exit="initial"
               animate={inView && "final"}
-              variants={{ ...siedEntrance, final: { ...siedEntrance.final, transition: { duration: 0.5, delay: 0.5 } } }}
+              variants={{ ...siedEntrance, final : { ...siedEntrance.final, transition: { duration: 0.5, delay: 0.5 } } }}
               className={`${styles.overlayingText} text-amber-500 dark:text-amber-800 text-4xl sm:text-8xl font-semibold`}>5<sup>th</sup> August</motion.p>
             <motion.p
               initial="initial"

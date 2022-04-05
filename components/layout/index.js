@@ -7,7 +7,7 @@ const Layout = ({children}) => {
   return <>
           <Head>
             <meta name="description" content="Login Page" />
-            <link rel="icon" href="/static/withOutBgLogo.png" />
+            <link rel="shortcut icon" href="/static/withOutBgLogo.png" />
           </Head>
           <Navbar/>
               {children}
