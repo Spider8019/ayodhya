@@ -28,7 +28,12 @@ import Playlist from "../../components/utils/music/playlist"
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { motion,AnimatePresence,AnimateSharedLayout } from 'framer-motion';
 import {playerAnimation,playerFullChildLeft,playerFullChildRight} from "../../globalSetups/framer"
-import VisulaizeMusic from '../../components/utils/music/visulaizeMusic';
+import dynamic from 'next/dynamic'
+// import VisulaizeMusic from "../../components/utils/music/visulaizeMusic"
+
+const VisulaizeMusic = dynamic(() => import('../../components/utils/music/visulaizeMusic'), {
+    ssr: false
+})
 
 const Audio = ({user}) => {
     
@@ -234,8 +239,7 @@ const togglePlay=()=>{
                         className='relative -top-4 rounded-t-xl sm:rounded-none sm:static grid place-items-center bg-white sm:bg-slate-50 dark:sm:bg-black h-full'
                         style={{boxShadow:isMobile?"0px -10px 10px rgba(0,0,0,0.164)":"none"}}
                     >
-                        <VisulaizeMusic url={audios[active.trackId].imageList[0]}/>
-                        <div className='sm:w-2/3 w-full mt-8 sm:mt-0 relative'
+                         <div className='sm:w-2/3 w-full mt-8 sm:mt-0 relative'
                             style={{height:isMobile?"100%":"90%"}}
                         > 
                             {audios.map((audio,key)=>{
@@ -267,7 +271,7 @@ const togglePlay=()=>{
            }
            </AnimatePresence>
             {/* player */}
-            <div className='p-4 sm:px-0 sm:py-4 bg-amber-200 flex sm:grid justify-between sm:grid-cols-3 items-center sticky bottom-0'>
+            <div className=' p-4 sm:px-0 sm:py-4 bg-amber-200 flex sm:grid justify-between sm:grid-cols-3 items-center sticky bottom-0'>
                 <audio controls
                             volume={active.volume}
                             style={{display:"none"}}
@@ -283,16 +287,22 @@ const togglePlay=()=>{
                 />
                 <div 
                     onClick={seekTo}
-                    className='progressBarContainer bg-amber-300 absolute top-0 left-0 w-full h-1 cursor-pointer'>
-                    <div className="bg-amber-500 top-0 left-0 h-full absolute"
+                    className=' audioProgressBar progressBarContainer absolute top-0 left-0 w-full h-1 cursor-pointer'
+                >
+                    
+                <div className='visuals overflow-hidden z-20 -translate-y-2/4 top-0 left-0 h-1 w-screen absolute' style={{transition:"all 0.3s ease"}}>
+                    <VisulaizeMusic url={audios[active.trackId].imageList[0]} duration={!_.isNull(audioRef.current)?audioRef.current.duration:10}/>                        
+                </div>
+
+                    <div className="z-40 bg-amber-500 top-0 left-0  -translate-y-2/4 h-full absolute"
                         style={{width:(current/(audioRef.current ? audioRef.current.duration : 1))*100+"%"}}
                     >
                     </div>
                     <div 
                         style={{
-                        transform:"translate(-50%,-6px)",
+                        transform:"translate(-50%,-8px)",
                         left:(current/(audioRef.current ? audioRef.current.duration : 1))*100+"%"}}
-                        className="seekToButton absolute h-4 w-4 bg-amber-500 rounded-full">
+                        className="z-40 seekToButton absolute h-4 w-4 bg-amber-500 rounded-full">
                     </div>
                 </div>
                 <div className='flex items-center '>

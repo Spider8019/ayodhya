@@ -2,7 +2,7 @@ body{
     font-family:Noto Sans Display;
 }
 :root{
-    --base-color:#f59e0b;
+    --base-color:rgb(245, 158, 11);
     --cooperate-theme-based-color:black;
     --calendar-unit-bg:#eee;
     --sidebar-nav:linear-gradient(white,rgba(255, 255, 255, 0.87),transparent),url('/static/pages/canva1.png');
@@ -43,6 +43,9 @@ body{
     transform:scaleY(0.1);
 }
 
+.audioProgressBar:hover .visuals{
+    height:3rem;
+}
 @keyframes breathing {
 
     to{

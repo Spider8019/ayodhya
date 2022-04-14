@@ -1,27 +1,27 @@
 import mongoose from "mongoose"
 
 const CalendarSchema = new mongoose.Schema({
-    date:{
-        type:Number,
+    date: {
+        type: Number,
     },
-    month:{
-        type:Number,
-        default:new Date().getMonth(),
+    month: {
+        type: Number,
+        default: new Date().getMonth(),
     },
-    year:{
-        type:Number,
+    year: {
+        type: Number,
     },
-    heading:{
-        type:String,
-        default:null
+    heading: {
+        type: String,
+        default: null
     },
-    about:{
-        type:String,
-        default:null
+    about: {
+        type: String,
+        default: null
     },
-    imgUrl:{
-        type:String,
-        required:true,
+    imgUrl: {
+        type: String,
+        required: true,
     }
 })
 
