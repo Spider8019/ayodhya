@@ -88,3 +88,4 @@ export const editProfileCoverImage = (obj) => callApiAndReturnDataPut(obj, "prof
 export const deletePost = (obj) => callApiAndReturnDataDelete(obj, "profile/posts/")
 export const editBlog = (obj) => callApiAndReturnDataPut(obj, "blogs/")
 export const forgotPassword = (obj) => callApiAndReturnDataPost(obj, 'must/forgotpassword/')
+export const getCoordinates = (obj) => callApiAndReturnDataGetMod(obj, 'tourism/coordinates/')

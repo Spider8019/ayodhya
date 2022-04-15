@@ -1,5 +1,5 @@
 export const defaultOptions = {
-    baseUrl: "https://www.ikshvaku.club/"
+    baseUrl: "https://www.ikshvaku.club"
 }
 
 export const availableTravelBlogType = [{

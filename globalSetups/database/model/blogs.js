@@ -19,6 +19,14 @@ const BlogsSchema = new mongoose.Schema({
         type:String,
         default:null
     },
+    longitude:{
+        type:Number,
+        default:null,
+    },
+    latitude:{
+        type:Number,
+        default:null,
+    },
     tourismType:{
         type:String,
         default:"-1"
