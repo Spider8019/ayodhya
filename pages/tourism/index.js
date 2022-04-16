@@ -80,7 +80,7 @@ const Tourism = () => {
                         <a
                             title={item.heading}
                             className=" paper grid py-4 px-8 items-center rounded border-2 h-fit border-amber-500"
-                            style={{gridTemplateColumns:"60px 1fr"}}
+                            style={{gridTemplateColumns:router.query.query!=="personal"?"60px 1fr":"1fr"}}
                         >
                             {
                                 router.query.query!=="personal"
@@ -95,7 +95,7 @@ const Tourism = () => {
                                     />
                                 </div>
                             }
-                            <div className="ml-4  w-full overflow-hidden">
+                            <div className={`${router.query.query!=="personal"?"ml-4":"ml-0"} w-full overflow-hidden`}>
                                 <p className="truncate text-xs ">{item.location}</p>
                                 <p className='truncate'>{item.heading}</p>
                                 <p className='text-xs'>{item.totalLikes} Likes</p>
