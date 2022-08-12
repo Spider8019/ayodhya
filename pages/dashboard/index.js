@@ -87,6 +87,7 @@ const Dashboard = ({ user, msg }) => {
                             email: profile.email
                         }
                         const response = await editProfileCoverImage(payload)
+                        console.log(response)
                         if (response.status === 200) {
                             setCoverImage(null);
                             setFileCoverPreview(null)
