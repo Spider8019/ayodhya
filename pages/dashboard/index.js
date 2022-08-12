@@ -102,7 +102,7 @@ const Dashboard = ({ user, msg }) => {
                 })
             }
             else {
-                notifyerror(errDlt)
+                notifyerror(dltErr)
                 setCoverProcessing(true)
             }
         })
