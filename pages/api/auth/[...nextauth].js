@@ -19,6 +19,7 @@ export default NextAuth({
           password: credentials.password,
         };
         const user = await loginProfile(payload)
+        console.log(payload, user)
         if (user.status === 200) {
           return user.data.user
         }
@@ -45,6 +46,7 @@ export default NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
+      console.log(url, baseUrl)
       return baseUrl
     }
   },
