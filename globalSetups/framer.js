@@ -12,6 +12,19 @@ export const zeroHeightAndWidth = {
     }
 }
 
+export const musicAnimation = {
+    initial: {
+        scale:0.8
+    },
+    final: {
+        scale:1,
+        transition: {
+            delayChildren: 0.5,
+            staggerChildren: 0.2
+        }
+    }
+}
+
 export const pageTransition = {
     initial: {
         y: "100%",
